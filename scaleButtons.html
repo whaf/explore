@@ -1,0 +1,243 @@
+<div id = "scaleButtonPlace" class="btn-toolbar" style="margin-top:0px, margin-right:10px, margin-bottom:0px">
+
+<div id="basinButtonGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px ">
+  <button id="basinButtonTop" class="btn scaleButtN" onclick="maskCheckReset(); serialMasker(this.id); WHAFapp.currentMapParams.togglerBsn='mask'">Basin</button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+  <ul class="dropdown-menu pull-right">
+    
+      <li class="starrButton disabled"><a href="#" onclick="map.setExtent(getBasinExtent(WHAFapp.currentMapParams.crossHuc4));">Zoom</a></li>
+      <li class="starrButton disabled"><a id="BsnOutline" href="#" onclick = "scaleSymbology('basin', 'outline');ticker(this.id, 'keepOn'); WHAFapp.currentMapParams.togglerBsn='outline'">Outline</a></li>
+      <li class="starrButton disabled"><a id="BsnMasker" class="maskerI" href="#" onclick = "maskCheckReset(); scaleSymbology('basin','mask');ticker(this.id, 'keepOn');WHAFapp.currentMapParams.togglerBsn='mask'">Mask</a></li>
+      <li class="starrButton disabled"><a id="BsnNone" href="#" onclick="scaleSymbology('basin', 'none');ticker(this.id, 'keepOn');WHAFapp.currentMapParams.togglerBsn='none'">None</a></li>
+      <li class=""><a id="" class="locLink" href="#" onClick="setMode('getPoint'); drawStar()">Set map location</a></li>
+     <li class="divider"></li>
+     <li class="starrButton disabled"><a onClick="askDNR(4);" href="#">Land Cover Summary</a></li>
+  </ul>
+</div>
+
+<div id="selectButGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
+  <button class="btn" id="selectButTop" onclick="maskCheckReset(); serialMasker(this.id);WHAFapp.currentMapParams.togglerMj='mask'" data-placement="bottom" data-toggle="tooltip">Major Watershed</button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown" onclick = "topWSDD()"><span class="caret"></span></button>
+  <ul class="dropdown-menu pull-right" id="dropDownWS" style="overflow:auto;">
+      <li class="starrButton disabled"><a onclick = "zoomToSelectedMajor()" href="#">Zoom</a></li>
+      <li class="starrButton disabled"><a id="mjMajorOutline" href="#" onclick = "scaleSymbology('major','outline');ticker(this.id, 'keepOn'); WHAFapp.currentMapParams.togglerMj='outline'">Outline</a></li>
+      <li class="starrButton disabled"><a id="mjMasker" class="maskerI" href="#" onclick = "maskCheckReset();scaleSymbology('major','mask'); ticker(this.id, 'keepOn');WHAFapp.currentMapParams.togglerMj='mask'">Mask</a></li>
+      <li class="starrButton disabled"><a id="mjNone" href="#" onclick="WHAFapp.currentMapParams.togglerMj=false; scaleSymbology('major','none');ticker(this.id, 'keepOn')">None</a></li>
+      <li class=""><a id="" class="locLink" href="#" onClick="setMode('getPoint'); drawStar()">Set map location</a></li>
+      <li class="divider"></li>
+      <li class="starrButton disabled"><a onClick="askDNR(3);" href="#">Land Cover Summary</a></li>
+      <li class="starrButton disabled"><a onClick="getReportCard()" href="#">Watershed Report Card</a></li>
+                                        
+      <li class="divider"></li>
+      <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" style="padding-left:12px;"><strong> Or select a watershed below:</strong></a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(77,'blank')" href="#"> Big Fork River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(81,'blank')" href="#"> Big Sioux-Medary Crk </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(82,'blank')" href="#"> Big Sioux-Pipestone </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(30,'blank')" href="#"> Blue Earth River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(54,'blank')" href="#"> Bois De Sioux River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(58,'blank')" href="#"> Buffalo River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(39,'blank')" href="#"> Cannon River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(48,'blank')" href="#"> Cedar River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(26,'blank')" href="#"> Chippewa River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(66,'blank')" href="#"> Clearwater River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(4,'blank')" href="#"> Cloquet River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(29,'blank')" href="#"> Cottonwood River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(12,'blank')" href="#"> Crow Wing River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(53,'blank')" href="#"> E Fork Des Moines </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(67,'blank')" href="#"> Grand Marais Creek </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(35,'blank')" href="#"> Kettle River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(24,'blank')" href="#"> Lac Qui Parle River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(1,'blank')" href="#"> Lake Superior - North </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(2,'blank')" href="#"> Lake Superior-South </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(80,'blank')" href="#"> Lake of the Woods </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(32,'blank')" href="#"> Le Sueur River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(8,'blank')" href="#"> Leech Lake River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(76,'blank')" href="#"> Little Fork River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(84,'blank')" href="#"> Little Sioux River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(14,'blank')" href="#"> Long Prairie River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(59,'blank')" href="#"> Marsh River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(22,'blank')" href="#"> Minn R-Headwaters </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(28,'blank')" href="#"> Minn R-Mankato </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(33,'blank')" href="#"> Minn R-Shakopee </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(25,'blank')" href="#"> Minn R-Yellow Medicine River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(38,'blank')" href="#"> Miss R & L Pepin </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(10,'blank')" href="#"> Miss R-Brainerd </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(9,'blank')" href="#"> Miss R-Grand Rapids </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(7,'blank')" href="#"> Miss R-Headwaters </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(42,'blank')" href="#"> Miss R-La Crescent </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(44,'blank')" href="#"> Miss R-Reno </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(15,'blank')" href="#"> Miss R-Sartell </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(17,'blank')" href="#"> Miss R-St. Cloud </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(40,'blank')" href="#"> Miss R-Winona </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(20,'blank')" href="#"> Mississippi River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(55,'blank')" href="#"> Mustinka River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(5,'blank')" href="#"> Nemadji River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(18,'blank')" href="#"> North Fork Crow R </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(56,'blank')" href="#"> Otter Tail River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(11,'blank')" href="#"> Pine River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(23,'blank')" href="#"> Pomme de Terre River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(79,'blank')" href="#"> Rainy R-Baudette </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(72,'blank')" href="#"> Rainy R-Headwaters </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(74,'blank')" href="#"> Rainy R-Rainy Lake </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(75,'blank')" href="#"> Rainy River-Manitou </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(78,'blank')" href="#"> Rapid River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(63,'blank')" href="#"> Red Lake River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(57,'blank')" href="#"> Red River of North </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(13,'blank')" href="#"> Redeye River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(27,'blank')" href="#"> Redwood River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(83,'blank')" href="#"> Rock River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(43,'blank')" href="#"> Root River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(71,'blank')" href="#"> Roseau River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(21,'blank')" href="#"> Rum River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(61,'blank')" href="#"> Sandhill River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(16,'blank')" href="#"> Sauk River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(49,'blank')" href="#"> Shell Rock River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(68,'blank')" href="#"> Snake River (Red River)</a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(36,'blank')" href="#"> Snake River (St. Croix)</a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(19,'blank')" href="#"> South Fork Crow R </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(37,'blank')" href="#"> St. Croix R-Stillwtr </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(34,'blank')" href="#"> St. Croix R-Upper </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(3,'blank')" href="#"> St. Louis River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(69,'blank')" href="#"> Tamarac River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(65,'blank')" href="#"> Thief River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(70,'blank')" href="#"> Two Rivers </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(46,'blank')" href="#"> Upper Iowa River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(62,'blank')" href="#"> Upper/Lower Red Lake </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(73,'blank')" href="#"> Vermilion River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(51,'blank')" href="#"> W Fork Des Moines-Head </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(52,'blank')" href="#"> W Fork Des Moines-Lower </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(47,'blank')" href="#"> Wapsipinican River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(31,'blank')" href="#"> Watonwan River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(60,'blank')" href="#"> Wild Rice River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(50,'blank')" href="#"> Winnebago River </a>
+      </li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="WHAFapp.currentMapParams.togglerMj='outline'; activateDssStar(41,'blank')" href="#"> Zumbro River </a>
+      </li>
+  </ul>
+</div>
+
+<div id="upButtonGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
+  <button id="upButtonTop" class="btn scaleButtN" onclick="maskCheckReset(); serialMasker(this.id)">Upstream</button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+  <ul class="dropdown-menu pull-right">
+    <li class="starrButton disabled"><a href="#" onclick="zoomUp()">Zoom</a></li>
+    <li class="starrButton disabled"><a href="#" id="upFill" onclick="ticker(this.id, 'keepOn'); scaleSymbology('upstream','fill');" >Fill</a></li>
+    <li class="starrButton disabled"><a href="#" id="upOutline" onclick="ticker(this.id, 'keepOn'); scaleSymbology('upstream','outline');" >Outline</a></li>
+    <li class="starrButton disabled"><a id="upMaskLink" class="maskerI" href="#" onclick="maskCheckReset(); ticker(this.id, 'keepOn'); scaleSymbology('upstream','mask');">Mask </a></li>
+    <li class="starrButton disabled"><a id="upNone" href="#" onclick="ticker(this.id, 'keepOn'); scaleSymbology('upstream','none')">None </a></li>
+    <li class=""><a id="" class="locLink" href="#" onClick="setMode('getPoint'); drawStar()">Set map location</a></li>
+    <li class="divider"></li>
+    <li class="starrButton disabled"><a onClick="askDNR(1);" href="#">Land Cover Summary</a></li>
+   </ul>
+</div>
+<div id="dnstrmButGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
+   <button class="btn scaleButtN" id ="dnstrmButTop" onclick="maskCheckReset(); serialMasker(this.id)" data-placement="bottom" title="Downstream">Downstream</button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+  <ul class="dropdown-menu pull-right">                                  
+    <li class="starrButton disabled"><a href="#" onclick = "zoomDown()">Zoom</a></li>
+    <li class="starrButton disabled"><a id="dnFill" href="#" onclick=" ticker(this.id, 'keepOn'); scaleSymbology('downstream','fill');">Fill </a></li>
+    <li class="starrButton disabled"><a id="dnOutline" href="#" onclick="ticker(this.id, 'keepOn'); scaleSymbology('downstream','outline');">Outline </a></li>
+    <li class="starrButton disabled"><a id="downMaskLink" class="maskerI" href="#" onclick="maskCheckReset(this.id);ticker(this.id, 'keepOn'); scaleSymbology('downstream','mask')">Mask </a></li>
+    <li class="starrButton disabled"><a id="downNone" href="#" onclick="ticker(this.id, 'keepOn'); scaleSymbology('downstream','none');">None </a></li>
+    <li class=""><a id="" class="locLink" href="#" onClick="setMode('getPoint'); drawStar()">Set map location</a></li>
+    <li class="divider"></li>
+    <li class="starrButton disabled"><a onClick="askDNR(2);" href="#">Land Cover Summary</a></li>
+  </ul>
+</div><!-- /btn-group -->
+<div id= "ctmntButtonGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px ">
+  <button id="ctmntButtonTop" class="btn scaleButtN" onclick="catShower()">Catchment</button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+  <ul class="dropdown-menu pull-right">
+    <li class="starrButton disabled"><a href="#" onclick="CtmentZoom()">Zoom</a></li>
+    <li class="starrButton disabled"><a id="ctmntFiller" href="#" onclick="catShower(3); ticker(this.id, 'keepOn');">Fill</a>  </li>
+    <li class="starrButton disabled"><a id="ctmntOutliner" href="#" onclick="catShower(2); ticker(this.id, 'keepOn');">Outline</a>  </li>
+    <li class="starrButton disabled"><a id="ctmntNone" href="#" onclick="catShower(1); ticker(this.id, 'keepOn');">None</a></li>
+    <li class=""><a id="" class="locLink" href="#" onClick="setMode('getPoint'); drawStar()">Set map location</a></li>
+    <li class="divider"></li>
+    <li class="starrButton disabled"><a onClick="askDNR(0);" href="#">Land Cover Summary</a></li>
+  </ul>
+</div>
+<div id="maskRemoveGrp" class="btn-group info6Image" style="margin-top:0px, margin-bottom:0px">
+  <button class="btn scaleButtN" style="display:none" id ="maskRemove" onclick="scaleCheckReset(); scaleReset(); unMaskAll(); $('#maskRemove').fadeOut();" data-placement="bottom" title="Remove Scale Layers"><i class="icon-remove"></i></button>
+</div>
+</div> 

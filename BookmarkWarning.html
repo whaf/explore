@@ -1,0 +1,15 @@
+<div id="deleteWarning" class="modal hide fade centered" tabindex="-1" role="dialog" style="">
+  <div class="modal-header">
+    <button type="button" class="close" onclick="$('#deleteWarning').modal('hide');" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4>Delete all bookmarks?</h4>
+  </div>
+  <div class="modal-body" style="padding:15px">
+    <h5>This will permanently remove all bookmarks. Before doing that, you may export the current list to file for future use.</h5>
+  </div>
+  <div class="modal-footer">
+    <a href="#" onclick="$('#deleteWarning').modal('hide')" class="btn btn-info">Cancel</a>
+    <a href="#" id="fileExporter2" class="btn btn-info" data-toggle="tooltip" data-placement="top" onclick = "advMenuSetup('expFile'); $('#deleteWarning').modal('hide')" title="Obtain data to share bookmarks">Export to file</a>
+    <a href="#" onclick="BMdeleter(); $('#deleteWarning').modal('hide')" class="btn btn-danger">Delete bookmarks</a>
+
+  </div>
+</div> 

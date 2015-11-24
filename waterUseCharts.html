@@ -1,0 +1,15 @@
+<div id="myModal" class="alert alert-block" style="padding:8px;border: 1px solid #717171;cursor:move" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#myModal').hide();setModalElement($('#myModal'))">×</button>
+        <h5 id="myModalLabel">Water Use Vulnerability record:</h5>
+        <div id="wwMessage1"></div>
+        <div id="wwMessage2">Please set a map location to view water budget charts for its catchment.</div>
+        <div id="upStrWW" style=""><button id="wbResetBut" class="btn btn-small" onclick="wbChartReset(); $('#DssStarImage').click();">Set map location</button></div>
+    </div>
+    <div id="chartsBody" style="display: none;cursor:auto">
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+        <div id="chart3"></div>
+        <div id="chart4"></div>
+    </div>
+</div>

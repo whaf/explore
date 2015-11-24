@@ -1,0 +1,30 @@
+<div id="layersModal" class="well span8" style="padding:8px;border: 1px solid #717171;cursor:move" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-header">
+        <button type="button" style="opacity:1" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#layersModal').hide();setModalElement($('#myModal'))">×</button>
+        <div id="addLayerBox3">
+            <h4 id="layersModalLabel">Select layers to add as map options</h4>
+            <div id="adHocLayerLister" class="btn-group">
+                <input id="adHocLayerList" class="span4 dropdown-toggle" autocomplete="off" placeholder="Search available layers" data-toggle="dropdown" type="text">
+                <ul id="adHocLayerListUl" class="dropdown-menu span4" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
+            </div>
+        </div>
+        <div id="addLayerBox4">
+            <h4 id="layersModalLabel">Add features from the web: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a a href="http://www.dnr.state.mn.us/whaf/explore/services.html" target='_blank' class="icon-question-sign"></a></h4> 
+            <div id="adHocLayerLister2" class="btn-group">
+                <input id="AddingRestPoint" class="span4 dropdown-toggle" placeholder="Enter REST url here" data-toggle="dropdown" type="text" autocomplete="off">
+                <div class="row-fluid">
+                    <div id="layerNameArea" class="span10">
+                        <input class="span10" id="addedLayerName" type="text" autocomplete="off" placeholder="Layer name">
+                    </div>
+                    
+                    <div class="span2">
+                        <input class="btn btn-block btn-info" type="button" onclick="preProcessRestUrl()" value="Add">
+                    </div>
+
+                    
+
+                </div>
+            </div>
+        </div>
+</div>
+    </div>

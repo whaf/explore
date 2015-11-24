@@ -1,0 +1,1838 @@
+body {
+    padding-bottom: 0px;
+    overflow:hidden;
+    background-color:black;
+}
+
+.dijitOffScreen, 
+.dijitToggleButtonIconChar{
+    display:none;
+}
+
+#WHAF_app{
+    overflow:hidden;
+    padding-right:2px;
+    padding-left:2px;
+}
+
+.WhafToolOpac{
+    opacity:1;
+}
+
+.WhafToolOpacLow{
+    opacity:0.4;
+}
+
+#toolContainer{
+    position:absolute;
+    left:20px;
+    top:20px;
+    width:330px;
+    height:400px;
+    z-index: 40;
+}
+
+#zoomprev{
+    margin-right: 2px;
+}
+
+#zoomnext{
+    margin-left: 2px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.baseIconPic {
+    height: 6em; 
+    width:6em;
+    margin:5px;
+    border: 1px solid #E3E3E3;
+}
+
+.infoTwo {
+    height:605px;
+    width:605px;
+}
+.scoreButton {
+    display:inline-block;
+    width:100%; 
+    vertical-align: middle;
+    overflow: visible;
+}
+
+.accordion-inner{
+    overflow: visible;
+    z-index: 99999;
+}
+
+.accordion-group{
+ z-index: 99999;   
+}
+
+.accordion-heading {
+    line-height: 14px;
+}
+
+.WS_Ctmnt {
+    background:#dcdcdc;
+}
+
+@media (max-width: 980px) {
+    .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+#Title {
+    left: 55px;
+    top:12px;
+    z-Index: 40;
+}
+
+#indexDescription {
+    position:relative;
+    bottom:0px;
+    overflow:visible;
+    margin-bottom: 0px; 
+}
+
+#accordion2{
+    position:relative;
+    margin-bottom: 0px;
+    overflow: visible;
+    z-index: 0;
+}
+
+#Exploration{
+    height:100%;
+}
+#pieHolder {
+    margin: -350px 0 0 -350px;
+    width: 400px;
+    height: 400px;
+}
+
+#addLayerBox {
+    position:absolute;
+    bottom:0px;
+    overflow:auto;
+    margin-bottom: 0px; 
+}
+
+#WsRemoverInner {
+        opacity:0.6;
+}
+
+#dropDownHowToList{
+    z-index:10000;
+    overflow:hidden;
+}
+#myModalSplitter{
+    position:relative;
+    left:0px;
+    top:27px;
+    z-index: 4000;
+}
+
+#sidebar {
+    z-index: 1000;
+    background: white;
+    padding:10px 0px;
+    overflow: visible;
+}
+
+#scoreSlider {
+    left: 79px;
+    bottom:35px;
+}
+
+#slider1 {
+    left: 20px;
+    bottom:20px;
+}
+
+.slider {
+    position:absolute;
+    z-Index: 40;
+    width: 470px;
+    height: 50px;
+    background: #fff;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px #888;
+    box-shadow: 0 0 5px#888;
+}
+
+.scoreButton2 {
+    text-align:left;
+    margin-bottom:1px;
+}
+
+.sideItem {
+    border: 1px solid #E3E3E3;
+    background:white;
+}
+
+#briedDescText {
+    padding-right: 28px;
+    padding-left: 28px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    color: blue;
+}
+
+.layerBtn {
+    min-height:20px;
+}
+
+#StateIcon {
+    position:absolute;
+    left:18px;
+    top:92px;
+    z-index: 40;
+}
+
+#StateIcon1, #StateIcon2  {
+    position:absolute;
+    left:24px;
+    top:100px;
+    z-index: 40;
+}
+
+#removeIcon {
+    position:absolute;
+    left:22px;
+    top:293px;
+    z-index: 400;
+}
+#back {
+    position:absolute;
+    left:3px;
+    top:150px;
+    z-index: 40;
+}
+
+.backItems{
+    text-align: center;
+    border: 2px solid #666666;
+    background-color: #FFFFFF;
+    color: #666666;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#getIt{
+    position:absolute;
+    left:72px;
+    top:195px;
+    z-index: 40;
+}
+
+#getIndxs{
+    position:absolute;
+    left:102px;
+    top:195px;
+    z-index: 40;
+}
+
+#whatsUp {
+    position:absolute;
+    left:18px;
+    top:370px;
+    z-index: 40;
+}
+#FunctionTrialer {
+    position:absolute;
+    left:18px;
+    top:410px;
+    z-index: 40;  
+}
+
+#FunctionTrialer2 {
+    position:absolute;
+    left:68px;
+    top:410px;
+    z-index: 40;  
+}
+
+#FunctionTrialer3 {
+    position:absolute;
+    left:118px;
+    top:410px;
+    z-index: 40;  
+}
+
+#urlAlerter {
+    position:absolute;
+    left:18px;
+    bottom:20px;
+    z-index: 101;
+    width:auto;
+    display: none;
+}
+
+#adHocMessage{
+    position:absolute;
+/*    right:18px;
+    bottom:20px;
+*/    z-index: 101;
+    width:400px;
+    display: none;   
+}
+#whatsUpOptions {
+    position:relative;
+    z-index: 40;
+}
+#mapContainer {
+    position:relative;
+    top:0px;
+    bottom:0px;
+}
+#map {
+    /*display: none;*/
+    position:relative;
+    top:0px;
+    bottom:0px;
+    z-index: 100;
+}
+
+#mapA {
+    /*margin-top: 1000px;*/
+    position:relative;
+    top:0px;
+    bottom:0px;
+    z-index: 200;
+}
+
+
+
+#mapWrap{
+    margin-left:0px;
+    /*display:none;*/
+}
+/*
+#map1 {
+    position:relative;
+    height: 600px;
+    width: 600px;
+    z-index: 6000;
+}
+
+#map2 {
+    position:relative;
+    height: 600px;
+    width: 600px;
+    z-index: 6000;
+}
+*/
+
+.compi{}
+
+#Watershed-menu {
+    z-index: 3001;   
+}
+
+#Scale-menu {
+    z-index: 3001;      
+}
+
+.bookMarkName{
+    
+}
+
+#pieChartModal{
+    position:absolute;
+    right:29px;
+    top:109px;
+    width:550px;
+    height:auto;
+    padding:5px;
+    z-index: 10001;
+    display: none;
+    background-color:rgba(25,25,25,1);
+    border: 1px solid rgb(150,150,150);
+    border-radius: 4px;
+    cursor:move; 
+    /*overflow:auto;*/
+}
+
+#bookmarkModal{
+    position:absolute;
+    left:70%;
+    top:76px;
+    cursor: move;
+    height:auto;
+    z-index: 1000;
+    display: none; 
+    /*background-color:rgba(25,25,25,1);*/
+    overflow:auto;
+}
+
+#scaleButtonPlace{
+
+    position:relative;
+    z-index: 10001;
+    margin-top:10px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+#serverWarningPlace{
+    display: inline-block;
+    position:relative;
+    z-index: 10001;
+    margin-top:0px;
+    margin-right:10px;
+    margin-bottom:0px;
+}
+
+.scaleBut{
+    position:absolute;
+    z-index: 40;   
+    /*margin-top:-5px;*/
+    margin-bottom: 0px;
+}
+
+#scale_Uppie{
+        right:30px;
+}
+#downButtonTop{
+    right:70px;
+}
+#CatchmentButtonTop{
+    right:120px;
+}
+#scale_WS{
+    right:150px;
+}
+
+#bookMarkList{
+    z-index: 1;
+}
+#tabuli{
+    position:relative;
+}
+
+#appInfoModal{
+    position:absolute;
+    left:20%;
+    top:55%;
+    width:auto;
+    height:auto;
+    max-height:750px;
+    z-index: 10001;
+    display: none;
+    background-color:rgba(15,5,45,0.9);
+    color: white;
+    overflow:auto;
+}
+
+#snapshotsCar{
+    position:absolute;
+   /* left:20%;
+    top:55%;
+    width:auto;
+    height:auto;
+    max-height:750px;*/
+    z-index: 10001;
+    /*display: none;*/
+    /*background-color:rgba(15,5,45,0.9);*/
+    /*color: white;*/
+    /*overflow:auto;*/
+}
+
+
+#layersModal{
+    position:absolute;
+    left: 554px;
+    top:59px;
+    max-width: 400px;
+    height:auto;
+    z-index: 10001;
+    display: none;
+    background-color: rgba(255,255,255,0.3);
+}
+
+#featurePlace, #legendAux{
+    max-height: 550px;
+}
+
+#info2, #tutorial{
+    height:300px;
+}
+
+#plusLayersPlace{
+    padding:3px;
+}
+#featureTabs{
+    background-color: rgba(255, 255, 255, 0);
+    border-width: 0;
+    cursor:auto;
+}
+
+#featureTab1, #featureTab2{
+    padding:5px;
+    padding-top: 10px;
+    background-color:rgba(205,205,205,1);
+    border-radius:4px;
+
+}
+
+.ui-tabs-active{
+    background-color:rgba(205,205,205,1);
+}
+
+.ui-tabs{
+    background-color:rgba(255, 255, 255, 0);
+}
+
+.ui-widget-header{
+    border-width:0;
+    background-color:rgba(255, 255, 255, 0);
+}
+
+#objectives{
+    position: absolute;
+    height:650px;
+    width: 950px;
+    margin-top: 100px;
+}
+
+.info4Image{
+    height:120px;  
+}
+
+.info5Image{
+    margin:5px;
+    width:2em;
+    /*height:1em;*/
+    opacity:0.6;
+}
+
+.info5ImageOn{
+    margin:5px;
+    width:2em;
+    opacity:1;
+}
+
+.info9Image{
+    margin:0px;
+    opacity:0.6;
+    width:20px;
+    margin-bottom: 5px;
+    background-color: #555;
+}
+
+.info9ImageOn{
+    margin:0px;
+    opacity:1;
+}
+
+.snapMenuBox{
+    margin-right:-30px;
+    width:25px;
+    position:absolute;
+    right:-0px;
+    z-index:1000;
+}
+
+
+.info6Image{
+    opacity:0.7;   
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+.scaleButtN{
+    /*margin-top:-5px;*/
+}
+
+#map_zoom_slider{
+    opacity:0.7
+}
+
+.info5Image:hover,
+.info6Image:hover,
+.info9Image:hover,
+#map_zoom_slider:hover{
+    opacity:1;
+}
+
+.tsBtn{
+    min-height:20px;
+    height:20px;
+    font-size: 85%;
+    color:rgba(191, 191, 191,0.4);
+    margin-top:-10px;
+    cursor:pointer;   
+}
+
+.tsBtn:hover{
+    color:rgba(191, 191, 191,0.9);
+}
+
+.tsBtnActive{
+    color:rgba(191, 191, 191,1);
+}
+
+
+.info3Image{
+    height:150px;  
+    margin-right:20px;
+}
+
+.info2Image{
+    height:200px;
+}
+
+.info1Image{
+    height:260px;
+}
+
+.centText{
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.centText2{
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+figcaption{
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+figure{
+    margin-left: 2px;
+    margin-right: 2px;    
+}
+
+#myModal {
+    position:absolute;
+    right:35px;
+    top:105px;
+    width:350px;
+    z-index: 10001;
+    display: none;
+}          
+
+#upstreamModal {
+    position:absolute;
+    opacity:0.8;
+    left: 69px;
+    /*margin-right: auto;*/
+    top:20px;
+    width: 280px;
+    z-index: 10001;
+    display: none;
+}      
+
+#upButtonClose{
+    z-index: 10002;
+}
+
+ #bookMarkList, #bookMarkNotes, #mapAuthor{
+   overflow:auto;
+   margin-top:10px;
+   min-width: 50px;
+ }
+
+#adHocLayerListUl {
+    max-height:400px;
+    width:370px;
+    overflow:auto;
+    opacity:0.9;
+}
+
+#adHocLayerList, #AddingRestPoint{
+    width:358px;
+    margin-bottom:4px;
+}
+
+#addLayerBox4{
+    display: none;
+}
+
+.closeX{
+    margin-top:-12px;
+    margin-right:-20px;
+}
+#legend_bar {
+    position:absolute;
+    right:15px;
+    z-index: 101;
+    bottom:62px;
+}
+#best {
+    color:white;
+    position:absolute;
+    right:-10px;
+    z-index: 40;
+    bottom:236px;
+}
+#worst {
+    color:white;
+    position:absolute;
+    right:-10px;
+    z-index: 40;
+    bottom:28px;
+}
+#loader {
+    opacity: 0.8;
+    position:absolute;
+    right:50%;
+    top: 50%;
+    z-index: 40;
+    display:none;
+}
+
+#loader2 {
+    opacity: 0.8;
+    position:absolute;
+    right:60%;
+    top: 50%;
+    z-index: 40;
+    display:none;
+}
+
+#baseMapIcon {
+    position:absolute;
+    right:20px;
+    top:20px;
+    z-index: 40;                
+}
+
+#BookmarkIcon{
+    position:absolute;
+    right:99px;
+    top:20px;
+    z-index: 40;     
+}
+
+#shareIcon{
+    position:absolute;
+    right:182px;
+    top:20px;
+    z-index: 40;     
+}
+
+#refresh{
+    position:absolute;
+    right:222px;
+    top:20px;
+    z-index: 40;  
+}
+
+#whatsSHowing {
+    position:absolute;
+    left:5px;
+    bottom:5px;
+    z-index: 40;
+}
+#clickOptions {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 74px;
+}
+
+#clickOptionsRadio{
+    position: absolute;
+    top: 20px;
+    left: 134px;
+    z-index: 2;
+}
+
+#getScale {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 74px;
+}
+
+#demoScale {
+    position: absolute;
+    bottom: 5px;
+    z-index: 40;
+}
+
+#info1, #info2 {
+    position: absolute;
+    bottom: 5px;
+    z-index: 40;                
+}
+
+#tutorial{
+    position: absolute;
+    width: 950px;
+    margin-top: 260px;
+}
+
+#disclaimer, #deleteWarning{
+    position: absolute;
+    width: 950px;
+    margin-top: 260px;   
+}
+
+#snapShotCar{
+    position: relative;
+    width: 900px;
+    margin-top: 260px; 
+    height:auto;
+    text-align: center;  
+}
+
+#snapShotsArea{
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    height:auto;
+    width:2500px;
+    z-index: 1000;
+    padding:0px;
+    display: none; 
+    background-color:rgba(25,25,25,1);
+    overflow:auto;
+    margin-bottom:5px;
+    overflow:hidden;
+}
+
+.snapCtrl{
+    display:none;
+    top:90%;
+}
+
+.snapTitle{
+    /*background-color:rgba(1,1,1,0.2);*/
+    color:white;
+    border:1px;
+    position: absolute;
+    text-align:center;
+}
+
+.mapSnapStrip input{
+    background-color:rgba(1,1,1,0.2);
+    border:0px;
+    color:white;
+}
+
+#stripView{
+    display:none;
+    display:inline-block;
+    line-height:0.9em;
+    position: relative;
+    height:0.9em;
+    top: 0px;
+    margin-top:-30px;
+    margin-right: 15px;
+    font-size:0.7em;
+    left:auto;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.snapDesc{
+    position:relative;
+    bottom:-360px;
+    color: red;
+}
+
+.snpShotCap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 15px;
+  background: #333333;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.mapSnapStrip{
+    cursor: pointer;
+    position:relative;
+    display: inline-block;
+    width: auto;
+    height:95px;
+    margin: 10px 35px;
+}
+
+.mapSnapSideBySide{
+    display: inline-block;
+    width: auto;
+    height:auto;
+    margin: 10px 35px;
+}
+
+.mapSnapSlideshow{
+    display: inline-block;
+    width: auto;
+    height:auto;
+    margin: 10px 35px;
+}
+
+.mapSnippet{
+    cursor: pointer;
+    transform: translate(-40%, -40%) scale(0.20, 0.20);
+    -moz-transform: translate(-40%, -40%) scale(0.20, 0.20);
+    -ms-transform: translate(-40%, -40%) scale(0.20, 0.20);
+    -webkit-transform: translate(-40%, -40%) scale(0.20, 0.20);
+    -o-transform: translate(-40%, -40%) scale(0.20, 0.20);
+}
+
+#snapViewCtrol{
+    display:none;
+    position:absolute;
+    z-index:1000;
+    top:85%;
+    right:1%;
+
+}
+
+.snapViewCtrl{
+    
+    line-height:1.3em;
+    position: relative;
+    height:1.5em;
+    width:1.5em;
+    font-size:1.1em;
+    left:auto;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+#snapSideBySide,
+#slideShowPrep,
+#stripView{
+    width:auto;
+}
+
+#snapMax{
+    line-height:25px;
+    height:25px;
+    width:25px;
+    font-size:22px;
+    position:fixed;
+    z-index:1000;
+    top:92%;
+    left:96%;
+    display:none;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    padding-bottom:2px;
+    padding-right:2px;
+  
+}
+
+.snapViewCtrl:hover,
+#snapMax,#stripView:hover
+ {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+.snpShotCap h4,
+.snpShotCap p {
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.snpShotCap h4 {
+  margin: 0 0 5px;
+}
+
+.snpShotCap p {
+  margin-bottom: 0;
+}
+
+.myCarouseSnapshot{
+    margin-right: 5px
+}
+
+#myCarouseTut{
+    margin-top: 20px;
+}
+
+#grayIcon {
+    position:absolute;
+    right:22px;
+    top:50px;
+    z-index: 40;
+}
+
+#satIcon {
+    position:absolute;
+    right:22px;
+    top:100px;
+    z-index: 40;
+}
+
+#hybridIcon {
+    position:absolute;
+    right:22px;
+    top:150px;
+    z-index: 40;
+}
+
+#natGeoIcon{
+    position:absolute;
+    right:22px;
+    top:200px;
+    z-index: 40;    
+}
+
+
+.bsMapIc{
+    margin:5px;
+    left:25px;
+}
+
+#flipper{
+    z-index:4000;
+}
+
+#HeadBar{
+    z-index:10000;
+    margin-bottom:0px;
+}
+
+#projectShowTitle{
+    height:40px;
+    width:100%;
+    z-index:10000;
+    margin-bottom:0px;
+    text-align: center;
+    color:#c09853;
+    font-weight:bold;
+    background-color:rgba(1,1,1,0.2);
+    border:0px;
+    font-size:25px;
+}
+
+.projectTitle{
+    height:40px;
+    z-index:10000;
+    margin-bottom:0px;
+    text-align: center;
+    color:#c09853;
+    font-weight:bold;
+        background-color:rgba(1,1,1,0.2);
+        border:0px;
+        font-size:25px;
+        width:auto;
+}
+
+
+#dropDownWS1{
+    position: absolute;
+}
+
+#dropDownWS{
+    position: absolute;
+    overflow:auto;
+}
+
+.sortable { list-style-type: none; margin: 0; padding: 0; }
+.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+.sortable li span { position: absolute; margin-left: -1.3em; }
+
+.icon-resize-vertical {
+    display: inline-block; 
+    float:right; 
+    opacity:0.6
+}
+
+.state-default1 {
+    padding:5px 5px 5px 29px; 
+    margin:0px 3px 3px 3px;
+    border-radius: 4px;
+} 
+
+.auxFeatCheck {
+    display: inline-block; 
+    margin:0px; 
+    width:75%;
+    padding-left:5px;
+}
+
+#GDRSnote, #GDRSnote2{
+    color: #ffffff;
+    font-size: 11.9px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    display: none;
+}
+
+.items div {
+    float:left;
+    width:680px;
+}
+
+.carousel-control {
+    z-index:10000;
+}
+
+.infoTableToggler {
+    opacity:0.8
+}
+
+.infoTableTogglerOn {
+    opacity:0.7;
+    height:50%;
+}
+
+.hiddenCB {
+    visibility:hidden;
+    width:0px;
+}
+
+#bookmarks-pane{
+    width: 240px;
+    top: 50px;
+    right: 78px; 
+    position: absolute;
+    z-index: 40;
+}
+
+.esriAddBookmark {
+    cursor: pointer;
+    text-align: center;
+}
+
+.esriBookmarks {
+    border: 1px solid #243C5F;
+}
+.esriBookmarkHighlight {
+    background-color: #ffedaf;
+}
+
+#bookmarks-pane_pane {
+    text-align: center;
+}
+
+.highlightBorder {
+    border: 4px solid yellow;
+    border-radius: 4px;
+}
+
+.tooltip {
+    width: auto;
+    position: absolute;
+    background-color: none;
+    padding: 5px;
+    font-size: 10pt;
+    font-weight:bold;
+    z-index: 9911000;
+    -o-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.menuWrapperW{
+    z-index: 1000;
+    background-color:rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(150,150,150);
+}
+
+#baseIconContainer2{
+    z-index: 1000;
+    background-color:rgba(0, 0, 0, 0.5);
+    border: 0.0625em solid rgb(150,150,150);    
+}
+
+.adHocHighlight{
+    background:black;
+    color: white;
+}
+
+#tab3{
+    z-index: 1000;
+}
+
+#tab2{
+    overflow: auto;
+}
+
+.tab-content{
+    z-index: 1000;
+    overflow: auto;
+}
+
+.scoreButton{
+    z-index: 99999;
+}
+
+.visibilityMaker{
+    overflow: visible;
+}
+
+.bottomFeeder{
+    position:absolute;
+    bottom:0;
+}
+
+#indexDescriptionText{
+    margin-bottom: 0;
+    overflow:visible;
+}
+
+.ui-slider-horizontal .ui-slider-handle{
+    height:9px;
+    background:#606060;
+}
+
+.buttonSlider{
+    height:3px;
+    top:9px;
+}
+
+.buttonaSlider{
+    height:3px;
+    margin-right:7px;
+    margin-left:15px;
+    margin-bottom:9px;
+    width:175px;    
+    top:9px;
+}
+
+#opacPlace{
+    display: inline-block;
+    min-width: 350px;
+}
+
+#opacTex, #DSS_opacTex{
+    color:rgb(211,211,211);
+    font-size:smaller;
+    font-weight: bold;
+    margin-bottom:-5px;
+}
+
+#drop2{
+    margin-bottom:7px;
+}
+
+.middlerer{
+    top:12px;
+}
+
+#moreOptionPlus{
+    padding-right:5px;
+    padding-left:5px
+}
+
+.hydroG {
+    border: 1px solid rgb(0,112,192);
+}
+
+.geomoG{
+    border: 1px solid rgb(147,137,83); 
+}
+
+.bioloG{
+    border: 1px solid rgb(0,176,80);
+} 
+
+.conneG{
+    border: 1px solid rgb(227,108,10);
+} 
+
+.waterG{
+    border: 1px solid rgb(112,48,160);
+} 
+
+.hydro {
+    background-color: rgb(0,112,192);
+}
+
+.geomo{
+    background-color:rgb(147,137,83); 
+}
+
+.biolo{
+    background-color:rgb(0,176,80);
+} 
+
+.conne{
+    background-color: rgb(227,108,10);
+} 
+
+.water{
+    background-color:rgb(112,48,160);
+} 
+
+.hydroIn{
+    background-color: rgba(0,112,192,0.3);
+}
+
+.geomoIn{
+    background-color:rgba(147,137,83,0.3); 
+}
+
+.bioloIn{
+    background-color:rgba(0,176,80,0.3);
+} 
+
+.conneIn{
+    background-color: rgba(227,108,10,0.3);
+} 
+
+.waterIn{
+    background-color:rgba(112,48,160,0.3);
+}
+
+.hydroOn {
+    background-color: rgb(63, 155 , 211);
+}
+
+.geomoOn{
+    background-color:rgb(179, 172 , 134); 
+}
+
+.bioloOn{
+    background-color:rgb(76, 200 , 132);
+} 
+
+.conneOn{
+    background-color: rgb(235, 152 , 83);
+} 
+
+.waterOn{
+    background-color:rgb(155, 110 , 188);
+} 
+
+.combOn{
+    background-color:rgb(235, 235 , 235);
+} 
+
+.bookiIcon{
+    margin-left: 18px;
+}
+
+.compFont{
+    color: #005580;
+    font-weight: normal;
+}
+
+.compHeadFont{
+    color: rgb(235, 235, 235);
+    font-weight: bold;
+    font-size: larger;
+    padding-bottom:10px;
+}
+
+.compFont:hover,
+.compFont:focus {
+  font-weight: bold;
+}
+
+input[type=radio]:not(old){
+  width     : 2em;
+  margin    : 0;
+  padding   : 0;
+  font-size : 1em;
+  opacity   : 0;
+}
+
+input[type=radio   ]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -2em;
+  line-height  : 1.5em;
+}
+
+input[type=radio   ]:not(old) + label > span{
+  display          : inline-block;
+  width            : 0.875em;
+  height           : 0.875em;
+  margin           : 0.25em 0.5em 0.25em 0.25em;
+  border           : 0.0625em solid rgb(192,192,192);
+  border-radius    : 0.25em;
+  background       : rgb(224,224,224);
+  background-image :    -moz-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image :     -ms-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image :      -o-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image : -webkit-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  background-image :         linear-gradient(rgb(240,240,240),rgb(224,224,224));
+  vertical-align   : bottom;
+}
+
+input[type=radio   ]:not(old):checked + label > span{
+  background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image : -webkit-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :         linear-gradient(rgb(224,224,224),rgb(240,240,240));
+}
+
+input[type=checkbox]:not(old):checked + label > span:before{
+  content     : '✓';
+  display     : block;
+  width       : 1em;
+  color       : rgb(58,135,173);
+  font-size   : 0.875em;
+  line-height : 1em;
+  text-align  : center;
+  text-shadow : 0 0 0.0714em rgb(115,153,77);
+  font-weight : bold;
+}
+
+input[type=radio]:not(old):checked + label > span > span{
+  display          : block;
+  width            : 0.5em;
+  height           : 0.5em;
+  margin           : 0.125em;
+  border           : 0.0625em solid rgb(115,153,77);
+  border-radius    : 0.125em;
+  background       : rgb(58,135,173);
+  background-image :    -moz-linear-gradient(rgb(78,115,203),rgb(58,135,173));
+  background-image :     -ms-linear-gradient(rgb(78,115,203),rgb(58,135,173));
+  background-image :      -o-linear-gradient(rgb(78,115,203),rgb(58,135,173));
+  background-image : -webkit-linear-gradient(rgb(78,115,203),rgb(58,135,173));
+  background-image :         linear-gradient(rgb(78,115,203),rgb(58,135,173));
+}
+
+.popTitleBox{
+    display: inline-block;
+}
+
+.popTitScaleBox{
+    padding-left: 5px;
+    font-size: 11px;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+}
+
+#tutCloser{
+    margin-top: 35px;
+    margin-left: 0px;
+}
+
+#closeButTut{
+    right: 353px;    
+}
+
+#theSide{
+    width:25%;
+    left:20px;
+    top:300px;
+    position:absolute;
+    z-index:500;
+}
+
+#printPlace{
+    position:fixed;
+    display: none;
+    left:82px;
+    top:20px;
+    z-index:500;
+}
+
+#TabOfcontentPlace{
+    position:absolute;
+    left:82px;
+    top:20px;
+}
+
+#menuPlace{
+    display: none;
+    width:40%;
+    position:relative;
+    z-index:500;
+}
+
+#mapTitleInput{
+    margin-bottom:0px;
+}
+
+#addFeatures{
+    position:relative;
+    z-index:500;
+}
+
+#featuresPlace{
+    display: none;
+    position:relative;
+    cursor: move;
+}
+
+#indexTitle_slider{
+    display: none;
+    position:relative;
+    z-index: 500;
+    margin-bottom: 10px;
+    width:auto;    
+}
+
+#DSS_indexTitle_slider{
+    /*display: none;*/
+    position:relative;
+    z-index: 500;
+    margin-bottom: 10px;
+    width:auto;    
+}
+
+#indexTitle_place{
+    padding: 7px;
+    min-width: 350px
+    margin-bottom:2px;
+}
+
+#menuBox{
+    position:absolute;
+    left:14px;
+    top:189px;
+    width:50px;
+    z-index: 5000;
+}
+
+.snapMenuSVG{
+    height:23px;
+}
+
+#layerChoiceBox{
+    border-radius:4px;
+    border:0px;
+    margin-left:3px;
+    margin-right:3px;
+    margin-bottom:7px;
+    padding:7px;
+
+}
+
+#LyrTitleB{
+    padding-top:4px;
+}
+
+
+#baseHome{
+    display:none;
+    left:60px;
+    top:300px;
+    position:absolute;
+    z-index:500;
+}
+
+.crosshair{
+    cursor: crosshair; 
+}
+
+.DssWell{
+    padding:0px;
+    margin:10px;
+    background-color: #402936;
+}
+
+#DSS_title {
+    position:fixed; 
+    z-index:1000;
+    border-radius: 5px;
+    border: 1px solid #eeeeee;
+    background-color:   #222222;
+    top:60px;
+    width:88%;
+    margin-left:6%;
+}
+
+#guide_title {
+    position:fixed; 
+    z-index:1000;
+    opacity:0.8;
+    border-radius: 4px;
+    border: 1px solid #eeeeee;
+    background-color:   #222222;
+    bottom:15px;
+    width:40%;
+    left:21px;
+}
+
+#cdlChartPlace{
+    position:fixed; 
+    z-index:101;
+    opacity:0.9;
+    border-radius: 4px;
+    border: 1px solid #eeeeee;
+    background-color:   #222222;
+    bottom:15px;
+    padding:10px;
+    cursor:move;
+}
+
+#chartCloserL{
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+#legendPlace{
+    position:fixed; 
+    z-index:101;
+    opacity:0.9;
+    border-radius: 4px;
+    border: 1px solid #eeeeee;
+    background-color:   #cccccc;
+    bottom:15px;
+    padding:10px;
+}
+
+#CDL_chart_div, #NLCD_chart_div, #chartCloserL{
+    cursor:auto;
+}
+
+.chartTitle1{
+    color:white;
+    opacity:0.9;
+    margin-bottom:0px;
+    margin-top:5px;
+}
+
+#molecule {
+    display: none;
+    position:fixed; 
+    z-index:1000;
+    border-radius: 5px;
+    border: 1px solid #eeeeee;
+    background-color: gray;
+    top:160px;
+    width:88%;
+    height:70%;
+    margin-left:6%;
+}
+
+#DSS_title-inner{
+    background-color: #222222;    
+}
+
+.whafNavbar{
+    background-image: linear-gradient(to bottom, #222222, #424242);
+    background-repeat: repeat-x;  
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.whafBrand {
+    display: inline-block;
+    padding: 7px 20px 7px;
+    margin-left: 0px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #cccccc;
+}
+
+.whafBrand2 {
+    padding-bottom: 7px;
+    margin-left: 0px;
+    color: #cccccc;
+}
+
+.whafBrand span{
+    margin-bottom:4px;
+}
+
+#guide_stepTitle{
+    color: #f89406;
+}
+
+#scalePlace{
+    display: inline-block;
+    padding-top:0px;
+}
+
+.scaleNoSho{
+    border: 3px solid rgba(0,0,0,0);
+}
+
+.scaleSho{
+    border: 3px solid #2A4FC9;
+    border-radius: 5px;
+}
+
+#mapScalePlace{
+    display: inline-block;
+    padding-top:0px;
+    position:absolute;
+    right:10px;
+    top:10px;
+    z-index:101;
+}
+
+#servWarningPlace{
+    display: none;
+    padding-top:0px;
+    position:absolute;
+    right:20px;
+    top:22px;
+}
+
+#searchPlace{
+    display: inline-block;
+    opacity:0.8;
+}
+
+#DSS_control_next, #guide_control_next{ 
+    float:right;
+    width:6%;
+}
+
+#DSS_control_back, #guide_control_back{
+    width:10%;
+}
+
+#DSS_StepCurrent, #guide_StepCurrent{
+    width:65%;
+}
+
+#inCurrentStep{
+    float:right;
+}
+
+#DSS_indexTitlePlace{
+    position:fixed;
+    display:none;
+}
+
+#mapRun{
+    display: none;
+    position:absolute;
+    width:auto;
+    max-height:700px;
+    left:5px;
+    top:45px;
+    background-color: white;
+    opacity:1;
+    min-height: 40px;
+    z-index:500;
+    overflow: visible;
+    padding:10px;
+    border: 1px solid rgb(150,150,150);
+    border-radius: 4px;
+}
+
+#mapRunSortable{
+    list-style-type: none;
+    max-height:680px;
+    overflow: visible;   
+}
+
+
+.objectiveMap{
+    padding-top:0px;
+    width:350px;
+    height:330px;
+    margin:5px;
+    border: 1px solid rgb(150,150,150);
+    border-radius: 4px;
+    float: left;
+}
+
+.WHAFcontainer{
+    padding-right:5px;
+}
+
+.nav{
+    font-size:1em;
+}
+
+.esriGeocoderContainer{
+    width:28px;
+}
+
+#search_input {
+    width:130px;
+}
+
+.snapViewCtrl{
+    display:inline-block;
+}
+
+.dropdown-menu{
+    position: absolute;
+}
+
+.subMenu{
+    position: static;
+    margin:0px;
+    background-color:#f7f7f7;
+    width:98%;
+    margin-left:1%;
+    margin-bottom:10px;
+    border-width:0px;
+}
+  
+$('.subMenu').css(ccc)
+
+
+
+}
+
+.subMenu a{
+    margin-left: 5px;
+}
+
+#disclBody{
+    padding: 10px;
+}
+
+#importGalButton{
+    width:96%;
+    margin-left:2%;
+    margin-bottom:12px;
+    margin-top:5px;
+    opacity:0.8;
+    padding:4px;
+}
+
+.bkMarAdvanced{
+    padding-right:0px;
+}
+
+.bkMarAdvanced a{
+    margin-top:10px;}
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#bMarkGetReader{
+    margin-left:0px;
+}
+
+#bMarkHead{
+    padding: 0px;
+}

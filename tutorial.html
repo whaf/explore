@@ -1,0 +1,245 @@
+<div id="tutorial" class="modal hide fade centered" tabindex="-1" role="dialog" style="height:320px">
+        <button class="close" onclick="$('#tutorial').modal('hide');" data-dismiss="modal" type="button">×</button>
+        <div class="row" style="margin-left:0px;"><a data-slide="prev" href="#myCarouseTut" class="left carousel-control">‹</a><a data-slide="next" href="#myCarouseTut" class="right carousel-control">›</a>
+            <div class="carousel slide" id="myCarouseTut" data-interval="false">
+                <div class="carousel-inner" style = "bacground-color:grey">
+                    <div class="item active">
+                        <div class="centText">
+                            <h3>WHAF: a five component approach to ecological health</h3>
+                        </div>
+                        <div>
+                            <div class="offset1 span5">
+                                <h4>Welcome to the updated WHAF application! </h4>
+                                <h5>Please take this brief tutorial to learn how to use the Watershed Health Assessment Framework. You can view it anytime under the<strong> 'How to Use' </strong>menu.</h5>
+                            </div>
+                            <div class="offset1 span4 pull-right">
+                                <img class="img-rounded info4Image" src="./img/5Components.jpg">
+                            </div>
+                            
+                        </div>
+                        <div id = "tutCloser" class = 'span12'>
+
+                                <div class="pull-right">
+                                    <div class="row-fluid">
+                                        <label class="checkbox">
+                                            <input type="checkbox" onclick="tutorialPref(checked)" autocomplete="on" title="" value="0">Do not show this tutorial on start up
+                                        </label>
+
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span5">
+                            <h4>1. Natural resource systems are summarized into five ecological components. </h4>
+                            <p>A number of different index scores are calculated for each component giving a multifaceted view of watershed health.</p>
+                            <p>Click on a component to open available indices. Click on an index to view its score on the map. </p>
+                            <p>Place mouse over the index name to view a brief description. </p>
+                            
+                        </div>
+                        <div class=" span5">
+                            <img class="img-rounded info1Image" src="./img/coloredIndices.png">
+                        </div>
+                        
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span5">
+                            <h4>2. Color grade: green for good, red for poor health</h4>
+                            <p>Health scores rank the condition of Minnesota's landscapes from 0 (poor health condition, red) to 100 (good health condition, green). This example shows remaining perennial cover.
+                                <br/>
+                                <br/>Health scores are calculated for Minnesota's "major watersheds" (HUC-8), and where possible for DNR catchments (sub-divided HUC-12). Catchments are much smaller units and provide more detailed view of the health
+                                scores. In Minnesota there are 81 "Major Watersheds" and over 10,000 catchments.</p>
+                        </div>
+                        <div class="offset1 span4">
+                            <img class="img-rounded info1Image" src="./img/PerennCoverState.png">
+                        </div>
+                    </div>
+                  
+                    <div class="item">
+                        <div class="offset1 span10">
+                            <h4>3. Explore your location in relation to different health indices</h4>
+                            <p>Clicking on an index will show its score without changing the map location: </p>
+                            <div style = "display:inline">
+                                <div class="span3">
+                                    <figure>
+                                        <img src="./img/ZumroPC.png" alt="" title="" style="" class="img-rounded info3Image" data-original-title="Perennial Cover">
+                                        <figcaption>Perennial Cover</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="span3">
+                                    <figure>
+                                        <img src="./img/ZumroSES.png" alt="" title="" style="" class="img-rounded info3Image" data-original-title="Soil Erosion Susceptibility">
+                                        <figcaption>Soil Erosion Susceptibility</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="span3">
+                                    <figure>
+                                        <img src="./img/ZumroTHQ.png" alt="" title="" style="" class="img-rounded info3Image" data-original-title="Terrestrial Habitat Quality">
+                                        <figcaption>Terrestrial Habitat Quality</figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+
+                        
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>4. Use the transparency slider to see land features under the score colors</h4>
+                            <p>The slider is located under the index name, which is visible when an index is selected.</p>
+                        </div>
+                        <div style="height:100%" class="span4">
+                            <img class="img-rounded info1Image" alt="" src="./img/Basics_slider1.png">
+                        </div>
+                        <div class="span4 ">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/Basics_slider2.png">
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <div class="offset1 span5">
+                            <h4>5. Mark your location of interest on the map</h4>
+                            <p>Click once to activate the crosshair button <img style="max-width:30px;" class="img-rounded" alt="" src="./img/crosshair.png"> then anywhere on the map to place a location mark. </p><br>                        <!--                              
+                            <div class="" style="max-width:30px;">
+                                <img style="max-width:30px;" class="img-rounded" alt="" src="./img/crossHair.png">
+                            </div>                   -->          
+                            <p> If the mark is inside Minnesota, you can easily view different scales relative to that place, including its river basin, 'major watershed', upstream, and downstream areas. </p>
+                        </div>
+
+                        <div class="offset1  span4">
+                            <img class="img-rounded info1Image pull-right" alt="" src="./img/landMarked.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>6 (a) Mask different scales</h4>
+                            <p>Click the scale buttons at the top right of the map to quickly highlight their respective extent relative to the marked map location.</p><br/><p>These examples show the river basin and the 'major watershed' for the marked location.</p>
+
+
+                        </div>
+                        <div style="height:100%" class="span4">
+                            <img class="img-rounded info1Image" alt="" src="./img/bsnMask.png">
+                        </div>
+                        <div class="span4 ">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/MajMask.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>6 (b) Mask different scales</h4>
+                            <p>These examples show the 'true watershed' (upstream area) of the catchment containing the marked location, and all catchments downstream of it (within the state).</p>
+
+
+                        </div>
+                        <div style="height:100%" class="span4">
+                            <img class="img-rounded info1Image" alt="" src="./img/upMask.png">
+                        </div>
+                        <div class="span4 ">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/dnMask.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>7 (a) Scale views</h4>
+                            <p>Use the drop-down menus next to the scale buttons to zoom directly to the respective scale.</p>
+                        </div>
+                        <div style="height:100%" class="span8">
+                            <img class="img-rounded info1Image" alt="" src="./img/upOptZoom.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>7 (b) Scale views</h4>
+                            <p>The drop-down menus also let you to replace the mask with an outline, fill, or to remove the view.</p>
+
+
+                        </div>
+                        <div style="height:100%" class="span8">
+                            <img class="img-rounded info1Image" alt="" src="./img/upOutline.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span5">
+                            <h4>8. Map navigation</h4>
+                            <br><p>Move the map around by clicking and dragging. <br><br>Click on the Minnesota state icon to go to the entire state extent. <br><br>Using the <button class="btn-mini" onClick="prev();"><i class="icon-step-backward"></i></button> and <button class="btn-mini" onClick="next()"><i class="icon-step-forward"></i></button> icons, you can return to previous or subsequent map extents similar to the "back" button on an internet browser.</p>
+                        </div>
+                         <div class="offset1 span4">
+                            <img class="img-rounded info1Image" src="./img/controls.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span5">
+                            <h4>9. Change Base maps</h4>
+                            <p>Click the <a id="" href='#' title="Change basemap"><img id="" style="max-width:30px;" class="img-rounded info5ImageOn" src="./img/basemap.png" onClick="$(this).tooltip().mouseout(); $('#baseHome').toggle(); alignItemsVert('baseMIcB','baseHome'); "></a> button to choose from available basemaps. Options include a plain, grey map; an aerial image; an aerial image with labels; and a National Geographic map.</p></div>
+                        <div class="offset1 span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/Basemaps.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span5">
+                            <h4>10. Using bookmarks</h4>
+                            <p>Click the  <a id = "" href='#' title="Save map view or location"><img id="" style="max-width:30px;" class="img-rounded info5ImageOn" src="./img/bookmark.png" onClick="$('#bookmarkModal').toggle(); $(this).tooltip().mouseout()"></a> button to save your current map for reference. Name the map view (you may include an optional note), and click "Keep map" or "Keep extent" to add it to a list of bookmarks. The list will be stored in your browser, and with most modern browsers, will remain available for future use even after you close your browser. <br><br>"Keep map" will store the complete map view, whereas "Keep extent" will store the map location only. </p>
+                        </div>
+                        <div class="offset1 span4">
+                            <img class="img-rounded info1Image" src="./img/bookmarksNew2.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span10">
+                            <h4>11. Share the view </h4>
+                            <p>Click the  <button  type="button" class="btn btn-mini" ><i class="icon-share"></i> </button> button to get a link which you can copy and email or paste in a browser address bar to reproduce an identical map view. Links may be long, but can be easily copied from the pop-up window at the bottom of the screen: 
+                            </p><br><br><br>
+                        </div>
+                        <div class="offset1 span10">
+                            <img class="img-rounded" src="./img/sharePopup.png">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span5">
+                            <h4>12. Add features to the map</h4>
+                            <p>Click the  <a href='#' title="Add features to map"><img id="" style="max-width:30px;"  class="img-rounded info5ImageOn" src="./img/mapMarker.png" onClick="$('#accordion2_3').hide();$('#featuresPlace').toggle('drop',{'direction':'down'})"></a> button to bring up a list of commonly used layers that can be added to the map. <br><br> Map layers can be reordered by dragging and dropping layers in this box.</p>
+                            
+                        </div>
+                        <div class="offset1 span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/ToC1.png">
+                        </div>
+                        <!-- <div class="span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/StreamsSample.png">
+                        </div> -->    
+                    </div>
+                    <div class="item">
+                        <div class="offset1 span6">
+                            <h4>13. Add more features to the map</h4>
+                            <p>Many more features are available to view. In the map layers box (step 12), click the <a class="btn btn-small btn-info" href="#" onclick="">Get more layers</a> button to bring up more features. Click on the feature and it will be added to the list of available layers. If you are in the DNR network, you will also be able to add many LandView data sets to the map.<br><br> To add map layers from the web, click "Get layers from web" and enter the 'rest' url of a published map service. </p> 
+                            
+                        </div>
+                        <div class="span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/addBox.png">
+                        </div>
+                        
+                    </div>     
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>14. Add hillshade topography to the map</h4>
+                            <p>In the map layers box (step 12), check the box in the Hillshade Topography button. Use the slider to control the transparency of the hillshade effect for an effective map image.</p></div>
+                        <div class="span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/hillshadeControl.png">
+                        </div>
+                        <div class="span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/HillshadedMap.png">
+                        </div>
+                    </div>                               
+                    <div class="item">
+                        <div class="offset1 span2">
+                            <h4>15. View attributes for map features</h4>
+                            <p>Click the <a class="btn btn-mini infoTableToggler" href="#"><i class="icon-info-sign infoTableToggler" ></i></a> button on a feature to enable attribute view. Once highlighted <a class="btn btn-mini btn-warning infoTableToggler" href="#"><i class="icon-info-sign infoTableToggler" ></i></a> clicking this feature on the map will bring up all available attributes. Attribute view is available for only one dataset at a time.</p></div>
+                        <div class="span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/AttrHighlt.png">
+                        </div>
+                        <div class="span4">
+                            <img class="img-rounded info1Image" style="" alt="" src="./img/AttDialog.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
