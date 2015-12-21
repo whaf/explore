@@ -130,7 +130,7 @@
 
 
                                 <li id = "TutVidMenu" class="howTo">
-                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu').hide();$('#tutVidsSubMenu').toggle()"><strong> Tutorial Videos</strong></a>
+                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutHandoutSubMenu').hide();$('#tutVidsSubMenu').toggle()"><strong> Tutorial Videos</strong></a>
                                 
 
                                         <ul id="tutVidsSubMenu" class="dropdown-menu subMenu" >
@@ -151,12 +151,27 @@
                                         </ul>
                                 </li>
 
+                                <li role="presentation" class="divider"></li>
 
+                                <li id = "TutHandoutMenu" class="howTo">
+                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutVidsSubMenu').hide();$('#tutHandoutSubMenu').toggle()"><strong> Step-By-Step PDFs</strong></a>
+
+                                        <ul id="tutHandoutSubMenu" class="dropdown-menu subMenu" >
+
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" href="http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/ExploreHealth.pdf" target="_blank"> The Watershed Exploration Process </a>
+                                            </li>
+
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" href="http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/Bookmarks.pdf" target="_blank"> Create and Share Bookmarks </a>
+                                            </li>
+
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" href="http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/MapGallery.pdf" target="_blank"> Create a Map Gallery Slideshow </a>
+                                            </li>
+                                        </ul>
 
                                 <li role="presentation" class="divider"></li>
 
                                 <li class="">
-                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#guidesSubMenu, #tutVidsSubMenu').hide();$('#howToSubMenu').toggle()"> <strong> How to... </strong></a>
+                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#guidesSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu').hide();$('#howToSubMenu').toggle()"> <strong> How to... </strong></a>
                                     <ul id="howToSubMenu" class="dropdown-menu subMenu" >
                                         <li class="howTo" id="HealthScoresButton" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_scores').addClass('highlightBorder')" onmouseout="$('#menu_scores').removeClass('highlightBorder')" href="#tab" data-toggle="tab3"
                                             onclick="$('#menu_scores').click();"> View health scores </a>
@@ -192,7 +207,7 @@
 
                                 <li class="">
 
-                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#howToSubMenu, #tutVidsSubMenu').hide();$('#guidesSubMenu').toggle()"> <strong> Use guides </strong></a>
+                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#howToSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu').hide();$('#guidesSubMenu').toggle()"> <strong> Use guides </strong></a>
 
                                         <ul id="guidesSubMenu" class="dropdown-menu subMenu" >
                                             <li class="howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" onclick="$('#tutorial').modal('show');" href="#"> Application Overview</a>
