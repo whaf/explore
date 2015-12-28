@@ -280,7 +280,7 @@ indexdescNewJson={
         "watershedId": "17",
         "catchmentId": "50",
         "indexSummary": "Percent of land area in high value habitat types",
-        "shortDesc": "<h4>Terrestrial Habitat Quality</h4>The quality of terrestrial habitat is based on its size, configuration and cover type.  A computer model of wetland, grassland and forest habitat quality ranks the quality of the natural land cover in each watershed. This index compares the amount of land that has high quality habitat to the amount of land that is low quality or less suitable for native animal species. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/terr_habitat.html' target='_blank'>here.</a>",
+        "shortDesc": "<h4>Terrestrial Habitat Quality</h4>The quality of terrestrial habitat is based on its size, configuration and cover type.  A computer model of wetland, grassland and forest habitat quality ranks the quality of the natural land cover in each watershed.  This index compares the amount of land that has quality habitat to the amount of land that is not suitable habitat.For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/terr_habitat.html' target='_blank'>here.</a>",
         "sourceData": "",
         "sourceDataDate": "",
         "caveats": "",
