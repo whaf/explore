@@ -125,12 +125,67 @@
                         </li>
 
                         <li id="fat-menu2" class="dropdown"><a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" title="" id="howToDromDown">Help: <b class="caret"></b></a>
+
                             <ul id="dropDownHowToList" class="dropdown-menu" style="" role="menu">
 
+                                <li class="">
+                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#guidesSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu, #indexInfoSubMenu').hide();$('#howToSubMenu').toggle()"> <strong> Identify Tools </strong></a>
+                                    <ul id="howToSubMenu" class="dropdown-menu subMenu" >
+                                        
+                                        <li class="howTo" id="HealthScoresButton" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_scores').addClass('highlightBorder')" onmouseout="$('#menu_scores').removeClass('highlightBorder')" href="#tab" data-toggle="tab3"
+                                            onclick="$('#menu_scores').click();"> View health scores </a>
+                                        </li>
 
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_features').addClass('highlightBorder')" onmouseout="$('#menu_features').removeClass('highlightBorder')"
+                                            onclick="$('#menu_features').click()" href="#"> Add features to web map </a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_base').addClass('highlightBorder')" onmouseout="$('#menu_base').removeClass('highlightBorder')" onclick="$('#menu_base').click()" href="#"> Change base map</a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_share').addClass('highlightBorder')" onmouseout="$('#menu_share').removeClass('highlightBorder')" onclick="$('#menu_share').click()" href="#"> Share this current view</a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_bkmark').addClass('highlightBorder')" onmouseout="$('#menu_bkmark').removeClass('highlightBorder')" onclick="$('#menu_bkmark').click()" href="#"> Bookmark map view</a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_refresh').addClass('highlightBorder')" onmouseout="$('#menu_refresh').removeClass('highlightBorder')" onclick="" href="#"> Refresh the map</a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#DssStarImage').addClass('highlightBorder')" onmouseout="$('#DssStarImage').removeClass('highlightBorder')" onclick="$('#DssStarImage').click()" href="#"> Set or change location on the map</a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_addSnap').addClass('highlightBorder')" onmouseout="$('#menu_addSnap').removeClass('highlightBorder')" onclick="" href="#"> Add a map to the map gallery</a>
+                                        </li>
+
+                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#back').addClass('highlightBorder')" onmouseout="$('#back').removeClass('highlightBorder')" onclick="" href="#"> Return to previous or next location</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+
+                                <li role="presentation" class="divider"></li>
+
+                                <li class="">
+
+                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#howToSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu, #indexInfoSubMenu').hide();$('#guidesSubMenu').toggle()"> <strong> Use guides </strong></a>
+
+                                        <ul id="guidesSubMenu" class="dropdown-menu subMenu" >
+                                            <li class="howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" onclick="$('#tutorial').modal('show');" href="#"> Application Overview</a>
+                                            </li>
+                                            <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onclick="startGuide('pieChartGuide'); $('#pieChartModal').fadeIn()" href="#"> Compare Watershed Scores</a>
+                                            </li>
+                                            <li class="" role="presentation"><a role="menuitem" tabindex="-1"  href="#" onclick="startGuide('scalesGuide');">Explore Scales</a>
+                                            </li>
+                                            <li class="" role="presentation"><a role="menuitem" tabindex="-1"  href="#" onclick="startGuide('featuresGuide');">Add Features to Map</a>
+                                            </li>
+                                        </ul>
+                                </li>
+
+                                <li role="presentation" class="divider"></li>
 
                                 <li id = "TutVidMenu" class="howTo">
-                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutHandoutSubMenu').hide();$('#tutVidsSubMenu').toggle()"><strong> Tutorial Videos</strong></a>
+                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutHandoutSubMenu, #indexInfoSubMenu').hide();$('#tutVidsSubMenu').toggle()"><strong> Tutorial Videos</strong></a>
                                 
 
                                         <ul id="tutVidsSubMenu" class="dropdown-menu subMenu" >
@@ -154,7 +209,7 @@
                                 <li role="presentation" class="divider"></li>
 
                                 <li id = "TutHandoutMenu" class="howTo">
-                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutVidsSubMenu').hide();$('#tutHandoutSubMenu').toggle()"><strong> Step-By-Step PDFs</strong></a>
+                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutVidsSubMenu, #indexInfoSubMenu').hide();$('#tutHandoutSubMenu').toggle()"><strong> Handouts</strong></a>
 
                                         <ul id="tutHandoutSubMenu" class="dropdown-menu subMenu" >
 
@@ -167,66 +222,25 @@
                                             <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" href="http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/mapgallery.pdf" target="_blank"> Create a Map Gallery Slideshow </a>
                                             </li>
                                         </ul>
-
-                                <li role="presentation" class="divider"></li>
-
-                                <li class="">
-                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#guidesSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu').hide();$('#howToSubMenu').toggle()"> <strong> How to... </strong></a>
-                                    <ul id="howToSubMenu" class="dropdown-menu subMenu" >
-                                        <li class="howTo" id="HealthScoresButton" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_scores').addClass('highlightBorder')" onmouseout="$('#menu_scores').removeClass('highlightBorder')" href="#tab" data-toggle="tab3"
-                                            onclick="$('#menu_scores').click();"> View health scores </a>
-                                        </li>
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_features').addClass('highlightBorder')" onmouseout="$('#menu_features').removeClass('highlightBorder')"
-                                            onclick="$('#menu_features').click()" href="#"> Add features to web map </a>
-                                        </li>
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_base').addClass('highlightBorder')" onmouseout="$('#menu_base').removeClass('highlightBorder')" onclick="$('#menu_base').click()" href="#"> Change base map</a>
-                                        </li>
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_share').addClass('highlightBorder')" onmouseout="$('#menu_share').removeClass('highlightBorder')" onclick="$('#menu_share').click()" href="#"> Share this current view</a>
-                                        </li>
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_bkmark').addClass('highlightBorder')" onmouseout="$('#menu_bkmark').removeClass('highlightBorder')" onclick="$('#menu_bkmark').click()" href="#"> Bookmark map view</a>
-                                        </li>
-
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_refresh').addClass('highlightBorder')" onmouseout="$('#menu_refresh').removeClass('highlightBorder')" onclick="" href="#"> Refresh the map</a>
-                                        </li>
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#DssStarImage').addClass('highlightBorder')" onmouseout="$('#DssStarImage').removeClass('highlightBorder')" onclick="$('#DssStarImage').click()" href="#"> Set or change location on the map</a>
-                                        </li>
-
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#menu_addSnap').addClass('highlightBorder')" onmouseout="$('#menu_addSnap').removeClass('highlightBorder')" onclick="" href="#"> Add a map to the map gallery</a>
-                                        </li>
-
-                                        <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onmouseover="$('#back').addClass('highlightBorder')" onmouseout="$('#back').removeClass('highlightBorder')" onclick="" href="#"> Return to previous or next location</a>
-                                        </li>
-
-                                    </ul>
                                 </li>
 
-
-
-
                                 <li role="presentation" class="divider"></li>
 
-                                <li class="">
+                                <li id = "IndexInfoMenu" class="howTo">
+                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutVidsSubMenu, #tutHandoutsSubMenu').hide();$('#indexInfoSubMenu').toggle()"><strong> Health Index Resources</strong></a>
 
-                                    <a tabindex="-1" href="#" class="titlStay" onclick="$('#howToSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu').hide();$('#guidesSubMenu').toggle()"> <strong> Use guides </strong></a>
+                                        <ul id="indexInfoSubMenu" class="dropdown-menu subMenu" >
 
-                                        <ul id="guidesSubMenu" class="dropdown-menu subMenu" >
-                                            <li class="howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" onclick="$('#tutorial').modal('show');" href="#"> Application Overview</a>
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" href="http://www.dnr.state.mn.us/whaf/about/scores/index.html" target="_blank" title="Click to go to the Watershed Health Assessment Framework web page with detailed descriptions of health indices"> Detailed Descriptions of Index Scores</a>
                                             </li>
-                                            <li class="howTo" id="add_features" role="presentation"><a role="menuitem" tabindex="-1" onclick="startGuide('pieChartGuide'); $('#pieChartModal').fadeIn()" href="#"> Compare Watershed Scores</a>
-                                            </li>
-                                            <li class="" role="presentation"><a role="menuitem" tabindex="-1"  href="#" onclick="startGuide('scalesGuide');">Explore Scales</a>
-                                            </li>
-                                            <li class="" role="presentation"><a role="menuitem" tabindex="-1"  href="#" onclick="startGuide('featuresGuide');">Add Features to Map</a>
+
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" href="http://www.dnr.state.mn.us/whaf/about/scores/index.html" target="_blank" title="PDF with all index score short descriptions, explenation of values, and list of data sources."> Summary Table of Index Scores</a>
                                             </li>
                                         </ul>
-
-
                                 </li>
+                                
+                                <li role="presentation" class="divider"></li>
 
-                                <li role="presentation" class="divider"></li>
-                                <li class="howTo" role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="http://www.dnr.state.mn.us/whaf/about/scores/index.html" title="Click to go to the Watershed Health Assessment Framework web page with detailed descriptions of health indices"> More information about the health indices</a>
-                                </li>
-                                <li role="presentation" class="divider"></li>
                                 <li class="howTo" role="presentation"><a role="menuitem" tabindex="-1" onclick="$('#disclaimer').modal('show')" href="#"> Disclaimer</a>
                                 </li>
                             </ul>
