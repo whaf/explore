@@ -94,6 +94,7 @@ function rightCompColllapsser(cId){
     try{opObList[r].collapse('show')} catch(err){};
 }
 
+// called by popoverInit(), generates the html used to create health index score pop-up descriptions. Runs on intial application start-up
 function prepPopOver(){
 
     for (var key in indexdescNewJson){
@@ -167,6 +168,8 @@ function prepPopOver(){
     }  
 }
 
+// create object used to store index score summary descriptions, populates object using prepPopOver() function.
+// initiates the pop-up using the .mouseenter() property of the button class.
 function popoverInit(){
     $.getJSON(indexdescNewJson, function( data ) {
         var items = [];
