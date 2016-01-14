@@ -47,9 +47,9 @@ var availableAuxFeatures = {//NOTE: DO NOT CHANGE NAMES (I.E. FLOATS) IN THIS OB
     1.14:["Catchments (sub-divided HUC12)","" , 42,"" ,"" , "dynamic", "*","general"],
     // 1.15:["Catchments by Hydrologic Position", "", 0, "", "", "dynamic", "", "general"],
     2.11:["Water Bodies (PCA)", "http://pca-gis02.pca.state.mn.us/arcgis/rest/services/EDA/swedaV2/MapServer",15,"", "", "dynamic", "", "general"],
-    2.12:["Impaired Waters (PCA)", "http://pca-gis02.pca.state.mn.us/arcgis/rest/services/EDA/swedaV2/MapServer",8,"", "", "dynamic", "", "general"],
+    2.12:["All Impaired Waters (PCA)", "http://pca-gis02.pca.state.mn.us/arcgis/rest/services/EDA/swedaV2/MapServer",8,"", "", "dynamic", "", "general"],
     2.13:["Ecoregions (PCA)", "http://pca-gis02.pca.state.mn.us/arcgis/rest/services/EDA/swedaV2/MapServer",34,"", "", "dynamic", "", "general"],
-    1.16:["GWMA - Working Boundaries", "", 56, "", "", "dynamic", "", "general"],
+    1.151:["GWMA - Working Boundaries", "", 56, "", "", "dynamic", "", "general"],
 
     1.16:["Full River Basins (HUC 4)", "",63,"", "", "dynamic", "", "Index Related Features"],
     1.17:["DNR Major Watersheds (HUC 8)", "",41,"", "", "dynamic", "", "Index Related Features"],
