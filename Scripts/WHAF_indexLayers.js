@@ -1,5 +1,6 @@
-function respond(e, n, r, timeStampIn) {
-    try {
+function respond(j, n, r, timeStampIn) {
+  e = healthScoreIndex[j]
+  try {
         removeFirstLayer(e)
     } catch (i) {}
     //indexText(e);
@@ -20,7 +21,6 @@ function respond(e, n, r, timeStampIn) {
     }
 }
 
-
 function changeScoreOpacity(e) {
         WHAFapp.currentMapParams.indOp = e / 100; 
         try {
@@ -34,6 +34,7 @@ function changeScoreOpacity(e) {
         })
 }
 
+// Creates the layer that shows an index score. Changing score changes property of the object, does not remove the layer object.
 function setIndexLayer(e) {
     var t;
     require(["esri/layers/ArcGISDynamicMapServiceLayer","esri/layers/ImageParameters"],
@@ -537,7 +538,7 @@ indexdescNewJson={
             "watershedID": "WQ Metric - Non-Point Source, Phosphorus Risk (major)",
             "catchmentID": "WQ Metric - Non-Point Source, Phosphorus Risk",
             "indexSummary": "Phosphorus Risk from Upland Sources",
-            "shortDesc": "<h4>Upland Phosphorus Metric</h4>Phosphorus is often the limiting nutrient in aquatic systems, as a pollutant phosphorus has a significant potential to offset the natural balance in a system. Increased phosphorus levels can lead to algae blooms in surface waters which can further alter the chemical and physical properties of these waters. This metric models the risk of phosphorus mobilization based on three factors: land use, watershed slope, and soil erodibility. Scores range from 0 (most likely to mobilize phosphorus from uplands) to 100 (least likely to mobilize phosphorus from uplands)."
+            "shortDesc": "<h4>Upland Phosphorus Metric</h4>Phosphorus is often the limiting nutrient in aquatic systems, as a pollutant phosphorus has a significant potential to offset the natural balance in a system. Increased phosphorus levels can lead to algae blooms in surface waters which can further alter the chemical and physical properties of these waters. This metric models the risk of phosphorus mobilization based on three factors: land use, watershed slope, and soil erodibility. Scores range from 0 (most likely to mobilize phosphorus from uplands) to 100 (least likely to mobilize phosphorus from uplands).",
             "sourceData": "SSURGO Soils Database, LiDAR derived elevation, Crop Data Layer (land cover)",
             "sourceDataDate": "",
             "caveats": "",

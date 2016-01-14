@@ -355,7 +355,7 @@ function loadBasins() {
         imageParameters1 = new ImageParameters;
         imageParameters1.layerIds = [0];
         imageParameters1.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-        BS = new ArcGISDynamicMapServiceLayer(assessmentURL, {
+        BS = new ArcGISDynamicMapServiceLayer(watershedsURL, {
             imageParameters: imageParameters1
         });
         BS.opacity = 1;
