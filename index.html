@@ -412,13 +412,13 @@
                                 <div class="accordion" id="accordion2" style="overflow: auto">
                                     <div id='hiddenPieace' style="display: none">
                                         <ul>
-                                            <li><a tabindex="-1" id="5" href="#" onclick="respond(id, 'Perennial Cover (watershed scale)', 'perrenCoverButton');">Watershed Scale</a></li>
-                                            <li><a tabindex="-1" id="6" href="#" onclick="respond(id, 'Impervious Cover (watershed scale)', 'impervCoverButton');">Watershed Scale</a></li>
-                                            <li><a tabindex="-1" id="7" href="#" onclick="respond(id, 'Water Withdrawal Score (watershed scale)', 'watWithdrawButton');">Watershed Scale</a></li>
-                                            <li><a tabindex="-1" id="12" href="#" onclick="respond(id, 'Soil Erosion Susceptibility (watershed scale)', 'SoilErosBtn');">Watershed Scale</a></li>
-                                            <li><a tabindex="-1" id="17" href="#" onclick="respond(id, 'Terrestrial Habitat Quality (watershed scale)', 'terHabQualBtn');">Watershed Scale</a></li>  
-                                            <li><a tabindex="-1" id="24" href="#" onclick="respond(id, 'Aquatic Connectivty Score (watershed scale)', 'aqConBtn');">Watershed Scale</a></li>
-                                            <li><a tabindex="-1" id="25" href="#" onclick="respond(id, 'Riparian Connectivty Score (watershed scale)', 'ripConBtn');">Watershed Scale</a></li>
+                                            <li><a tabindex="-1" id="5" href="#" onclick="respond('Hyd Index - Perennial Cover, 2011 (major)', 'Perennial Cover (watershed scale)', 'perrenCoverButton');">Watershed Scale</a></li>
+                                            <li><a tabindex="-1" id="6" href="#" onclick="respond('Hyd Index - Impervious Cover, 2011 (major)', 'Impervious Cover (watershed scale)', 'impervCoverButton');">Watershed Scale</a></li>
+                                            <li><a tabindex="-1" id="7" href="#" onclick="respond('Hyd Index - Water Withdrawal (major)', 'Water Withdrawal Score (watershed scale)', 'watWithdrawButton');">Watershed Scale</a></li>
+                                            <li><a tabindex="-1" id="12" href="#" onclick="respond('Geo Index - Soil Erosion Potential (major)', 'Soil Erosion Susceptibility (watershed scale)', 'SoilErosBtn');">Watershed Scale</a></li>
+                                            <li><a tabindex="-1" id="17" href="#" onclick="respond('Bio Index - Terrestrial Habitat Quality (major)', 'Terrestrial Habitat Quality (watershed scale)', 'terHabQualBtn');">Watershed Scale</a></li>  
+                                            <li><a tabindex="-1" id="24" href="#" onclick="respond('Con Index - Aquatic Connectivity (major)', 'Aquatic Connectivty Score (watershed scale)', 'aqConBtn');">Watershed Scale</a></li>
+                                            <li><a tabindex="-1" id="25" href="#" onclick="respond('Con Index - Riparian Connectivity (major)', 'Riparian Connectivty Score (watershed scale)', 'ripConBtn');">Watershed Scale</a></li>
                                         </ul>
                                     </div>
 
@@ -430,32 +430,32 @@
                                         <div id="collapseOne" class="compi accordion-body collapse" style="height: 0px;">
                                             <div class="accordion-inner hydroIn">
                                                     
-                                                <div class="scoreButton" id = "H_S_MEAN" style="width:100%;"><a id="3" class="span12 btn" onclick="respond('3', 'Hydrology Mean', '3');">Hydrology Mean</a>
+                                                <div class="scoreButton" id = "H_S_MEAN" style="width:100%;"><a id="3" class="span12 btn" onclick="respond('Hyd - Mean Score (major)', 'Hydrology Mean', '3');">Hydrology Mean</a>
                                                 </div>
-                                                <div class="scoreButton" id = "H_S_PC" style="width:100%;"><a id="31" class="span12 btn" onclick="respond('31', 'Perennial Cover (catchment scale)', '31')"> Perennial Cover </a>
+                                                <div class="scoreButton" id = "H_S_PC" style="width:100%;"><a id="31" class="span12 btn" onclick="respond('Hyd Index - Perennial Cover, 2011', 'Perennial Cover (catchment scale)', '31')"> Perennial Cover </a>
                                                 </div>
-                                                <div class="scoreButton" id = "H_S_IC" style="width:100%;vertical-align: middle;"><a id="49" class="span12 btn" onclick="respond('49', 'Impervious Cover', '49');"> Impervious Cover</a>
+                                                <div class="scoreButton" id = "H_S_IC" style="width:100%;vertical-align: middle;"><a id="49" class="span12 btn" onclick="respond('Hyd Index - Impervious Cover, 2011', 'Impervious Cover', '49');"> Impervious Cover</a>
                                                 </div>
                                                 
-                                                <div class="scoreButton" id = "H_S_WW" style="width:100%;vertical-align: middle;"><a id="35" onclick="respond('35', 'Water Withdrawal', '35');" class="span12 btn"  data-toggle="collapse" data-target="#collapse35"> Water Withdrawal <span class="caret"></span><span id="WaterChartsBtn" class="btn btn-mini pull-right" style="padding: 0 2px" data-placement="left" title="Water withdrawal charts for map location" onclick="setModalElement($('#myModal'));$('#myModal').fadeIn('blind'); getWBcharts(); $( '#upButtonTop' ).trigger( 'click' );"><i class="icon-plus-sign"></i></span></a>
+                                                <div class="scoreButton" id = "H_S_WW" style="width:100%;vertical-align: middle;"><a id="35" onclick="respond('Hyd Index - Water Withdrawal', 'Water Withdrawal', '35');" class="span12 btn"  data-toggle="collapse" data-target="#collapse35"> Water Withdrawal <span class="caret"></span><span id="WaterChartsBtn" class="btn btn-mini pull-right" style="padding: 0 2px" data-placement="left" title="Water withdrawal charts for map location" onclick="setModalElement($('#myModal'));$('#myModal').show('blind'); getWBcharts(); $( '#upButtonTop' ).trigger( 'click' );"><i class="icon-plus-sign"></i></span></a>
                                                 </div>
                                                 <div id="collapse35" class="collapse out">
                                                     <ul class="dropdown-menu span12 WS_Ctmnt" role="menu" aria-labelledby="dropdownMenu" style="display: block;position: static;margin-bottom: 8px;margin-top: 3px;">
-                                                        <li id="36li" class="scoreBtn"><a tabindex="-1" id="36" href="#" onclick="respond(id, 'Predicted Water Withdrawal', 'watWithdrawButton');">Predicted Vulnerability</a>
+                                                        <li id="36li" class="scoreBtn"><a tabindex="-1" id="36" href="#" onclick="respond('Hyd Index - Water Withdrawal, Predicted Vulnerability', 'Predicted Water Withdrawal', 'watWithdrawButton');">Predicted Vulnerability</a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div class="scoreButton" id = "H_S_HS"  style="width:100%;vertical-align: middle;"><a id="8" class="span12 btn" data-toggle="collapse" data-target="#collapse37" onclick="respond('8', 'Hydrologic Storage', '8')"> Hydrologic Storage <span class="caret"></span></a>
+                                                <div class="scoreButton" id = "H_S_HS"  style="width:100%;vertical-align: middle;"><a id="8" class="span12 btn" data-toggle="collapse" data-target="#collapse37" onclick="respond('Hyd Index - Loss of Hydrologic Storage (major)', 'Hydrologic Storage', '8')"> Hydrologic Storage <span class="caret"></span></a>
                                                 </div>
                                                 <div id="collapse37" class="collapse out">
                                                     <ul class="dropdown-menu span12 WS_Ctmnt" role="menu" aria-labelledby="dropdownMenu" style="display: block;position: static;margin-bottom: 8px;margin-top: 3px;">
-                                                        <li id="37li" class="scoreBtn"><a tabindex="-1" id="37" href="#" onclick="respond(id, 'meandering/straightened stream ratio', '8');">Straightened stream metric</a>
+                                                        <li id="37li" class="scoreBtn"><a tabindex="-1" id="37" href="#" onclick="respond('Hyd Index - Flow Variability (major)', 'Natural/Altered Watercourse ratio', '8');">Altered Watercourses</a>
                                                         </li>
-                                                        <li id="x_li" class="disabled scoreBtn"><a tabindex="-1" id="" href="#" onclick="respond(id, 'meandering/straightened stream ratio(catchment Scale)', 'HydStorBtn');">Percent remaining surface water</a>
+                                                        <li id="48li" class="scoreBtn"><a tabindex="-1" id="48" href="#" onclick="respond('Hyd Metric - Loss of Hydrologic Storage, Wetland Loss', 'Wetland Loss', '8');">Wetland Loss</a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div class="scoreButton" id = "H_S_FV" style="width:100%;"><a id="9" class="btn span12" onclick="respond('9', 'Flow Variability', '9');">Flow Variability</a>
+                                                <div class="scoreButton" id = "H_S_FV" style="width:100%;"><a id="9" class="btn span12" onclick="respond('Hyd Index - Flow Variability (major)','Flow Variability', '9');">Flow Variability</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -466,13 +466,13 @@
                                         <div id="collapseTwo" class="compi accordion-body collapse" style="height: 0px;">
                                             <div class="accordion-inner geomoIn">
                                                 
-                                                <div class="scoreButton" id = "G_S_MEAN" style="width:100%;"><a id="10" class="span12 btn" onclick="respond(10, 'Geomorphology Mean', '10');"> Geomorphology Mean</a>
+                                                <div class="scoreButton" id = "G_S_MEAN" style="width:100%;"><a id="10" class="span12 btn" onclick="respond('Geo - Mean Score (major)','Geomorphology Mean', '10');"> Geomorphology Mean</a>
                                                 </div>
-                                                <div class="scoreButton" id = "G_S_SES" style="width:100%;vertical-align: middle;"><a id="32" class="span12 btn" onclick="respond('32', 'Soil Erosion Susceptibility', '32');"> Soil Erosion Susceptibility</a>
+                                                <div class="scoreButton" id = "G_S_SES" style="width:100%;vertical-align: middle;"><a id="32" class="span12 btn" onclick="respond('Geo Index - Soil Erosion Potential', 'Soil Erosion Susceptibility', '32');"> Soil Erosion Susceptibility</a>
                                                 </div>
-                                                <div class="scoreButton" id = "G_S_GCS" style="width:100%;"><a id="13" class="btn span12" onclick="respond(13,'Groundwater Contamination Susc.', '13');">Groundwater Contamination Susceptibility</a>
+                                                <div class="scoreButton" id = "G_S_GCS" style="width:100%;"><a id="13" class="btn span12" onclick="respond('Geo Index - Groundwater Contamination Susceptibility (major)','Groundwater Contamination Susc.', '13');">Groundwater Contamination Susceptibility</a>
                                                 </div>
-                                                <div class="scoreButton" id = "G_S_CV" style="width:100%;"><a id="14" class="btn span12" onclick="respond(14, 'Climate Vulnerability', '14');">Climate Vulnerability</a>
+                                                <div class="scoreButton" id = "G_S_CV" style="width:100%;"><a id="14" class="btn span12" onclick="respond('Geo Index - Climate Vulnerability (major)','Climate Vulnerability', '14');">Climate Vulnerability</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -485,34 +485,34 @@
                                             <div class="accordion-inner bioloIn">
                                                
                                                 <div class="scoreButton" id = "B_S_MEAN" style="width:100%;">
-                                                    <a href="#" id="15" class="btn span12" data-toggle="popover" data-container="body" data-content="" title="" onclick="respond('15', 'Biology Mean', '15');">Biology Mean </a>
+                                                    <a href="#" id="15" class="btn span12" data-toggle="popover" data-container="body" data-content="" title="" onclick="respond('Bio - Mean Score (major)','Biology Mean', '15');">Biology Mean </a>
                                                 </div>
-                                                <div class="scoreButton" id = "B_S_THQ" style="width:100%;vertical-align: middle;"><a id="50" class="span12 btn" onclick="respond('50', 'Terrestrial Habitat Quality', '50');"> Terrestrial Habitat Quality </a>
+                                                <div class="scoreButton" id = "B_S_THQ" style="width:100%;vertical-align: middle;"><a id="50" class="span12 btn" onclick="respond('Bio Index - Terrestrial Habitat Quality', 'Terrestrial Habitat Quality', '50');"> Terrestrial Habitat Quality </a>
                                                 </div>
-                                                <div class="scoreButton" id = "B_S_SSQ" style="width:100%;vertical-align: middle;"><a id="18" class="span12 btn" data-toggle="collapse" data-target="#collapse40" onclick="respond('18', 'Stream Species Quality', '18')"> Stream Species Quality <span class="caret"></span></a>
+                                                <div class="scoreButton" id = "B_S_SSQ" style="width:100%;vertical-align: middle;"><a id="18" class="span12 btn" data-toggle="collapse" data-target="#collapse40" onclick="respond('Bio Index - Stream Species Quality (major)', 'Stream Species Quality', '18')"> Stream Species Quality <span class="caret"></span></a>
                                                 </div>
                                                 <div id="collapse40" class="collapse out">
                                                     <ul class="dropdown-menu span12 WS_Ctmnt" role="menu" aria-labelledby="dropdownMenu" style="display: block;position: static;margin-bottom: 8px;margin-top: 3px;">
                                                         
-                                                        <li id = "40li" class="scoreBtn"><a tabindex="-1" id="40" href="#" onclick="respond(id, 'Fish Index (catchment scale)', 'strSpcRichQualBtn');">Fish (IBI based) </a> 
+                                                        <li id = "40li" class="scoreBtn"><a tabindex="-1" id="40" href="#" onclick="respond('Bio Metric - Stream Species Quality, Fish IBI', 'Fish Index (catchment scale)', 'strSpcRichQualBtn');">Fish (IBI based) </a> 
                                                         </li>
-                                                        <li id = "40_39_38li" class="scoreBtn"><a tabindex="-1" id="40_39_38" href="#" onclick="respond([40,39,38], 'Fish Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Fish (IBI based) (extrapolated)</a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li id = "43li" class="scoreBtn"><a tabindex="-1" id="43" href="#" onclick="respond(id, 'Invert. Index (catchment scale)', 'strSpcRichQualBtn');">Invertebrate (IBI based)</a>
-                                                        </li>
-                                                        <li id = "43_42_41li" class="scoreBtn"><a tabindex="-1" id="43_42_41" href="#" onclick="respond([43,42,41], 'Invert. Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Invertebrate (IBI based) (extrapolated)</a>
+                                                        <li id = "40_39_38li" class="scoreBtn"><a tabindex="-1" id="40_39_38" href="#" onclick="respond(['Bio Metric - Stream Species Quality, Fish IBI','Bio Metric - Stream Species Quality, Fish IBI Extrapolated','Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight'], 'Fish Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Fish (IBI based) (extrapolated)</a>
                                                         </li>
                                                         <li class="divider"></li>
-                                                        <li id = "47li" class="scoreBtn"><a tabindex="-1" id="47" href="#" onclick="respond(id, 'Mussels Site Score (catchment scale)', 'strSpcRichQualBtn');">Mussels Quality</a>
+                                                        <li id = "43li" class="scoreBtn"><a tabindex="-1" id="43" href="#" onclick="respond('Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI', 'Invert. Index (catchment scale)', 'strSpcRichQualBtn');">Invertebrate (IBI based)</a>
                                                         </li>
-                                                        <li id = "47_48_46li" class="scoreBtn"><a tabindex="-1" id="47_48_46" href="#" onclick="respond([47,48,46], 'Mussels Site Score (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Mussels Quality (extrapolated)</a>
+                                                        <li id = "43_42_41li" class="scoreBtn"><a tabindex="-1" id="43_42_41" href="#" onclick="respond(['Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI','Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated','Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight'], 'Invert. Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Invertebrate (IBI based) (extrapolated)</a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li id = "47li" class="scoreBtn"><a tabindex="-1" id="47" href="#" onclick="respond('Bio Metric - Mussel Score', 'Mussels Site Score (catchment scale)', 'strSpcRichQualBtn');">Mussels Quality</a>
+                                                        </li>
+                                                        <li id = "47_48_46li" class="scoreBtn"><a tabindex="-1" id="47_48_46" href="#" onclick="respond(['Bio Metric - Mussel Score','Bio Metric - Mussel Score Extrapolated','Bio Metric - Mussel Score Extrapolated Hightlight'], 'Mussels Site Score (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Mussels Quality (extrapolated)</a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div class="scoreButton" id = "B_S_SR" style="width:100%;"><a id="19" class="btn span12" data-toggle="popover" data-container="body" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."  onclick="respond(19,'Animal Species Richness', '19');">Animal Species Richness</a>
+                                                <div class="scoreButton" id = "B_S_SR" style="width:100%;"><a id="19" class="btn span12" data-toggle="popover" data-container="body" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."  onclick="respond('Bio Index - Animal Species Richness (major)','Animal Species Richness', '19');">Animal Species Richness</a>
                                                 </div>
-                                                <div class="scoreButton" id = "B_S_ARSR" style="width:100%;"><a id="20" class="span12 btn" data-toggle="popover" data-container="body" data-content=""  onclick="respond(20,'At-Risk Animal Spec. Richness', '20');"> At-Risk Animal Spec. Richness </a>
+                                                <div class="scoreButton" id = "B_S_ARSR" style="width:100%;"><a id="20" class="span12 btn" data-toggle="popover" data-container="body" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."  onclick="respond('Bio Index - At Risk Species Richness (major)','At-Risk Animal Spec. Richness', '20');"> At-Risk Animal Spec. Richness </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -523,13 +523,13 @@
                                         <div id="collapseFour" class="compi accordion-body collapse" style="height: 0px;">
                                             <div class="accordion-inner conneIn">
                                                
-                                                <div class="scoreButton" id = "C_S_MEAN" style="width:100%;"><a id="21" class="btn span12" onclick="respond('21', 'Connectivity Mean', '21');">Connectivity Mean</a>
+                                                <div class="scoreButton" id = "C_S_MEAN" style="width:100%;"><a id="21" class="btn span12" onclick="respond('Con - Mean Score (major)', 'Connectivity Mean', '21');">Connectivity Mean</a>
                                                 </div>
-                                                <div class="scoreButton" id = "C_S_THC" style="width:100%;"><a id="23" class="btn span12" onclick="respond('23', 'Terrestrial Habitat Connectivity', '23');">Terrestrial Habitat Connectivity</a>
+                                                <div class="scoreButton" id = "C_S_THC" style="width:100%;"><a id="23" class="btn span12" onclick="respond('Con Index - Terrestrial Habitat Connectivity (major)', 'Terrestrial Habitat Connectivity', '23');">Terrestrial Habitat Connectivity</a>
                                                 </div>
-                                                <div class="scoreButton" id = "C_S_AC" style="width:100%;vertical-align: middle;"><a id="33" class="span12 btn" onclick="respond('33', 'Aquatic Connectivty', '33');"> Aquatic Connectivity</a>
+                                                <div class="scoreButton" id = "C_S_AC" style="width:100%;vertical-align: middle;"><a id="33" class="span12 btn" onclick="respond('Con Index - Aquatic Connectivity', 'Aquatic Connectivty', '33');"> Aquatic Connectivity</a>
                                                 </div>
-                                                <div class="scoreButton" id = "C_S_RC"  style="width:100%;vertical-align: middle;"><a id="34" class="span12 btn" onclick="respond('34', 'Riparian Connectivty', '34');"> Riparian Connectivity</a>
+                                                <div class="scoreButton" id = "C_S_RC"  style="width:100%;vertical-align: middle;"><a id="34" class="span12 btn" onclick="respond('Con Index - Riparian Connectivity', 'Riparian Connectivty', '34');"> Riparian Connectivity</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -540,39 +540,38 @@
                                         <div style="height: 0px;" class="compi accordion-body collapse" id="collapseFive" data-original-title="" title="">
                                             <div class="accordion-inner waterIn" data-original-title="" title="">
                                                 
-                                                <div style="width:100%;" id="W_S_MEAN" class="scoreButton" data-original-title="" title=""><a onclick="respond('26', 'Water Quality Mean', '26');" class="btn span12" id="26" data-original-title="" title="">Water Quality Mean</a>
+                                                <div style="width:100%;" id="W_S_MEAN" class="scoreButton" data-original-title="" title=""><a onclick="respond('WQ - Mean Score (major)', 'Water Quality Mean', '26');" class="btn span12" id="26" data-original-title="" title="">Water Quality Mean</a>
                                                 </div>
-                                                <div style="width:100%;" id="W_S_NPS" class="scoreButton" data-original-title="" title=""><a onclick="respond('28', 'Non-Point Source', '28');" class="btn span12" id="28" data-target="#collapse66" data-toggle="collapse" title="">Non-Point Source</a>
+                                                <div style="width:100%;" id="W_S_NPS" class="scoreButton" data-original-title="" title=""><a onclick="respond('WQ Index - Non-Point Source (major)', 'Non-Point Source', '28');" data-target="#collapse45" data-toggle="collapse" class="btn span12" id="28" data-original-title="" title="">Non-Point Source <span class="caret" data-original-title="" title=""></span> </a>
                                                 </div>
-                                            <!--     <div class="collapse out" id="collapse66" data-original-title="" title="">
+                                                <div class="collapse out" id="collapse45" data-original-title="" title="">
                                                     <ul style="display: block;position: static;margin-bottom: 8px;margin-top: 3px;" aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu span12 WS_Ctmnt" data-original-title="" title="">
 
-                                                        <li class="scoreBtn" id="66li" data-original-title="" title=""><a onclick="respond(id, 'Phosphorus Risk', '66');" href="#" id="66" tabindex="-1" data-original-title="" title="">Phosphorus Risk</a>
+                                                        <li class="scoreBtn" id="66li" data-original-title="" title=""><a onclick="respond('WQ Metric - Non-Point Source, Phosphorus Risk', 'Phosphorus Risk', '28');" href="#" id="66" tabindex="-1" data-original-title="" title="">Phosphorus Risk</a>
                                                         </li>
-                                                      
                                                     </ul>
-                                                </div> -->
-                                                <div style="width:100%;vertical-align: middle;" id="W_S_PS" class="scoreButton" data-original-title="" title=""><a onclick="respond('64', 'Localized Pollution Sources', '29');" data-target="#collapse44" data-toggle="collapse" class="span12 btn" id="29" data-original-title="" title=""> Localized Pollution Sources <span class="caret" data-original-title="" title=""></span></a>
+                                                </div>
+                                                <div style="width:100%;vertical-align: middle;" id="W_S_PS" class="scoreButton" data-original-title="" title=""><a onclick="respond('WQ Index - Localized Pollution Sources', 'Localized Pollution Sources', '29');" data-target="#collapse44" data-toggle="collapse" class="span12 btn" id="29" data-original-title="" title=""> Localized Pollution Sources <span class="caret" data-original-title="" title=""></span></a>
                                                 </div>
                                                 <div class="collapse out" id="collapse44" data-original-title="" title="">
                                                     <ul style="display: block;position: static;margin-bottom: 8px;margin-top: 3px;" aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu span12 WS_Ctmnt" data-original-title="" title="">
 
-                                                        <li class="scoreBtn" id="44li" data-original-title="" title=""><a onclick="respond(id, 'Animal Units', '29');" href="#" id="44" tabindex="-1" data-original-title="" title="">Animal Units</a>
+                                                        <li class="scoreBtn" id="44li" data-original-title="" title=""><a onclick="respond('WQ Metric - Localized Pollution Sources, Animal Units', 'Animal Units', '29');" href="#" id="44" tabindex="-1" data-original-title="" title="">Animal Units</a>
                                                         </li>
-                                                        <li class="scoreBtn" id="59li" data-original-title="" title=""><a onclick="respond(id, 'Potential Contaminants', '29');" href="#" id="59" tabindex="-1" data-original-title="" title="">Potential Contaminants</a>
+                                                        <li class="scoreBtn" id="59li" data-original-title="" title=""><a onclick="respond('WQ Metric - Localized Pollution Sources, Potential Contaminants', 'Potential Contaminants', '29');" href="#" id="59" tabindex="-1" data-original-title="" title="">Potential Contaminants</a>
                                                         </li>
-                                                        <li class="scoreBtn" id="60li" data-original-title="" title=""><a onclick="respond(id, 'Superfund Sites', '29');" href="#" id="60" tabindex="-1" data-original-title="" title="">Superfund Sites</a>
+                                                        <li class="scoreBtn" id="60li" data-original-title="" title=""><a onclick="respond('WQ Metric - Localized Pollution Sources, Superfund Sites', 'Superfund Sites', '29');" href="#" id="60" tabindex="-1" data-original-title="" title="">Superfund Sites</a>
                                                         </li>
-                                                        <li class="scoreBtn" id="61li" data-original-title="" title=""><a onclick="respond(id, 'Wastewater Treatment Plants', '29');" href="#" id="61" tabindex="-1" data-original-title="" title="">Wastewater Treatment Plants</a>
+                                                        <li class="scoreBtn" id="61li" data-original-title="" title=""><a onclick="respond('WQ Metric - Localized Pollution Sources, Wastewater Treatment Plants', 'Wastewater Treatment Plants', '29');" href="#" id="61" tabindex="-1" data-original-title="" title="">Wastewater Treatment Plants</a>
                                                         </li>
-                                                        <li class="scoreBtn" id="62li" data-original-title="" title=""><a onclick="respond(id, 'Open Pit Mines', '29');" href="#" id="62" tabindex="-1" data-original-title="" title="">Open Pit Mines</a>
+                                                        <li class="scoreBtn" id="62li" data-original-title="" title=""><a onclick="respond('WQ Metric - Localized Pollution Sources, Open Pit Mines', 'Open Pit Mines', '29');" href="#" id="62" tabindex="-1" data-original-title="" title="">Open Pit Mines</a>
                                                         </li>
-                                                        <li class="scoreBtn" id="63li" data-original-title="" title=""><a onclick="respond(id, 'Septic Systems', '29');" href="#" id="63" tabindex="-1" data-original-title="" title="">Septic Systems</a>
+                                                        <li class="scoreBtn" id="63li" data-original-title="" title=""><a onclick="respond('WQ Metric - Localized Pollution Sources, Septic Systems', 'Septic Systems', '29');" href="#" id="63" tabindex="-1" data-original-title="" title="">Septic Systems</a>
                                                         </li>
 
                                                     </ul>
                                                 </div>
-                                                <div style="width:100%;" id="W_S_WQA" class="scoreButton" data-original-title="" title=""><a onclick="respond('30', 'Assessments', '30');" class="btn span12" id="30" data-original-title="" title="">Assessments</a>
+                                                <div style="width:100%;" id="W_S_WQA" class="scoreButton" data-original-title="" title=""><a onclick="respond('WQ Index - Water Quality Assessments (major)', 'Assessments', '30');" class="btn span12" id="30" data-original-title="" title="">Assessments</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -584,10 +583,10 @@
                                         <div id="collapseSix" class="compi accordion-body collapse" style="height: 0px;">
                                             <div class="accordion-inner">
 
-                                                <div class="scoreButton" id = "A_S_MEAN" style="width:100%;"><a id="1" class="btn span12" onclick="respond(1, 'Combined Mean Scores', '1');">Combined Mean Scores</a>
+                                                <div class="scoreButton" id = "A_S_MEAN" style="width:100%;"><a id="1" class="btn span12" onclick="respond('Overall Average (major)', 'Combined Mean Scores', '1');">Combined Mean Scores</a>
                                                 </div>
                                                 <br>
-                                                <div class="scoreButton" id = "A_S_MIN" style="width:100%;"><a id="2" class="btn span12" onclick="respond(2,'Lowest Index Scores', '2');">Lowest Index Scores</a>
+                                                <div class="scoreButton" id = "A_S_MIN" style="width:100%;"><a id="2" class="btn span12" onclick="respond('Overall Minimum (major)','Lowest Index Scores', '2');">Lowest Index Scores</a>
                                                 </div>
                                             </div>
                                         </div>
