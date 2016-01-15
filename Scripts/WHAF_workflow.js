@@ -686,10 +686,10 @@ function timeStampIndex(index){
     $('#scoreTimeStamp').html('');
     switch(index){
         case 'Hyd Index - Perennial Cover, 2011':
-            $('#scoreTimeStamp').html(impervHtml);
-            break;
-        case '31':
             $('#scoreTimeStamp').html(perennHtml);
+            break;
+        case 'Hyd Index - Impervious Cover, 2011':
+            $('#scoreTimeStamp').html(impervHtml);
             break;
     }    
     $('.tsBtn').css({'min-height':'20px'})
