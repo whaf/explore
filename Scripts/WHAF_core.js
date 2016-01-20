@@ -219,7 +219,7 @@ function exploreByUpstream() {
         suspender = true;
         mode = "showUpstream";
         modesSorter();
-        var t = upstrURL + "0";
+        var t = masksURL + "12";
         qtUpstream = new  WHAFapp.QueryTaskCons(t);      
     });
 }

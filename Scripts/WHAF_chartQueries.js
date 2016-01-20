@@ -10,9 +10,9 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 	if (catch_id== undefined || major== undefined || huc4== undefined ){alert("Please select a map location."); return}
 	
 	xhr = new XMLHttpRequest();
-	serviceUrl='http://arcgis.dnr.state.mn.us/arcgis/rest/services/WHAF/mndnr_WHAF_LandUseTimeSeries/MapServer/'+service+'/'
+	serviceUrl='http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/'+service+'/'
 	query='query?where=CATCH_ID%3D%27'+catch_id+'%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=json'
-	queryMjr='query?where=major%3D'+major+'&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson'
+	queryMjr='query?where=major+%3D+'+major+'&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=pjson'
 	queryBsn='query?where=HUC4%3D%27'+huc4+'%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson'
 	if(service==0){q=serviceUrl+query;scale='Catchment'}else if(service==1){q=serviceUrl+query;scale='Upstream'} else if(service==2){q=serviceUrl+query;scale="Downstream"}else if (service==3){q=serviceUrl+queryMjr;scale='Major Watershed'}else if (service==4){q=serviceUrl+queryBsn; scale='Basin'}
 	$('#loader').show();
@@ -66,7 +66,7 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 
 function drawChart(service) {
 	var cdlRange=[], nlcdRange=[],cdlRows=[['Year']];
-	var cdlCheckParam='CDL_WHEAT_', nlcdCheckParam='NLCD_WATER_';
+	var cdlCheckParam='cdl_wheat_', nlcdCheckParam='nlcd_water_';
 	var cdlCategories=[['CDL_CORN_','CORN'],['CDL_LEGUMES_','SOY BEANS & LEGUMES'],['CDL_HAY_FORAGE_','HAY FORAGE'],['CDL_SUGARBEETS_','SUGARBEETS'],['CDL_WHEAT_','WHEAT'], ['CDL_OTHER_MISC_','OTHER MISC'],['CDL_GRAINS_AND_SEEDS_', 'GRAINS AND SEEDS'], ['CDL_POTATOES_', 'POTATOES']];
 	for (var key in landuseData[service]) {
 		  if (landuseData[service].hasOwnProperty(key) && key.slice(0,-4)==cdlCheckParam) {
@@ -87,7 +87,8 @@ function drawChart(service) {
 		var year=cdlRange[y];
 		var row=[year];
 		for (var t=0; t<cdlCategories.length; t++){
-	        var r=cdlCategories[t][0]
+	        var r=cdlCategories[t][0].toLowerCase()
+	        console.log(r)
 	 	    var b=r+year
 		    var l=landuseData[service][b]
 		    row.push(l)
@@ -144,7 +145,7 @@ function drawChart(service) {
 	console.log(nlcdRows)
 	for (var y=0; y<nlcdCategories.length; y++){
 		var lCover=nlcdCategories[y][1];
-		var llCover=nlcdCategories[y][0];
+		var llCover=nlcdCategories[y][0].toLowerCase();
 		var row=[lCover];
 		for (var t=0; t<nlcdRange.length; t++){
 	        var r=nlcdRange[t]

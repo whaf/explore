@@ -681,14 +681,15 @@ function ts_brighter(id){
 }
 
 function timeStampIndex(index){
-   var impervHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2011\', \'Impervious Cover (catchment scale)\', \'49\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2006\', \'Impervious Cover (catchment scale)\', \'49\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2001\', \'Impervious Cover (catchment scale)\', \'49\', true); ts_brighter(id)">2001</div></div>',
-   perennHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'31\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'55\', \'Perennial Cover (catchment scale)\', \'31\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'56\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2001</div></div>'
+   var impervHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Impervious Cover, 2011\', \'Impervious Cover (catchment scale)\', \'49\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Impervious Cover, 2006\', \'Impervious Cover (catchment scale)\', \'49\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Impervious Cover, 2001\', \'Impervious Cover (catchment scale)\', \'49\', true); ts_brighter(id)">2001</div></div>',
+   perennHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2011\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2006\', \'Perennial Cover (catchment scale)\', \'31\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2001\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2001</div></div>'
     $('#scoreTimeStamp').html('');
+    console.log(impervHtml, perennHtml)
     switch(index){
-        case 'Hyd Index - Perennial Cover, 2011':
+        case 39:
             $('#scoreTimeStamp').html(perennHtml);
             break;
-        case 'Hyd Index - Impervious Cover, 2011':
+        case 42:
             $('#scoreTimeStamp').html(impervHtml);
             break;
     }    

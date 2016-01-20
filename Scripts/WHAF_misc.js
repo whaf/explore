@@ -228,7 +228,7 @@ function getWBcharts(){
     qCatchments = new  WHAFapp.QueryCons;
     qCatchments.returnGeometry = false;
     qCatchments.outFields = ["*"];
-    qCatchments.where = "CATCH_ID = '" + e + "'" + " AND " + t + "=" + t;
+    qCatchments.where = "catch_id = '" + e + "'" + " AND " + t + "=" + t;
     qtCatchmentsWB = new  WHAFapp.QueryTaskCons(waterBudgetURL);
     qtCatchmentsWB.execute(qCatchments, showMeWB);
 }
