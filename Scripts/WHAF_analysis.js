@@ -110,10 +110,10 @@ function executeEval(e) {
         var d = new  WHAFapp.QueryCons;
         d.returnGeometry = true;
         d.outFields = ["*"];
-        lowExpression = "CATCH_ID = '";
+        lowExpression = "catch_id = '";
         for (o = 0; o < lowSideCatchments.length; o++) {
             if (o < lowSideCatchments.length - 1) {
-                lowExpression = lowExpression + String(lowSideCatchments[o]) + "' OR CATCH_ID = '"
+                lowExpression = lowExpression + String(lowSideCatchments[o]) + "' OR catch_id = '"
             } else {
                 lowExpression = lowExpression + String(lowSideCatchments[o]) + "'"
             }
@@ -123,10 +123,10 @@ function executeEval(e) {
         var v = new  WHAFapp.QueryCons;
         v.returnGeometry = true;
         v.outFields = ["*"];
-        topExpression = "CATCH_ID = '";
+        topExpression = "catch_id = '";
         for (o = 0; o < highSideCatchments.length; o++) {
             if (o < highSideCatchments.length - 1) {
-                topExpression = topExpression + String(highSideCatchments[o]) + "' OR CATCH_ID = '"
+                topExpression = topExpression + String(highSideCatchments[o]) + "' OR catch_id = '"
             } else {
                 topExpression = topExpression + String(highSideCatchments[o]) + "'"
             }

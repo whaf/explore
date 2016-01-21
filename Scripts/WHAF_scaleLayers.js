@@ -415,7 +415,7 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function loadCtmentScale() {
-        var e="catch_id='"+m+"'AND " + t + "=" + t, upMaskFeature=masksUrl+'/0',ctmntUrl = upstrURL + "1";
+        var e="catch_id='"+m+"'AND " + t + "=" + t, ctmntUrl = assessmentURL + "/39";
         console.log(e)
         var query = scaleQuer(e);
         if(DSS_objectives.ctmntFL === undefined || DSS_objectives.ctmntFL.loaded===false){
@@ -448,7 +448,7 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function loadUpMask(){//load upstream mask layer 
-        var b="upstmaskof = '" + m + "' AND " + t + "=" + t, upMaskFeature=masksUrl+'/0';
+        var b="upstmaskof = '" + m + "' AND " + t + "=" + t, upMaskFeature=masksURL+'13';
         var query = scaleQuer(b);
         if(DSS_objectives.upMaskFL === undefined || DSS_objectives.upMaskFL.loaded===false){
             DSS_objectives.upMaskFL = new WHAFapp.FeatureLayerCons(upMaskFeature, {
@@ -481,7 +481,7 @@ function masksLoader(){//loads mask layers for different scales
     } 
 
     function loadDnMask(){//load downstream mask layer 
-        var d="dnmaskof = '" + m + "' AND " + t + "=" + t, downMaskFeature=masksUrl+'/1';
+        var d="dnmaskof = '" + m + "' AND " + t + "=" + t, downMaskFeature=masksURL+'14';
 
         var query = scaleQuer(d);
         if(DSS_objectives.dnMaskFL === undefined || DSS_objectives.dnMaskFL.loaded===false){
@@ -517,7 +517,7 @@ function masksLoader(){//loads mask layers for different scales
     } 
 
     function loadWsMask(){
-        f="major ="+n+" AND " + t + "=" + t, wsMaskUrl = masksUrl+'/4';    
+        f="major ="+n+" AND " + t + "=" + t, wsMaskUrl = masksURL+'16';    
         console.log(f)
         var query = scaleQuer(f);
         if(DSS_objectives.MajorMaskFL === undefined || DSS_objectives.MajorMaskFL.loaded===false){
@@ -552,7 +552,7 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function loadBsnMask(){
-        g="huc4 = '"+o+"' AND " + t + "=" + t, basinMaskFeature=masksUrl+'/3';    
+        g="huc4 = '"+o+"' AND " + t + "=" + t, basinMaskFeature=masksURL+'15';    
         var query = scaleQuer(g);
         if(DSS_objectives.BsnMaskFL === undefined || DSS_objectives.BsnMaskFL.loaded===false){
             DSS_objectives.BsnMaskFL = new WHAFapp.FeatureLayerCons(basinMaskFeature, {
@@ -583,7 +583,7 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function loadUpPoly(){//load upstream polygon layer    
-        a="upstof = '" + m + "' AND " + t + "=" + t, upPolyFeature = upstrURL+'0';    
+        a="upstof = '" + m + "' AND " + t + "=" + t, upPolyFeature = masksURL+'12';    
         var query = scaleQuer(a);
         if(DSS_objectives.upPolyFL === undefined || DSS_objectives.upPolyFL.loaded===false){
             DSS_objectives.upPolyFL = new WHAFapp.FeatureLayerCons(upPolyFeature, {
@@ -616,7 +616,7 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function loadDownPoly(){//load downstream polygon layer
-        c="downstof = '" + m + "' AND " + t + "=" + t, dnPolyFeature = dnstrURL+'0';   
+        c="downstof = '" + m + "' AND " + t + "=" + t, dnPolyFeature = masksURL+'11';   
         var query = scaleQuer(c);
         if(DSS_objectives.dnPolyFL === undefined || DSS_objectives.dnPolyFL.loaded===false){
             DSS_objectives.dnPolyFL = new WHAFapp.FeatureLayerCons(dnPolyFeature, {
@@ -947,21 +947,23 @@ function zoomToSelectedMajor(q){
 
 function CATCH_ID_ByPoint(point){//from map point, gets catchment, major and basin, moves on to masksLoader 
      require(["esri/tasks/query","esri/tasks/QueryTask"],function(Query,QueryTask){
+        console.log(point)
         if (point.type == "point"){
             qCatchmentsC = new  WHAFapp.QueryCons;
             qCatchmentsC.returnGeometry = false;
             qCatchmentsC.outFields = ["*"]//"CATCH_ID","MAJOR", "HUC_8"];
             qCatchmentsC.geometry = point;
-            qIdtCatchments = new  WHAFapp.QueryTaskCons(masksUrl + "12");
+            qIdtCatchments = new  WHAFapp.QueryTaskCons(assessmentURL + "/39");//watershed boundary drawn from index scores layer
             qIdtCatchments.execute(qCatchmentsC, showMeCID);
         }
 
         function showMeCID(e) {
             var Huc4, Huc8; 
-            WHAFapp.currentMapParams.Catchment = e.features[0].attributes.CATCH_ID;
-            WHAFapp.currentMapParams.crossmajor=e.features[0].attributes.MAJOR;
+            console.log(e)
+            WHAFapp.currentMapParams.Catchment = e.features[0].attributes.catch_id;
+            WHAFapp.currentMapParams.crossmajor=e.features[0].attributes.major;
             WHAFapp.currentMapParams.majorname = majorDict[WHAFapp.currentMapParams.crossmajor];
-            Huc8=e.features[0].attributes.HUC_8;
+            Huc8=e.features[0].attributes.huc_8;
             WHAFapp.currentMapParams.crossHuc4=Huc8.slice(0,4);
             DSS_objectives.catchment =e;
             // changeAllScales();
