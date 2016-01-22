@@ -268,7 +268,7 @@ indexdescNewJson={
             "name": "Wetland Loss",
             "watershedId": "Hyd Metric - Loss of Hydrologic Storage, Wetland Loss (major)",
             "catchmentId": "Hyd Metric - Loss of Hydrologic Storage, Wetland Loss",
-            "indexSummary": "Loss of wetland surface features, as a percent of watershed area",
+            "indexSummary": "Loss of wetland surface features, normalized to total watershed area",
             "shortDesc": "<h4>Wetland Loss </h4> This index represents the proportion of the watershed that has been drained and converted out of wetland coverage.  Wetland drainage reduces the upland hydrologic storage capacity and increases rate and magnitude that stream flow after rainfall events.  Less wetland area leads to a greater delivery of contaminants to streams and lakes, and a destabilization of streams and streambanks.  Pre-settlement wetland coverage is estimated from the proportion of soils that are classified as 'Hydric', current wetland coverage is calculated from the National Wetland Inventory.  A score of 100 means that there has been no net loss of wetlands, a score of 50 means that 50 percent of the watershed area has been converted to non-wetland land uses.  For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/hydrology/storage.html' target='_blank'>here.</a>",
             "sourceData": "SSURGO/STATSGO Soils Database, National Wetland Inventory",
             "sourceDataDate": "",
