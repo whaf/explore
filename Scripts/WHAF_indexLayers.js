@@ -237,7 +237,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"h_i_ww_pv"
         }]
     },
     "H_S_HS": {
@@ -261,7 +262,8 @@ indexdescNewJson={
             "sourceDataDate": "2012",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"h_m_lhs_aw"
         }, {
             "name": "Wetland Loss",
             "watershedId": "Hyd Metric - Loss of Hydrologic Storage, Wetland Loss (major)",
@@ -272,7 +274,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"h_m_lhs_wl"
         }]
     },
     "H_S_FV": {
@@ -380,7 +383,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"b_m_ssq_fi"
         }, {
             "name": "Fish Index (extrapolated)",
             "watershedId": "",
@@ -391,7 +395,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"b_m_ssq_fi_EX"
         }, {
             "name": "Invertebrate Index",
             "watershedId": "",
@@ -402,7 +407,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"b_m_ssq_ii"
         }, {
             "name": "Invertebrate Index (extrapolated)",
             "watershedId": "",
@@ -413,7 +419,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"b_m_ssq_ii_EX"
         }, {
             "name": "Mussels Index",
             "watershedId": "",
@@ -424,7 +431,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"b_m_ssq_ms"
         }, {
             "name": "Mussels Index (extrapolated)",
             "watershedId": "",
@@ -435,7 +443,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"b_m_ssq_ms_EX"
         }]
     },
     "B_S_SR": {
@@ -543,7 +552,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_nps_pr"
         }]
     },
     "W_S_PS": {
@@ -567,7 +577,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_ps_a"
         }, {
             "name": "Potential contaminants",
             "watershedId": "",
@@ -578,7 +589,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_ps_pc"
         }, {
             "name": "Superfund Sites",
             "watershedId": "",
@@ -589,7 +601,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_ps_sf"
         }, {
             "name": "Wastewater Treatment Plants",
             "watershedId": "",
@@ -600,7 +613,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_ps_wtp"
         }, {
             "name": "Open Pit Mines",
             "watershedId": "",
@@ -611,7 +625,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_ps_opm"
         }, {
             "name": "Septic Systems",
             "watershedId": "",
@@ -622,7 +637,8 @@ indexdescNewJson={
             "sourceDataDate": "",
             "caveats": "",
             "longDescLink": "",
-            "auxFeatures": ""
+            "auxFeatures": "",
+            "fieldName":"w_m_ps_ss"
         }]
     },
     "W_S_WQA": {

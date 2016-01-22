@@ -138,10 +138,11 @@ function prepPopOver(){
             placement: 'right'
             });
         if (metrics&&metrics!='undefined'){
+            console.log("METRICS: ",  metrics)
             for (var r=0; r<metrics.length; r++){
                 var mtx = metrics[r];
                 var idmtx = mtx.catchmentId;
-                var hh = '#'+metrics[r].catchmentId;
+                var hh = '#'+metrics[r].fieldName;
                 var h = $(hh).parent();
                 var hSumm = metrics[r].indexSummary;
                 var hsummi = '<div><div class="popTitleBox" style = "width:100%"><button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$(\''+h+'\').popover(\'hide\');"">×</button><h5>'+hSumm+'</h5></div></div>'
