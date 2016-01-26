@@ -1,7 +1,7 @@
 function respond(j, n, r, timeStampIn) {
   e = healthScoreIndex[j]
   try {
-        removeFirstLayer(e)
+        removeFirstLayer(j,e)
     } catch (i) {}
     //indexText(e);
     $("#legend").show();
@@ -66,31 +66,10 @@ function setIndexLayer(e) {
     });
 }
 
-function removeFirstLayer(e){
-    WHAFapp.currentMapParams.indexLayer = e;
+function removeFirstLayer(j,e){
+    WHAFapp.currentMapParams.indexLayer = j;
     $('.scoreButton').children().removeClass( "btn-info" );
     majors.setVisibleLayers([e]);
-}
-
-
-function removeFirstLayer_(e) {
-    var z=map.getLayersVisibleAtScale(map.getScale())
-    for (var t in z){
-      var b=z[t].indexIdentifier;
-      if (b==='WHAFscore'){
-          map.removeLayer(z[t]);
-          majors={};
-      }  
-    }
-
-    for (var t = 0; t < indexLayersList.length; t++) {
-        try {
-            indexLayersList.splice(t, 1)
-        } catch (n) {}
-        $('.scoreButton').children().removeClass( "btn-info" )    }
-    try {
-        changeMajorsLayer(e)
-    } catch (n) {}
 }
 
 function changeOpacity(op) {
@@ -178,6 +157,60 @@ healthScoreIndex = {
     "WQ Metric - Localized Pollution Sources, Superfund Sites" : 68,
     "WQ Metric - Localized Pollution Sources, Open Pit Mines" : 69,
     "WQ Metric - Non-Point Source, Phosphorus Risk" : 70 }
+
+oldHealthScoreIndex = {
+    1: "Overall Average (major)",
+    2: "Overall Minimum (major)",
+    3: "Hyd - Mean Score (major)",
+    4: "Hyd - Minimum Score (major)",
+    5: "Hyd Index - Perennial Cover, 2011 (major)",
+    6: "Hyd Index - Impervious Cover, 2011 (major)",
+    7: "Hyd Index - Water Withdrawal (major)",
+    8: "Hyd Index - Loss of Hydrologic Storage (major)",
+    9: "Hyd Index - Flow Variability (major)",
+    10: "Geo - Mean Score (major)",
+    12: "Geo Index - Soil Erosion Potential (major)",
+    13: "Geo Index - Groundwater Contamination Susceptibility (major)",
+    14: "Geo Index - Climate Vulnerability (major)",
+    15: "Bio - Mean Score (major)",
+    17: "Bio Index - Terrestrial Habitat Quality (major)",
+    18: "Bio Index - Stream Species Quality (major)",
+    19: "Bio Index - Animal Species Richness (major)",
+    20: "Bio Index - At Risk Species Richness (major)",
+    21: "Con - Mean Score (major)",
+    23: "Con Index - Terrestrial Habitat Connectivity (major)",
+    24: "Con Index - Aquatic Connectivity (major)",
+    25: "Con Index - Riparian Connectivity (major)",
+    26: "WQ - Mean Score (major)",
+    28: "WQ Index - Non-Point Source (major)",
+    29: "WQ Index - Localized Pollution Sources (major)",
+    30: "WQ Index - Water Quality Assessments (major)",
+    31: "Hyd Index - Perennial Cover, 2011",
+    49: "Hyd Index - Impervious Cover, 2011",
+    35: "Hyd Index - Water Withdrawal",
+    36: "Hyd Index - Water Withdrawal, Predicted Vulnerability",
+    37: "Hyd Metric - Loss of Hydrologic Storage, Altered Watercourse",
+    32: "Geo Index - Soil Erosion Potential",
+    50: "Bio Index - Terrestrial Habitat Quality",
+    45: "Bio Metric - Mussel Score Extrapolated Hightlight",
+    46: "Bio Metric - Mussel Score Extrapolated",
+    47: "Bio Metric - Mussel Score",
+    41: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight",
+    42: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated",
+    43: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI",
+    38: "Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight",
+    39: "Bio Metric - Stream Species Quality, Fish IBI Extrapolated",
+    40: "Bio Metric - Stream Species Quality, Fish IBI",
+    33: "Con Index - Aquatic Connectivity",
+    34: "Con Index - Riparian Connectivity",
+    64: "WQ Index - Localized Pollution Sources",
+    44: "WQ Metric - Localized Pollution Sources, Animal Units",
+    59: "WQ Metric - Localized Pollution Sources, Potential Contaminants",
+    63: "WQ Metric - Localized Pollution Sources, Septic Systems",
+    61: "WQ Metric - Localized Pollution Sources, Wastewater Treatment Plants",
+    60: "WQ Metric - Localized Pollution Sources, Superfund Sites",
+    62: "WQ Metric - Localized Pollution Sources, Open Pit Mines"
+}
 
 indexdescNewJson={
     "H_S_MEAN": {

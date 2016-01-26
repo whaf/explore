@@ -1,25 +1,37 @@
 //URL PARAMETERS
 
-function paramEvaluatorInit(e) {
+function paramEvaluatorInit(e) {//gets index layer from parameter onto map
+    console.log(e.indexLayer)
     if (e.indexLayer && e.indexLayer != "undefined") {
-        var t = String(e.indexLayer);
-        identifier = String("#" + t);
-        var i = $(identifier).attr("onclick");
-        i = i.slice(8, i.length - 2);
-        var s = i.split(",");
-        var o = s.length;
-        for (r = 0; r < s.length; r++) {
-            attribute = s[1].slice(2, s[1].length - 1);
-            var u = s[o - 1].length - 2;
-            try {var trimmer = s[o - 1].trim().slice(1, u)} catch (err){}
-            try {sidePanelID = trimmer} catch(err){}
+        if (Number(e.indexLayer)){//deprecated indexLayer params were numbers; current value retrieved with 'oldHealthScoreIndex' object 
+            var f={};
+            f.indexLayer = oldHealthScoreIndex[e.indexLayer];
+            paramEvaluatorInit(f)
+
+        } else{
+            var i = mapParamObject.indexLayer
+            var l=$('#accordion2 .scoreButton, #accordion2 .scoreBtn')
+            for (var n=0; n<l.length; n++){
+                var f = $(l[n]).children().attr("onclick")
+                if(f.indexOf(i)!==-1){
+                    $(l[n]).children().click();
+                    upenSesame(l[n]);
+                 }
+            }
         }
-        var a = t.split("_");
-        console.log(a, attribute, sidePanelID)
-        respond(a, attribute, sidePanelID);
         try{legendd.refresh()}catch(r){};
     } else{
         removeFirstLayer(); hideLegend();$('#indexTitle_slider').hide()
+    }
+}
+
+function upenSesame(elem){// called by paramEvaluatorInit() to open component accordeon in the right place
+    if ($(elem).parent().hasClass('accordion-groupComp')){
+        var f=$(elem).parent();
+        var u=$(f).children()[0];
+        $(u).children().click();
+    }else{
+        upenSesame($(elem).parent())
     }
 }
 
