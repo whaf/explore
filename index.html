@@ -496,17 +496,17 @@
                                                         
                                                         <li id = "40li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_fi" href="#" onclick="respond('Bio Metric - Stream Species Quality, Fish IBI', 'Fish Index (catchment scale)', 'strSpcRichQualBtn');">Fish (IBI based) </a> 
                                                         </li>
-                                                        <li id = "40_39_38li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_fi_EX" href="#" onclick="respond(['Bio Metric - Stream Species Quality, Fish IBI','Bio Metric - Stream Species Quality, Fish IBI Extrapolated','Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight'], 'Fish Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Fish (IBI based) (extrapolated)</a>
+                                                        <li id = "40_39_38li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_fi_EX" href="#" onclick="respond('Bio Metric - Stream Species Quality, Fish IBI Extrapolated', 'Fish Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Fish (IBI based) (extrapolated)</a>
                                                         </li>
                                                         <li class="divider"></li>
                                                         <li id = "43li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_ii" href="#" onclick="respond('Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI', 'Invert. Index (catchment scale)', 'strSpcRichQualBtn');">Invertebrate (IBI based)</a>
                                                         </li>
-                                                        <li id = "43_42_41li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_ii_EX" href="#" onclick="respond(['Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI','Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated','Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight'], 'Invert. Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Invertebrate (IBI based) (extrapolated)</a>
+                                                        <li id = "43_42_41li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_ii_EX" href="#" onclick="respond('Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated', 'Invert. Index (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Invertebrate (IBI based) (extrapolated)</a>
                                                         </li>
                                                         <li class="divider"></li>
                                                         <li id = "47li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_ms" href="#" onclick="respond('Bio Metric - Mussel Score', 'Mussels Site Score (catchment scale)', 'strSpcRichQualBtn');">Mussels Quality</a>
                                                         </li>
-                                                        <li id = "47_48_46li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_ms_EX" href="#" onclick="respond(['Bio Metric - Mussel Score','Bio Metric - Mussel Score Extrapolated','Bio Metric - Mussel Score Extrapolated Hightlight'], 'Mussels Site Score (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Mussels Quality (extrapolated)</a>
+                                                        <li id = "47_48_46li" class="scoreBtn"><a tabindex="-1" id="b_m_ssq_ms_EX" href="#" onclick="respond('Bio Metric - Mussel Score Extrapolated', 'Mussels Site Score (catchment scale incl. extrapolation)', 'strSpcRichQualBtn');">Mussels Quality (extrapolated)</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -874,9 +874,9 @@
         var watershedsURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer",assessmentURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_indexscores/MapServer", waterBudgetURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/5", auxURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_auxiliaryfeatures_sde/MapServer", masksURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer/";
         //upstrURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/WHAF/WHAF_DNR_Catchments_UpstreamHydro/MapServer/", dnstrURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/WHAF/mndnr_WHAF_CatchmentDownstreamPolygons/MapServer/"
         
-        var GDRS1 = 'http://2k8salmon1:6080/arcgis/rest/services/quicklayers/mndnr_hydrography/MapServer',
-            GDRS2 = 'http://2k8salmon1:6080/arcgis/rest/services/quicklayers/mndnr_adminfeatures/MapServer',
-            GDRS3 = 'http://2k8salmon1:6080/arcgis/rest/services/quicklayers/mndnr_environment2/MapServer',            
+        var GDRS1 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_hydrography/MapServer',
+            GDRS2 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_adminfeatures/MapServer',
+            GDRS3 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_environment/MapServer',            
             hillshadeService='http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/mn_hillshade_cache/MapServer', 
             hillshadeLayer = 3,hillShadeLayerServed,GDRS_Groups = [GDRS1, GDRS2, GDRS3],layerItemID = 77700, BS, mode, current = 0,oldAuxLayers = [], teaser, auxFeatObject = {}, auxOptions = [],auxFeatObjectNew = {}, auxFeatObjectNew2 = {}, auxFeatObjectUrl = {}, analyzeCtmnts = [],AnalyzeRange = 5,CtmentInMajorQT, analyzeIndexList = [],analyticIndex = {}, messageListAnalyze = [],tempiListi = [],indexNameList = [],identifyTask = false,identifyParams=false,suspender=false, fader = true,indexDesxObj,
                 mapParamsList = ["indexLayer", "opcty", "auxFtLst", "aux", "xtnt", "Bsmp", "Upstrm", "Dnstrm", "ctmt", "upSymbol", "dnSymbol", "Mj", "HO", "HS","Plc", "Msk", "tU","tD", "tMj", "tBsn", "tC"], //"auxFtLst" is a deprecated parameter, kept for background compatibility (Oct 2015), replaced by "aux". 
