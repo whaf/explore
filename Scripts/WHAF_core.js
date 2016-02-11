@@ -4,11 +4,21 @@ function paramEvaluatorInit(e) {//gets index layer from parameter onto map
     console.log(e.indexLayer)
     if (e.indexLayer && e.indexLayer != "undefined") {
         if (Number(e.indexLayer)){//deprecated indexLayer params were numbers; current value retrieved with 'oldHealthScoreIndex' object 
+            console.log(e.indexLayer)
             var f={};
             f.indexLayer = oldHealthScoreIndex[e.indexLayer];
             paramEvaluatorInit(f)
 
-        } else{
+        } else if(e.indexLayer==='40_39_38' || e.indexLayer==='43_42_41' || e.indexLayer==='47_48_46'){
+            console.log(e.indexLayer);
+            var f={};
+            var a=Number(e.indexLayer.slice(3,5));
+            console.log(a);
+            f.indexLayer = oldHealthScoreIndex[a]; 
+            paramEvaluatorInit(f);
+        }
+
+        else{
             var i = mapParamObject.indexLayer
             var l=$('#accordion2 .scoreButton, #accordion2 .scoreBtn')
             for (var n=0; n<l.length; n++){
