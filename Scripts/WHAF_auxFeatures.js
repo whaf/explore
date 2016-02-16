@@ -859,7 +859,6 @@ function getGDRS_Feature(e) {
 
 function getGDRS_Feature2(DataResourceUrl, GDRSJson, trigger, numberOfGroups, populateLB){
     $.getJSON( GDRSJson, function( data ) {
-        console.log(data)
         if(!data.layers){
             unAvailGDRS++; 
             console.log("DNR GDRS data not available");}else{
