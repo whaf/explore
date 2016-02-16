@@ -665,7 +665,7 @@ function clearScales(){
 
 function offsetCheck(){
     var scale = map.getScale(),y = map.getLayersVisibleAtScale()
-    var n = scale/3500, m, oldOffset = WHAFapp.currentMapParams.allowedOffset;
+    var n = scale/4500, m, oldOffset = WHAFapp.currentMapParams.allowedOffset;
     m = Number(n.toFixed(0));
     WHAFapp.currentMapParams.allowedOffset = m;  
     if(m<oldOffset){
@@ -1259,7 +1259,8 @@ majorToHUC8 = {
     81 : "10170202",
     82 : "10170203",
     83 : "10170204",
-    84 : "10230003"}
+    84 : "10230003"
+}
 
 function scaleShoRemove(){
     var buttons = ['dnstrmButTop', 'upButtonTop','selectButTop','basinButtonTop'];
