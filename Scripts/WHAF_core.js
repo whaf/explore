@@ -316,7 +316,7 @@ function WS_functionality() {//starting up the app
             var s = esri.substitute(t.graphic.attributes, r);
             var o = esri.substitute(t.graphic.attributes, n);
             try{document.getElementById("selectButTop").innerHTML = "Major Watershed: " + o + " (" + s + ")"}catch(err){};
-            var a = esri.substitute(t.graphic.attributes, "${huc_8}");
+            var a = majorToHUC8[s];
             var Huc_4 = a.slice(0,4);
             var f = HUC_4s[Huc_4];
             try{document.getElementById("basinButtonTop").innerHTML = "Basin: " + f}catch(err){};
