@@ -80,7 +80,7 @@ function reorderTheseFeatures(){
     WHAFapp.currentMapParams.theseFeatures = newTheseFeatures
 }
 
-function rightCompColllapsser(cId){
+function rightCompColllapsser(cId, ind){//regulates collapse and opening of accordeaon for index layers. 
     var opObList = [$('#collapseOne'),$('#collapseTwo'), $('#collapseThree'), $('#collapseFour'),$('#collapseFive'), $('#collapseSix')]    
     var opList = ['collapseOne','collapseTwo','collapseThree','collapseFour','collapseFive','collapseSix'] 
     var r = $.inArray( cId, opList )    
@@ -91,7 +91,9 @@ function rightCompColllapsser(cId){
         }
       }
     }
-    try{opObList[r].collapse('show')} catch(err){};
+    if(! ind){
+        try{opObList[r].collapse('show')} catch(err){};
+    }
 }
 
 // called by popoverInit(), generates the html used to create health index score pop-up descriptions. Runs on intial application start-up
