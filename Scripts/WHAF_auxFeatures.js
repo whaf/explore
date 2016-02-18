@@ -220,28 +220,6 @@ function restCompR(featObject){
     return featLink; 
 }
 
-
-
-function featObjRebuild_(stri){
-
-    var rest = compRestRebuild(stri[0]);
-    var r = rest.split("/");
-    var id = r[r.length-1];
-    var z = "/"+id;
-    var group = rest.replace(z, "")
-
-    var featObj2 = {}
-    featObj2.group = group;
-    featObj2.layerID = id;
-    featObj2.title = stri[1];
-    featObj2.checked = false;
-    if (stri[2]==1){featObj2.checked = true};
-    featObj2.identify = false;
-    if (stri[3]==1){featObj2.identify = true}
-    return featObj2;  
-    
-}
-
 function featObjRebuild(stri){
   var rest,r,id,z,group, featObj2={};
   
@@ -390,11 +368,13 @@ function parametizeLayers() {
     }
 }
 
-function checkLayerbyID(e, t) {
+function checkLayerbyID(e, t) {//updates currentMapParams that layer is checked
+    console.log(e)
     $.each(WHAFapp.currentMapParams.theseFeatures, function (n, r) {
         if (r.id == t) {
             if (e) {
-                r.checked = true
+                r.checked = true;
+                $('#'+t+' input').prop('checked',true)// ensures box is checked. 
             } else {
                 r.checked = false
             }
