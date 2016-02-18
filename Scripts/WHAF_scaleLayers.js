@@ -445,6 +445,8 @@ function masksLoader(){//loads mask layers for different scales
                 DSS_objectives.ctmntFL.currentQuery=query;
             } catch (s) {console.log(("failed to load a scale layer"))}
         };
+
+        if($('#myModal').css('display')!=='none'){try{getWBcharts()}catch(err){}}
     }
 
     function loadUpMask(){//load upstream mask layer 
