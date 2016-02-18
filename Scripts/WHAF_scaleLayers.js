@@ -649,7 +649,7 @@ function masksLoader(){//loads mask layers for different scales
         };
     }
 
-    suspender = false;
+    WHAFapp.suspender = false;
     try{starLocation.mainMap.getDojoShape().moveToFront()}catch(e){};
     autoLoaderForScales();
 
@@ -985,7 +985,7 @@ function setHucNames(){
 function resetDrawStar(){
     DSS_StarState=false;
     crosshairCurs('off');
-    suspender=false;
+    WHAFapp.suspender=false;
     try{WHAFapp.tb.deactivate()}catch(err){} 
     $('#DssStarImage').removeClass('info5ImageOn btn-warning highlightBorder');
     $('#DssStarImage').addClass('info5Image');
@@ -995,7 +995,7 @@ function drawStar(){
     try{DSS_objectives.majorsFL.enableMouseEvents()}catch(r){};    
     if (DSS_StarState==false){
         crosshairCurs('on');
-        suspender=true;//suspends identify on click for added layers, if turned on
+        WHAFapp.suspender=true;//suspends identify on click for added layers, if turned on
         $('#DssStarImage').removeClass('info5Image')
         $('#DssStarImage').addClass('info5ImageOn btn-warning')
         DSS_StarState=true;
@@ -1008,7 +1008,7 @@ function drawStar(){
         DSS_StarState=false;
         try{WHAFapp.tb.deactivate()}catch(err){}    
         crosshairCurs('off');
-        suspender=false;
+        WHAFapp.suspender=false;
         scalesGuideReset();
     }
 }    

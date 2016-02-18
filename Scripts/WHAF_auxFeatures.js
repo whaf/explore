@@ -664,7 +664,7 @@ function changeHillOpacity(e){
 }
 
 function infoLabelChanger(e) {//enable query added layer
-    suspender = false;
+    WHAFapp.suspender = false;
     button = $(e).parent();
     var t = $(button).parent().parent().find("input").attr("onclick").split(" ");
     var n = t[2].length - 3;
@@ -898,7 +898,7 @@ function removeLayerObjectbyID(e) {
 function executeIdentifyTask(e) {
     var tname, t;
     require(["esri/InfoTemplate"], function(InfoTemplate){
-        if (suspender == false) {
+        if (WHAFapp.suspender == false) {
             if (identifyTask) {
                 identifyParams.geometry = e.mapPoint;
                 identifyParams.mapExtent = map.extent;

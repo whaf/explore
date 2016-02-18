@@ -8838,7 +8838,11 @@ require({
                             this.setCursor(this._cursor = a)
                         },
                         resetMapCursor: function() {
-                            this.setCursor(this._cursor)
+                            if(!WHAFapp.suspender || WHAFapp.suspender === false){//WHAF modification to prevent crosshair change when setting location mark
+                                this.setCursor(this._cursor) 
+                            } else{
+                                this.setCursor("crosshair");
+                            }
                         },
                         setInfoWindow: function(a) {
                             var c = this.infoWindow;

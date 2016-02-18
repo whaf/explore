@@ -843,8 +843,8 @@
     <script src="./js/googleJsapi.js" type="text/javascript"></script>
     <script src="./js/raphael.js" type="text/javascript"></script>
     <script src="./js/pie.js" type="text/javascript"></script>
-    <script src="http://js.arcgis.com/3.14/"></script>
-    <!-- // <script src="./js/js.arcgis.com.3.13.js" type="text/javascript"></script> -->
+    <!-- // <script src="http://js.arcgis.com/3.14/"></script> -->
+    <script src="./js/js.arcgis.com.3.13.js" type="text/javascript"></script>
     <script src="./js/rawinflate.js"></script>
     <script src="./js/rawdeflate.js"></script>
     <script src="./Scripts/WHAF_auxFeatures.js" type="text/javascript"></script>
@@ -879,7 +879,7 @@
 
         //DEFINING GLOBAL VARIABLES
         // primary global object, mapFeatures - list of aux features we want to display in the primary view of added features.
-        var WHAFapp={currentMapParams:{allowedOffset: 10,hillShadeOp:1, Bsmp:'sat',indOp:0.8,theseFeatures:[],mapFeatures:["1.11", "1.13", "1.12", "1.14", "1.15","2.11", "2.12", "2.13", "1.311", "1.312", "1.313"]}, template:{layoutOptions:{},format:'pdf'},snpNumber:1 ,displayedSnap:-1,snapZoom:0.16, sideBySideZoom:0.3, bitly:{'Key':'R_85d9a34c0cd44ff4b05b3b066a8300fd','genAccessKey':'3694b5c419f31188e48e14f3abe720ce8e6aba2b'},demikulu:''};
+        var WHAFapp={currentMapParams:{allowedOffset: 10,hillShadeOp:1, Bsmp:'sat',indOp:0.8,theseFeatures:[],mapFeatures:["1.11", "1.13", "1.12", "1.14", "1.15","2.11", "2.12", "2.13", "1.311", "1.312", "1.313"]}, template:{layoutOptions:{},format:'pdf'},snpNumber:1 ,displayedSnap:-1,snapZoom:0.16, sideBySideZoom:0.3, bitly:{'Key':'R_85d9a34c0cd44ff4b05b3b066a8300fd','genAccessKey':'3694b5c419f31188e48e14f3abe720ce8e6aba2b'},demikulu:'',suspender:false};
         var w = window,d = document,e = d.documentElement,g = d.getElementsByTagName('body')[0],x = w.innerWidth || e.clientWidth || g.clientWidth,y = w.innerHeight || e.clientHeight || g.clientHeight, map, backgroundMap, foregroundMap, mainMap, majors, index, selectedWatershed = {}, starLocation={}, extent, stateExtent, initExtent, content, err, navToolbar, layers, legendd, geocoder, upstGrahics,graphicWSRecord = [],graphicHiLiteWSRecord = [], featureLayersDisplayed = [],layerInfos = [], mapParamObject = {params: false}, analyzer, counterR = 0,unAvailGDRS = 0, layerBoxState={layerBoxPopulated:false};
         var watershedsURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer",assessmentURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_indexscores/MapServer", waterBudgetURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/5", auxURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_auxiliaryfeatures_sde/MapServer", masksURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer/";
         //upstrURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/WHAF/WHAF_DNR_Catchments_UpstreamHydro/MapServer/", dnstrURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/WHAF/mndnr_WHAF_CatchmentDownstreamPolygons/MapServer/"
@@ -888,7 +888,7 @@
             GDRS2 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_adminfeatures/MapServer',
             GDRS3 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_environment/MapServer',            
             hillshadeService='http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/mn_hillshade_cache/MapServer', 
-            hillshadeLayer = 3,hillShadeLayerServed,GDRS_Groups = [GDRS1, GDRS2, GDRS3],layerItemID = 77700, BS, mode, current = 0,oldAuxLayers = [], teaser, auxFeatObject = {}, auxOptions = [],auxFeatObjectNew = {}, auxFeatObjectNew2 = {}, auxFeatObjectUrl = {}, analyzeCtmnts = [],AnalyzeRange = 5,CtmentInMajorQT, analyzeIndexList = [],analyticIndex = {}, messageListAnalyze = [],tempiListi = [],indexNameList = [],identifyTask = false,identifyParams=false,suspender=false, fader = true,indexDesxObj,
+            hillshadeLayer = 3,hillShadeLayerServed,GDRS_Groups = [GDRS1, GDRS2, GDRS3],layerItemID = 77700, BS, mode, current = 0,oldAuxLayers = [], teaser, auxFeatObject = {}, auxOptions = [],auxFeatObjectNew = {}, auxFeatObjectNew2 = {}, auxFeatObjectUrl = {}, analyzeCtmnts = [],AnalyzeRange = 5,CtmentInMajorQT, analyzeIndexList = [],analyticIndex = {}, messageListAnalyze = [],tempiListi = [],indexNameList = [],identifyTask = false,identifyParams=false, fader = true,indexDesxObj,
                 mapParamsList = ["indexLayer", "opcty", "auxFtLst", "aux", "xtnt", "Bsmp", "Upstrm", "Dnstrm", "ctmt", "upSymbol", "dnSymbol", "Mj", "HO", "HS","Plc", "Msk", "tU","tD", "tMj", "tBsn", "tC"], //"auxFtLst" is a deprecated parameter, kept for background compatibility (Oct 2015), replaced by "aux". 
 
                 MaskWS_checker, MaskDnstr_checker, MaskUpstr_checker, MaskCtmnt_checker, graphicsBin=[], runningMapNumber=1, charts={status:false};

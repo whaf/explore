@@ -238,7 +238,7 @@ function sorter(e) {
 
 function exploreByUpstream() {
     require(["esri/tasks/QueryTask"],function(QueryTask){
-        suspender = true;
+        WHAFapp.suspender = true;
         mode = "showUpstream";
         modesSorter();
         var t = masksURL + "12";
