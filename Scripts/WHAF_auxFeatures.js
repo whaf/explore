@@ -70,7 +70,7 @@ var availableAuxFeatures = {//NOTE: DO NOT CHANGE NAMES (I.E. FLOATS) IN THIS OB
     1.31:["ECS Land Type Associations of Minnesota", "", 15, "", "", "dynamic", "", "Index Related Features"], 
     1.311:["MN Wildlife Action Plan - Wildlife Action Network", "", 80, "", "", "dynamic", "", "Index Related Features"],
     1.312:["MN Wildlife Action Plan - SGCN Richness Grid", "", 81, "", "", "dynamic", "", "Index Related Features"],
-    1.313:["MN Wildlife Action Plan - Conservation Focus Areas (Draft)", "", 82, "", "", "dynamic", "", "Index Related Features"],
+    //1.313:["MN Wildlife Action Plan - Conservation Focus Areas (Draft)", "", 82, "", "", "dynamic", "", "Index Related Features"],
     1.314:["MN Biological Survey - Sites of Biodiversity Significance", "", 77, "", "", "dynamic", "", "Index Related Features"],
     1.315:["Lakes of Phosphorus Sensitivity Significance", "", 78, "", "", "dynamic", "", "Index Related Features"],
     1.32:["MN Hydrography - Lakes of Biological Significance", "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_auxiliaryfeatures_gdrs/MapServer", 11, "", "", "dynamic", "", "Index Related Features"],
