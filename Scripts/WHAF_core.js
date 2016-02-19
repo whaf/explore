@@ -107,6 +107,7 @@ function forceRemoveAux(){//removes all layers added to map (that have an 'ident
     }  
   }
   identFalser();
+  legendd.layerInfos=[]
 }
 
 function setFromExtentParams_(e) {

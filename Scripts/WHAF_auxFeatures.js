@@ -764,6 +764,7 @@ function infoLabelChanger(e) {//enable query added layer
 }
 
 function respondToAddFeatureUrl(e, t, n, r, i, s){
+  
     var p=[];
     var a = t + "/" + n+"?f=pjson";
     $.getJSON( a, function( data ){
@@ -778,23 +779,19 @@ function respondToAddFeatureUrl(e, t, n, r, i, s){
 function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
     require(["esri/layers/ArcGISDynamicMapServiceLayer","esri/layers/ImageParameters"],
     function(ArcGISDynamicMapServiceLayer,ImageParameters){
-        var subLayersll;
-        var o = map.getScale();
-        var a = t + "/" + n;
+        var subLayersll, o = map.getScale(), a=t + "/" + n,mapFeature,f,l,c,h,p,imageParametersFeature;
         mapFeature = {
             id: a,
             title: r,
             position: x
         };
-        // var u = new esri.InfoTemplate;
-        var f = t.split("/");
-        var l = f.length;
-        var c = f[l - 2] + n;
-        var h, p;
+        f = t.split("/");
+        l = f.length;
+        c = f[l - 2] + n;
 
         imageParametersFeature = new ImageParameters;
         imageParametersFeature.layerIds = [n];
-        for (sLyr in ooob){
+        for (var sLyr in ooob){
             imageParametersFeature.layerIds.push(ooob[sLyr])
         };
         imageParametersFeature.layerOption = ImageParameters.LAYER_OPTION_SHOW;
@@ -805,20 +802,24 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             setHillShadeOpacity(t,h,e);        
         }
 
-        var d = a;
-        h.id = d;
+        h.id = a;
         h.identifier = "WHAF_added_layer";
         
         var v = {
             layer: h,
             title: r
         };
-        var p = map.getLayer(d);
+        console.log("Layer to add: ",v)
+
+        var p = map.getLayer(a);
         if (r in auxFeatObject) {
             h.setMinScale(auxFeatObject[r].minScale)
         }
         if (e) {
-            
+            var ddd = $(s).parent().attr('id');
+            if (Number(ddd)){
+                $('#'+ddd+' input').prop('checked',true)//force checking box to fix issue with drag-not-checking
+            }
             if(t==hillshadeService){
                 var ttt=false;
                 try{var ttt = map.layerIds.indexOf(majors.id)}catch(err){}
@@ -831,29 +832,27 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
                 featureLayersDisplayed.push(a);
                 map.addLayer(h);
             }
-            reorderByList();
-            layerInfos.push(v);
+            try{reorderByList()}catch(r){}
+            legendd.layerInfos.push(v);
             try {
                 legendd.refresh()
             } catch (m) {}
             var g = $(s).parent().parent().find("a")
-        } else {s
-            try {
-                map.removeLayer(p)
-            } catch (m) {
-                
-            }
-            var p = map.getLayer(c);
+        } else {          
+            var ddd = $(s).parent().attr('id');
+            $('#'+ddd+' input').prop('checked',false);//force unchecking box to fix issue with drag-not-unchecking
+            try {map.removeLayer(p)}catch (m) {}
+            // var p = map.getLayer(c);
             $("#loader").hide();
             var y = $.inArray(mapFeature.id, featureLayersDisplayed);
             featureLayersDisplayed.splice(y, 1);
-            var b = {};
-            for (var w = 0; w < layerInfos.length; w++) {
-                if (layerInfos[w].layer.id === h.id) {
+            var b;
+            for (var w = 0; w < legendd.layerInfos.length; w++) {
+                if (legendd.layerInfos[w].layer.id === h.id) {
                     b = w
                 }
             }
-            layerInfos.splice(b, 1);
+            legendd.layerInfos.splice(b, 1);
              try{legendd.refresh()}catch(r){};
         }
 
