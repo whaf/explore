@@ -30,7 +30,6 @@ function storeMap(snap){
 
 function retrieveMap(item){
     var rr,d,decodeString,txti,texter;
-
     if(item[0]==='b'){//for bookmarks
         rr = localStorage.getItem(item)
     }

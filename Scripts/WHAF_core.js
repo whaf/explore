@@ -1,7 +1,7 @@
 //URL PARAMETERS
 
 function paramEvaluatorInit(e) {//gets index layer from parameter onto map
-    console.log(e.indexLayer)
+
     if (e.indexLayer && e.indexLayer != "undefined") {
         if (Number(e.indexLayer)){//deprecated indexLayer params were numbers; current value retrieved with 'oldHealthScoreIndex' object 
             console.log(e.indexLayer)
@@ -226,25 +226,25 @@ function modesSorter() {
     }
 }
 
-function sorter(e) {
-    if (e == "upStream") {
-        exploreByUpstream()
-    } else if (e == "WaterBudget") {
-        exploreByWaterUseVulnerability()
-    } else if (e == "analysisBestWorst") {
-        analyzeBlock()
-    } else {}
-}
+// function sorter(e) {
+//     if (e == "upStream") {
+//         exploreByUpstream()
+//     } else if (e == "WaterBudget") {
+//         exploreByWaterUseVulnerability()
+//     } else if (e == "analysisBestWorst") {
+//         analyzeBlock()
+//     } else {}
+// }
 
-function exploreByUpstream() {
-    require(["esri/tasks/QueryTask"],function(QueryTask){
-        WHAFapp.suspender = true;
-        mode = "showUpstream";
-        modesSorter();
-        var t = masksURL + "12";
-        qtUpstream = new  WHAFapp.QueryTaskCons(t);      
-    });
-}
+// function exploreByUpstream() {
+//     require(["esri/tasks/QueryTask"],function(QueryTask){
+//         WHAFapp.suspender = true;
+//         mode = "showUpstream";
+//         modesSorter();
+//         var t = masksURL + "12";
+//         qtUpstream = new  WHAFapp.QueryTaskCons(t);      
+//     });
+// }
 
 function executeClick(e) {
     crosshairCurs('off');

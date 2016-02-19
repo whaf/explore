@@ -725,7 +725,6 @@ function topWSDD(){
 function WhafMapConstructor(v){//sets the map from url or bookmark from encoded params 
     if (v.indexOf("?xtnt")===0){//if paramString was not encoded
         setMapFromBookmark(v);
-        //try{scaleAttrFromUrl()}catch(r){};//assigns the scale property value on scale layer based on passed parameters
         return
     }
   var ppp = retrieveEncodedParams(v);
@@ -747,6 +746,7 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     
   evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
 
+    console.log("mm: ",mm)
   try{getLayersIn(mm)}catch(u){};
 
   try{scaleAttrFromUrl()}catch(r){};//assigns the scale property value on scale layer based on passed parameters

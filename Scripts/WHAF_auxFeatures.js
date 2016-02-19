@@ -38,6 +38,7 @@ function auxFeatureConstructor(displayName, restUrl, layerId, scaleMax, scaleMin
         array.push(this.displayName);
     }
 }
+
 var availableAuxFeatures = {//NOTE: DO NOT CHANGE NAMES (I.E. FLOATS) IN THIS OBJECT WHEN UPDATING OR ADDING FREATURES)
 
     1.11:["Major Streams", "",0,"", "", "dynamic", "", "general"],
@@ -286,8 +287,10 @@ function featObjToUrlString(obj){//returns a list of lists, each compressed feat
 
 function featUrlStrToImplement(lst){
     for (g in lst){
-        var url = featObjRebuild(lst[g]); 
-        auxInitByUrl(url);
+        try{
+            var url = featObjRebuild(lst[g]); 
+            auxInitByUrl(url)
+        } catch(err){};
     }
 
     for (fti in auxFeatObjectUrl){
@@ -297,6 +300,7 @@ function featUrlStrToImplement(lst){
 }
 
 function getLayersIn(m){
+    console.log("Getting Layers in")
     var oList = []
     var d = m.split("]")
     for (var s=0; s<d.length; s++){
@@ -382,6 +386,7 @@ function checkLayerbyID(e, t) {//updates currentMapParams that layer is checked
     });
 }
 
+
 function preProcessRestUrl() {
     var e = document.getElementById("addedLayerName").value;
     var t = document.getElementById("AddingRestPoint").value;
@@ -405,7 +410,8 @@ function preProcessRestUrl() {
 }
 
 function processRestUrl(e, t, n, r, ident) {// r = layerItemID
-    var i = "*";
+    // console.log(e,t,n,r,ident)
+    var i = "*",ttt;
     if (e == undefined) {
         var e = document.getElementById("AddingRestPoint").value;
     }
@@ -424,7 +430,20 @@ function processRestUrl(e, t, n, r, ident) {// r = layerItemID
     } else {
         var c = '<input type="checkbox" value=' + o + ' title="" autocomplete="off" onclick="' + f + "respondToAddFeatureUrl(checked, '" + u + "', " + o + ", '" + a + "','" + i + "', $(this).parent().parent())\">"
     }
-    var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span1 offset1"><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class="span1 offset1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
+
+    // var rrr='<a class="btn btn-small addCustImp" onclick="impTog()" title="Add customized impaired waters layers" href="#"><i class="icon-plus"></i></a>'
+    var ttt='<a class="btn btn-small pull-right" title = "Select to view feature attributes on click" href="#"><i class="icon-info-sign infoTableToggler" onclick="infoLabelChanger($(this))"></i></a>'
+    // if( t===availableAuxFeatures[2.12][0] ){//check for adding extra + button to impaired waters button
+    //     ttt=rrr+sss;
+    // } else{
+    //     ttt=sss;
+    // }
+
+
+    var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span3">'+ttt+'</div><div class="span1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
+
+    // var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span7">' + c + a + '</label><div class="span3 offset1"><a class="btn btn-mini" href="#"><i class="icon-cog infoTableToggler" title = "Set Selection" onclick=""></i></a><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class=""><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
+    // var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span1 offset1"><a class="btn btn-mini" href="#"><i class="icon-cog infoTableToggler" title = "Set Selection" onclick=""></i></a><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class="span1 offset1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
     $("#sortable").append(h)
     
     if(ident){
@@ -435,6 +454,59 @@ function processRestUrl(e, t, n, r, ident) {// r = layerItemID
         $(button).addClass("btn-warning infoTableTogglerOn")
     }
 }
+// function preProcessRestUrl() {
+//     var e = document.getElementById("addedLayerName").value;
+//     var t = document.getElementById("AddingRestPoint").value;
+//     var n = t.lastIndexOf("/");
+//     var r = Number(t.substr(n + 1));
+//     var i = t.slice(0, n);
+//     auxFeatureConstructor(e, i, r, "", "", "dynamic", "*", "added");
+//     layerItemID++;
+//     processRestUrl(t, e, false, layerItemID);
+//     var s = layerItemID;
+//     var o = i;
+//     var u = {
+//         id: s,
+//         group: o,
+//         title: displayName,
+//         layerID: r,
+//         checked: false,
+//         identify: false
+//     };
+//     WHAFapp.currentMapParams.theseFeatures.push(u)
+// }
+
+// function processRestUrl(e, t, n, r, ident) {// r = layerItemID
+//     var i = "*";
+//     if (e == undefined) {
+//         var e = document.getElementById("AddingRestPoint").value;
+//     }
+//     if (t == undefined) {
+//         var t = document.getElementById("addedLayerName").value;
+//     }
+//     var s = e.lastIndexOf("/");
+//     var o = Number(e.substr(s + 1));
+//     var u = e.slice(0, s);
+//     var a = t;
+//     var f = "checkLayerbyID(checked, $(this).parent().parent().parent().attr('id'));";
+//     var l = "removeLayerObjectbyID($(this).parent().parent().parent().attr('id'))";
+//     if (n) {
+//         var c = '<input type="checkbox" value=' + o + ' checked title="" autocomplete="off" onclick="'+f+'respondToAddFeatureUrl(checked, \'' + u + "', " + o + ", '" + a + "','" + i + "', $(this).parent().parent())\">";
+//         respondToAddFeatureUrl(n, u, o, a, i, $(this).parent().parent())
+//     } else {
+//         var c = '<input type="checkbox" value=' + o + ' title="" autocomplete="off" onclick="' + f + "respondToAddFeatureUrl(checked, '" + u + "', " + o + ", '" + a + "','" + i + "', $(this).parent().parent())\">"
+//     }
+//     var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span1 offset1"><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class="span1 offset1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
+//     $("#sortable").append(h)
+    
+//     if(ident){
+//         identifyLayerbyID("show", e);
+//         $("#sortable .btn-warning").removeClass("btn-warning infoTableTogglerOn");
+//         o = '#'+r
+//         button = $(o).children().children(':nth-child(2)').children()
+//         $(button).addClass("btn-warning infoTableTogglerOn")
+//     }
+// }
 
 function identifyLayerbyID(e, t) {
     var sc,sc1;
@@ -496,8 +568,9 @@ function auxInit1() {//Creates an object with all layers listed in s, lists them
 
 // auxFeatureConstructor(displayName, restUrl, layerId, scaleMax, scaleMin, layerType, attributeDisplay, group)
 function auxInitByUrl(setOfFeatures) {
+    console.log(n)
     var n = setOfFeatures, g=n.group,group,group2,r = n.title;
-    
+    console.log(n)
     if(!Number(g)){
           auxFeatObjectUrl[r] = new auxFeatureConstructor(n.title, n.group, n.layerID, "", "", "dynamic", n.identify, n.group, n.checked);
     }else{
