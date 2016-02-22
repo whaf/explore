@@ -1836,3 +1836,9 @@ $('.subMenu').css(ccc)
 #bMarkHead{
     padding: 0px;
 }
+
+#flyOverNote{
+    position:absolute;
+    z-index: 101;
+    display: none;   
+}

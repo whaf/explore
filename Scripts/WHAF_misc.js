@@ -409,3 +409,42 @@ function getReportCard(){
     win = window.open(url, '_blank');
     win.focus();
 }
+
+function getflyOver(){//initiates fly-over (Google Earth) for major watershed
+    $('#flyOverNote').fadeIn();
+    $('#tourList').html('');
+    $('#tourSample').hide();
+  
+    r=String(WHAFapp.currentMapParams.crossmajor);
+    var exceptionList={//watersheds that have more than one flyover
+        25:[1,2],
+        38:[1,2,3],
+        40:[1,2],
+        42:[1,2],
+        43:[1,2],
+        44:[1,2]
+    }
+    if (! exceptionList[r] || exceptionList[r]=== undefined){        
+        url = WHAFapp.flyOverUrl+'flyOver_'+r+'.kmz'
+        addTour(url)
+    } else{
+        for (var i=0; i<exceptionList[r].length; i++){
+            m=r+'_'+exceptionList[r][i];
+            url = WHAFapp.flyOverUrl+'flyOver_'+m+'.kmz';
+            addTour(url, i+1);           
+        }
+    }
+    
+    function addTour(link, serial){
+      var a, text = "Get fly-over file "
+      if(serial){text=text+String(serial)}
+      
+      b='onclick="window.open(\''+link+'\', \'_blank\')"'
+      console.log(b)
+      
+      a='<li><a href="#" '+b+ '>'+text+'</a></li>'
+      
+      $('#tourList').append(a)
+      
+    }
+}
