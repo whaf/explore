@@ -25,7 +25,6 @@ function paramEvaluatorInit(e) {//gets index layer from parameter onto map
                 var f = $(l[n]).children().attr("onclick")
                 if(f.indexOf(i)!==-1){
                     $(l[n]).children().click();
-                    upenSesame(l[n]);
                  }
             }
         }
@@ -34,17 +33,6 @@ function paramEvaluatorInit(e) {//gets index layer from parameter onto map
         removeFirstLayer(); hideLegend();$('#indexTitle_slider').hide()
     }
 }
-
-function upenSesame(elem){// called by paramEvaluatorInit() to open component accordeon in the right place
-    if ($(elem).parent().hasClass('accordion-groupComp')){
-        var f=$(elem).parent();
-        var u=$(f).children()[0];
-        $(u).children().click();
-    }else{
-        upenSesame($(elem).parent())
-    }
-}
-
 
 function getURLParameter(e) {
     return decodeURI((RegExp(e + "=" + "(.+?)(&|$)").exec(location.search) || [, null])[1])
