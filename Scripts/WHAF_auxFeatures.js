@@ -355,8 +355,10 @@ function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT S
 function generalImplementation() {
     var f = WHAFapp.currentMapParams.mapFeatures;
     for (var q=0; q<f.length; q++){
-        var y=availableAuxFeatures[f[q]][0];
-        auxFeatObjectNew[y].implement();
+        try{
+            var y=availableAuxFeatures[f[q]][0];
+            auxFeatObjectNew[y].implement();
+        }catch(err){}
     }
 }
 

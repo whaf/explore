@@ -1,4 +1,4 @@
-//Many if these functions are used in experimental or unfinished processes. 
+//Many of these functions are used in experimental or unfinished processes. 
 
 function mapRunner(){
     console.log("MAP RUNNER INITIATED")

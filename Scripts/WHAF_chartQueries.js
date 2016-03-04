@@ -1,6 +1,4 @@
-var landuseData={catchment:'', '1':{}, down:{}, major:{}, '0':{}, basin:{}}//replace scale names with layer number once servics are published for them.
-
-function askDNR(service, show){		//Gets data for landuse from the server, populates it in 'landUseData' object. 
+function askDNR(service, show){		//Gets data for landuse from the server, populates it in 'WHAFapp.landuseData' object. 
 										//service is a string representing the layer number for the service (i.e. '0' for catchment, '1' for upstream)
 	var h,c, xhr,f, q, txt, txt1, chartTitle, scale, majorName, catchId, catchmentName, basinName, majorNumber;
 	var catch_id=WHAFapp.currentMapParams.Catchment;
@@ -40,7 +38,7 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 
             	if(service==0){$('#misc').html(scale+': '+ c.features[0].attributes.CATCH_ID);}else if(service==1){$('#misc').html(scale+': '+ c.features[0].attributes.CATCH_ID);} else if(service==2){$('#misc').html(scale+': '+ c.features[0].attributes.CATCH_ID);}else if (service==3){$('#misc').html(scale+': '+ c.features[0].attributes.major);}else if (service==4){$('#misc').html(scale+': '+ c.features[0].attributes.HUC4);}
 	            //$('#misc').html(scale, c.features[0].attributes.CATCH_ID);
-	            landuseData[service]= c.features[0].attributes//.CATCH_ID  
+	            WHAFapp.landuseData[service]= c.features[0].attributes//.CATCH_ID  
 	            drawChart(service);
 	        }   
 	    }   
@@ -68,12 +66,12 @@ function drawChart(service) {
 	var cdlRange=[], nlcdRange=[],cdlRows=[['Year']];
 	var cdlCheckParam='cdl_wheat_', nlcdCheckParam='nlcd_water_';
 	var cdlCategories=[['CDL_CORN_','CORN'],['CDL_LEGUMES_','SOY BEANS & LEGUMES'],['CDL_HAY_FORAGE_','HAY FORAGE'],['CDL_SUGARBEETS_','SUGARBEETS'],['CDL_WHEAT_','WHEAT'], ['CDL_OTHER_MISC_','OTHER MISC'],['CDL_GRAINS_AND_SEEDS_', 'GRAINS AND SEEDS'], ['CDL_POTATOES_', 'POTATOES']];
-	for (var key in landuseData[service]) {
-		  if (landuseData[service].hasOwnProperty(key) && key.slice(0,-4)==cdlCheckParam) {
+	for (var key in WHAFapp.landuseData[service]) {
+		  if (WHAFapp.landuseData[service].hasOwnProperty(key) && key.slice(0,-4)==cdlCheckParam) {
 		    var t=key.slice(-4);
 		    cdlRange.push(t)
 	      }
-	      if (landuseData[service].hasOwnProperty(key) && key.slice(0,-4)==nlcdCheckParam) {
+	      if (WHAFapp.landuseData[service].hasOwnProperty(key) && key.slice(0,-4)==nlcdCheckParam) {
 		    var b=key.slice(-4);
 		    nlcdRange.push(b)
 	      }
@@ -90,7 +88,7 @@ function drawChart(service) {
 	        var r=cdlCategories[t][0].toLowerCase()
 	        console.log(r)
 	 	    var b=r+year
-		    var l=landuseData[service][b]
+		    var l=WHAFapp.landuseData[service][b]
 		    row.push(l)
 		}
 		cdlRows.push(row)
@@ -150,7 +148,7 @@ function drawChart(service) {
 		for (var t=0; t<nlcdRange.length; t++){
 	        var r=nlcdRange[t]
 	 	    var b=llCover+r
-		    var l=landuseData[service][b]
+		    var l=WHAFapp.landuseData[service][b]
 		    var ll=String(l);
 		    row.push(l);
 		    // row.push(ll);
