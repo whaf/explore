@@ -425,7 +425,7 @@ function getflyOver(){//initiates fly-over (Google Earth) for major watershed
         44:[1,2]
     }
     if (! exceptionList[r] || exceptionList[r]=== undefined){        
-        url = WHAFapp.flyOverUrl+'flyOver_'+r+'.kmz'
+        url = WHAFapp.flyOverUrl+'flyover_'+r+'.kmz'
         addTour(url)
     } else{
         for (var i=0; i<exceptionList[r].length; i++){
