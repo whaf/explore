@@ -75,6 +75,7 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 	console.log(majorName, catchmentName, basinName)
 }
 
+
 function drawChart(service) {
 	var cdlRange=[], nlcdRange=[],cdlRows=[['Year']];
 	var cdlCheckParam='cdl_wheat_', nlcdCheckParam='nlcd_water_';
