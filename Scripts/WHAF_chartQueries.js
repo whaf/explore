@@ -36,9 +36,23 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 		        	return;
 	            }
 
-            	if(service==0){$('#misc').html(scale+': '+ c.features[0].attributes.CATCH_ID);}else if(service==1){$('#misc').html(scale+': '+ c.features[0].attributes.CATCH_ID);} else if(service==2){$('#misc').html(scale+': '+ c.features[0].attributes.CATCH_ID);}else if (service==3){$('#misc').html(scale+': '+ c.features[0].attributes.major);}else if (service==4){$('#misc').html(scale+': '+ c.features[0].attributes.HUC4);}
-	            //$('#misc').html(scale, c.features[0].attributes.CATCH_ID);
+            	// if(service==0){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.CATCH_ID);}
+            	// else if(service==1){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.CATCH_ID);} 
+            	// else if(service==2){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.CATCH_ID);}
+            	// else if (service==3){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.major);}
+            	// else if (service==4){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.HUC4);}
+	            //$('#landUseChartsArea').html( Land Areac.features[0].attributes.CATCH_ID);
 	            WHAFapp.landuseData[service]= c.features[0].attributes//.CATCH_ID  
+	            
+				areaInSqMeters= 'st_area(shape)'
+
+				var r = WHAFapp.landuseData[service][areaInSqMeters]/4046.86
+				var s = WHAFapp.landuseData[service][areaInSqMeters]/2590000
+				var c = addCommas(r.toFixed(0))
+				var d = addCommas(s.toFixed(2))
+				o='Land Area: '+c+' Acres ('+d+' Square Miles)'
+				$('#landUseChartsArea').html(o)
+
 	            drawChart(service);
 	        }   
 	    }   

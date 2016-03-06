@@ -1605,6 +1605,24 @@ input[type=radio]:not(old):checked + label > span > span{
     margin-top:5px;
 }
 
+#mainChartsTitle{
+    margin-bottom:5px;
+    margin-top:5px;
+}
+
+.chartTitle2{
+    color:white;
+    opacity:0.9;
+    margin-bottom:0px;
+    margin-top:0px;
+}
+
+.chartTitle2 p{
+    margin-bottom:0px;
+    margin-top:0px;
+}
+
+
 #molecule {
     display: none;
     position:fixed; 
