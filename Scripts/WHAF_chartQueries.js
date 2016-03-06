@@ -1,6 +1,6 @@
 function askDNR(service, show){		//Gets data for landuse from the server, populates it in 'WHAFapp.landuseData' object. 
 										//service is a string representing the layer number for the service (i.e. '0' for catchment, '1' for upstream)
-	var h,c, xhr,f, q, txt, txt1, chartTitle, scale, majorName, catchId, catchmentName, basinName, majorNumber;
+	var h,c, xhr,f, q, txt, txt1, chartTitle, scale, majorName, areaInSqMeters, catchId, catchmentName, basinName, majorNumber;
 	var catch_id=WHAFapp.currentMapParams.Catchment;
 	var major=WHAFapp.currentMapParams.crossmajor;
 	var huc4=WHAFapp.currentMapParams.crossHuc4;
@@ -36,23 +36,25 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 		        	return;
 	            }
 
-            	// if(service==0){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.CATCH_ID);}
-            	// else if(service==1){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.CATCH_ID);} 
-            	// else if(service==2){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.CATCH_ID);}
-            	// else if (service==3){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.major);}
-            	// else if (service==4){$('#landUseChartsArea').html('Land Area: '+ c.features[0].attributes.HUC4);}
-	            //$('#landUseChartsArea').html( Land Areac.features[0].attributes.CATCH_ID);
-	            WHAFapp.landuseData[service]= c.features[0].attributes//.CATCH_ID  
-	            
-				areaInSqMeters= 'st_area(shape)'
+				WHAFapp.landuseData[service]= c.features[0].attributes
 
-				var r = WHAFapp.landuseData[service][areaInSqMeters]/4046.86
-				var s = WHAFapp.landuseData[service][areaInSqMeters]/2590000
-				var c = addCommas(r.toFixed(0))
-				var d = addCommas(s.toFixed(2))
-				o='Land Area: '+c+' Acres ('+d+' Square Miles)'
-				$('#landUseChartsArea').html(o)
+            	if(service==0){areaInSqMeters='albers_area_sq_meters'}
+            	else if(service==1){areaInSqMeters='albers_area_sq_meters'} 
+            	else if(service==2){areaInSqMeters='albers_area_sq_meters'}
+            	else if (service==3){areaInSqMeters='albers_area_sq_meters_major'}
+            	else if (service==4){areaInSqMeters='albers_area_sq_meters'}
 
+				
+				if(Number(WHAFapp.landuseData[service][areaInSqMeters])){
+					try {
+						var r = WHAFapp.landuseData[service][areaInSqMeters]/4046.86
+						var s = WHAFapp.landuseData[service][areaInSqMeters]/2590000
+						var c = addCommas(r.toFixed(0))
+						var d = addCommas(s.toFixed(2))
+						o='Land Area: '+c+' Acres ('+d+' Square Miles)'
+						$('#landUseChartsArea').html(o)
+					} catch(err){console.log("No value available for land area.")}
+				}else{$('#landUseChartsArea').html('')}
 	            drawChart(service);
 	        }   
 	    }   
@@ -71,9 +73,6 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 	$('#landUseChartsTitle').text(txt1);
 	$('#mainChartsTitle').text(chartTitle);
 	console.log(majorName, catchmentName, basinName)
-
-
-
 }
 
 function drawChart(service) {
