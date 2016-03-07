@@ -289,7 +289,9 @@ function featUrlStrToImplement(lst){
     for (g in lst){
         try{
             var url = featObjRebuild(lst[g]); 
-            auxInitByUrl(url)
+            if (url.title && url.title!== undefined){
+                auxInitByUrl(url)
+            }
         } catch(err){};
     }
 
@@ -300,7 +302,6 @@ function featUrlStrToImplement(lst){
 }
 
 function getLayersIn(m){
-    console.log("Getting Layers in")
     var oList = []
     var d = m.split("]")
     for (var s=0; s<d.length; s++){
@@ -320,7 +321,7 @@ function getLayersIn(m){
        }
     }
     try{featUrlStrToImplement(oList)}catch(r){};
-    try{legendd.refresh()}catch(f){};
+    // try{legendd.refresh()}catch(f){};
 }
 
 function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT SINCE ONLY ONE IS ALLOWED AT A TIME
@@ -570,9 +571,7 @@ function auxInit1() {//Creates an object with all layers listed in s, lists them
 
 // auxFeatureConstructor(displayName, restUrl, layerId, scaleMax, scaleMin, layerType, attributeDisplay, group)
 function auxInitByUrl(setOfFeatures) {
-    console.log(n)
     var n = setOfFeatures, g=n.group,group,group2,r = n.title;
-    console.log(n)
     if(!Number(g)){
           auxFeatObjectUrl[r] = new auxFeatureConstructor(n.title, n.group, n.layerID, "", "", "dynamic", n.identify, n.group, n.checked);
     }else{
@@ -811,8 +810,6 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             layer: h,
             title: r
         };
-        console.log("Layer to add: ",v)
-
         var p = map.getLayer(a);
         if (r in auxFeatObject) {
             h.setMinScale(auxFeatObject[r].minScale)
@@ -837,7 +834,7 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             try{reorderByList()}catch(r){}
             legendd.layerInfos.push(v);
             try {
-                legendd.refresh()
+                // legendd.refresh()
             } catch (m) {}
             var g = $(s).parent().parent().find("a")
         } else {          

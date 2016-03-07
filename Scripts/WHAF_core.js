@@ -28,7 +28,7 @@ function paramEvaluatorInit(e) {//gets index layer from parameter onto map
                  }
             }
         }
-        try{legendd.refresh()}catch(r){};
+        // try{legendd.refresh()}catch(r){};
     } else{
         removeFirstLayer(); hideLegend();$('#indexTitle_slider').hide()
     }

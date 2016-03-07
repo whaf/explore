@@ -34,7 +34,7 @@ function getAppInfo(e) {
 }
 
 function updateTrigger(){//function invoked by map.update-end
-    try{legendd.refresh()}catch(r){};
+    // try{legendd.refresh()}catch(r){};
     try{serialSnapper()}catch(r){console.log("Tried updating")}
     if(WHAFapp.demikulu===''){//prevent refreshing params on demikulu loading of gallery
         try{refreshMapParams()}catch(r){};

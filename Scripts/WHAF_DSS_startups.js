@@ -149,6 +149,8 @@ function actPrimer(){
 
 }
 function DSS_act(){
+
+    console.log("DSS act")
     
     switch(DSS_step){
         case 0:
@@ -196,7 +198,7 @@ function DSS_act(){
             slide: function (event, ui) {
                 DSS_changeScoreOpacity(ui.value);
                 $("#DSS_aSlider").slider("value", ui.value);
-                try{legendd.refresh();}catch(m){};
+                // try{legendd.refresh();}catch(m){};
             }
         });
 

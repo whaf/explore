@@ -907,7 +907,6 @@
 
         var w = window,d = document,e = d.documentElement,g = d.getElementsByTagName('body')[0],x = w.innerWidth || e.clientWidth || g.clientWidth,y = w.innerHeight || e.clientHeight || g.clientHeight, map, backgroundMap, foregroundMap, mainMap, majors, index, selectedWatershed = {}, starLocation={}, extent, stateExtent, initExtent, content, err, navToolbar, layers, legendd, geocoder, upstGrahics,graphicWSRecord = [],graphicHiLiteWSRecord = [], featureLayersDisplayed = [],layerInfos = [], mapParamObject = {params: false}, analyzer, counterR = 0,unAvailGDRS = 0, layerBoxState={layerBoxPopulated:false};
         var watershedsURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer",assessmentURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_indexscores/MapServer", waterBudgetURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/5", auxURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_auxiliaryfeatures_sde/MapServer", masksURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer/";
-        
         var GDRS1 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_hydrography/MapServer',
             GDRS2 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_adminfeatures/MapServer',
             GDRS3 = 'http://2k12salmon1:6080/arcgis/rest/services/quicklayers/mndnr_environment/MapServer',            
@@ -1005,7 +1004,6 @@
                 slide: function (event, ui) {
                     changeScoreOpacity(ui.value);
                     $("#aSlider").slider("value", ui.value);
-                    legendd.refresh();
                 }
             });
             $('.nav-tabs').button();
@@ -1188,10 +1186,10 @@
             
             mode = "watershedZoom";
 
-            navToolbar = new Navigation(map);
-            var spatialReferenceG = new SpatialReference({
-                wkid: 102100
-            });
+            // navToolbar = new Navigation(map);
+            // var spatialReferenceG = new SpatialReference({
+            //     wkid: 102100
+            // });
 
             map.on("load", function (){
                 loadQT();
@@ -1217,9 +1215,6 @@
                     }, 100);
                 };
             };
-
-            // var zoomToWS = 1;
-            // sorter("healthScores")s;
             map.on("Click", executeClick);
             map.on("Click", executeIdentifyTask);
             map.on("update-start", function(){

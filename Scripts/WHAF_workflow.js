@@ -58,12 +58,12 @@ function reorderByList(){
 
     d = featureLayersDisplayedByOrder.reverse()
     for (var r=0; r<d.length; r++){
-         // console.log(d[r], "at place: ", n-r)
-         // console.log(r)
-         var tmpLayer = map.getLayer(d[r])
-        //    console.log(tmpLayer)  
-         n = e.length
-         map.reorderLayer(tmpLayer, n-r)
+
+        var tmpLayer = map.getLayer(d[r])
+        if(tmpLayer && tmpLayer !== undefined){
+            n = e.length
+            map.reorderLayer(tmpLayer, n-r);
+        }  
     }
 }
 
@@ -140,7 +140,7 @@ function prepPopOver(){
             placement: 'right'
             });
         if (metrics&&metrics!='undefined'){
-            console.log("METRICS: ",  metrics)
+            // console.log("METRICS: ",  metrics)
             for (var r=0; r<metrics.length; r++){
                 var mtx = metrics[r];
                 var idmtx = mtx.catchmentId;
@@ -727,6 +727,8 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
         setMapFromBookmark(v);
         return
     }
+
+    $('#loader').show()
   var ppp = retrieveEncodedParams(v);
   var bm = evalBaseMapParam(ppp), ex = setFromExtentParams(ppp), mm = ppp.auxFtLst;
   map.setBasemap(bm)
@@ -746,7 +748,6 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     
   evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
 
-    console.log("mm: ",mm)
   try{getLayersIn(mm)}catch(u){};
 
   try{scaleAttrFromUrl()}catch(r){};//assigns the scale property value on scale layer based on passed parameters

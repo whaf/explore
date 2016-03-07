@@ -346,7 +346,6 @@ function scaleQuer(qWhere){
 
 
 function masksLoader(){//loads mask layers for different scales
-    console.log("MasksLoader on")
     var i, I, f, m, b, k = WHAFapp.currentMapParams,lYrs=map.getLayersVisibleAtScale(map.getScale()),upMaskLayers=[],dnMaskLayers=[], majMaskLayers=[], bsnMaskLayers=[], t = (new Date).getTime();
     var m=k.Catchment, n=k.crossmajor,o=k.crossHuc4, catSymb, majSymb, BsnSymb, upSymb, upMaskSymb, downSymb, downMaskSymb, sSL=0, aOffset=10;
     //set basin symbology
@@ -382,9 +381,6 @@ function masksLoader(){//loads mask layers for different scales
     else if (k.togglerD === 'fill'){downSymb=downFill; downMaskSymb=noSymb}
     else if (k.togglerD === 'outline'){downSymb=dnstrOutlineSymbol; downMaskSymb=noSymb};
 
-
-    console.log("Catchment is: ", m);
-
     if (k.Catchment && k.Catchment !== undefined){
         // load scale mask and fill features
         loadBsnMask();
@@ -398,8 +394,6 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function serialScalesLoader(){
-
-    console.log("Layers of scales loading", sSL);
     var maskLayerList = ['ctmntFL','upMaskFL','dnMaskFL','MajorMaskFL','BsnMaskFL', 'upPolyFL', 'dnPolyFL'];
     
     for (var sSL2=0; sSL2 < maskLayerList.length; sSL2++){
@@ -416,7 +410,6 @@ function masksLoader(){//loads mask layers for different scales
 
     function loadCtmentScale() {
         var e="catch_id='"+m+"'AND " + t + "=" + t, ctmntUrl = assessmentURL + "/39";
-        console.log(e)
         var query = scaleQuer(e);
         if(DSS_objectives.ctmntFL === undefined || DSS_objectives.ctmntFL.loaded===false){
             DSS_objectives.ctmntFL = new WHAFapp.FeatureLayerCons(ctmntUrl, {
@@ -487,7 +480,6 @@ function masksLoader(){//loads mask layers for different scales
 
         var query = scaleQuer(d);
         if(DSS_objectives.dnMaskFL === undefined || DSS_objectives.dnMaskFL.loaded===false){
-            console.log("Dn Mask not defined")
             DSS_objectives.dnMaskFL = new WHAFapp.FeatureLayerCons(downMaskFeature, {
                 maxAllowableOffset: aOffset,
                 mode: WHAFapp.FeatureLayerCons.MODE_SELECTION
@@ -507,7 +499,7 @@ function masksLoader(){//loads mask layers for different scales
             addDnMask();
         }
         function addDnMask(){
-            console.log("Dn Mask IS defined")
+
             DSS_objectives.dnMaskFL.setRenderer(new  WHAFapp.SimpleRendererCons(downMaskSymb));
             DSS_objectives.dnMaskFL.id = "maskDnGraphic";
             DSS_objectives.dnMaskFL.identifier = "dnMasker";
@@ -520,10 +512,8 @@ function masksLoader(){//loads mask layers for different scales
 
     function loadWsMask(){
         f="major ="+n+" AND " + t + "=" + t, wsMaskUrl = masksURL+'16';    
-        console.log(f)
         var query = scaleQuer(f);
         if(DSS_objectives.MajorMaskFL === undefined || DSS_objectives.MajorMaskFL.loaded===false){
-            console.log("starting up WS load")
             DSS_objectives.MajorMaskFL = new WHAFapp.FeatureLayerCons(wsMaskUrl, {
                 maxAllowableOffset: aOffset,
                 mode: WHAFapp.FeatureLayerCons.MODE_SELECTION
@@ -542,7 +532,6 @@ function masksLoader(){//loads mask layers for different scales
         }
         else{addMjMask()}
         function addMjMask(){
-            console.log("Moving on WS load")
             DSS_objectives.MajorMaskFL.setRenderer(new  WHAFapp.SimpleRendererCons(majSymb));
             DSS_objectives.MajorMaskFL.id = "majorMaskGraphics";
             DSS_objectives.MajorMaskFL.identifier = "majorsGraphics";
@@ -671,7 +660,6 @@ function offsetCheck(){
     m = Number(n.toFixed(0));
     WHAFapp.currentMapParams.allowedOffset = m;  
     if(m<oldOffset){
-      console.log("Old offset: ", oldOffset, "; New Offset: ",m)
         for (e in y){
             if(y[e].declaredClass==="esri.layers.FeatureLayer"){
                 offsetSetter(y[e])
@@ -924,7 +912,6 @@ function zoomToSelectedMajor(q){
               if(s[f].attributes.major==q){
                 var r = s[f].geometry.getExtent();
                 if (r && r !== undefined){
-                    console.log("extent set")
                     map.setExtent(r, true);                    
                 } else {
                     console.log("waiting for geometry to load before zooming")
@@ -949,7 +936,6 @@ function zoomToSelectedMajor(q){
 
 function CATCH_ID_ByPoint(point){//from map point, gets catchment, major and basin, moves on to masksLoader 
      require(["esri/tasks/query","esri/tasks/QueryTask"],function(Query,QueryTask){
-        console.log(point)
         if (point.type == "point"){
             qCatchmentsC = new  WHAFapp.QueryCons;
             qCatchmentsC.returnGeometry = false;
@@ -961,7 +947,6 @@ function CATCH_ID_ByPoint(point){//from map point, gets catchment, major and bas
 
         function showMeCID(e) {
             var Huc4, Huc8; 
-            console.log(e)
             WHAFapp.currentMapParams.Catchment = e.features[0].attributes.catch_id;
             WHAFapp.currentMapParams.crossmajor=e.features[0].attributes.major;
             WHAFapp.currentMapParams.majorname = majorDict[WHAFapp.currentMapParams.crossmajor];
@@ -1018,7 +1003,6 @@ function activateDssStar(coordsVal, blank){
 
     function WS_outlineLoad(){
         if (DSS_objectives.MajorMaskFL && DSS_objectives.MajorMaskFL !== undefined){
-            console.log("loading watershed outline")
             MajorWatershedSelector(coordsVal)               
         } else{
             console.log("trying again to load watershed outline")
@@ -1069,15 +1053,11 @@ function activateDssStar(coordsVal, blank){
         };
 
         function initToolbar() {
-            console.log("initing toolbar")
-
             WHAFapp.tb = new WHAFapp.DrawCons(map);
             WHAFapp.tb.on("draw-end", addGraphic); 
             WHAFapp.tb.activate('point');
             function addGraphic(evt) {
-                // console.log(evt)
-                // $('#loader').show();
-                
+
                 closeDialog();
                 DSS_objectives.place = evt;                
                 WHAFapp.tb.deactivate(); 
@@ -1089,7 +1069,6 @@ function activateDssStar(coordsVal, blank){
                 DSS_objectives.point=evt.geometry;
 
                 CATCH_ID_ByPoint(DSS_objectives.point);
-                console.log("Point:'",DSS_objectives.point)
                 DSS_objectives.majorsFL.disableMouseEvents();
 
                 $(".locLink").text('Change map location');
@@ -1365,12 +1344,10 @@ function catShower(abslt){
         WHAFapp.currentMapParams.togglerC='none'
     } else if(abslt==2){
         $('#ctmntButtonGrp').removeClass( 'scaleNoSho' ).addClass( 'scaleSho' );
-        console.log(abslt);
         try{colorCtment(ss);}catch(err){};
         WHAFapp.currentMapParams.togglerC='outline';
     } else if(abslt==3){
         $('#ctmntButtonGrp').removeClass( 'scaleNoSho' ).addClass( 'scaleSho' );
-        console.log(abslt);
         try{colorCtment(blueFill);}catch(err){};
         WHAFapp.currentMapParams.togglerC='fill'
     } else if ($('#ctmntButtonGrp').hasClass( 'scaleNoSho' )){
