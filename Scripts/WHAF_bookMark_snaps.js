@@ -120,7 +120,6 @@ function bMarkIndex(){
 }
 
 function allStorage(){
-
     if(localStorage){
         var archive = [],
             keys = Object.keys(localStorage),
@@ -132,15 +131,16 @@ function allStorage(){
     }
 }
 
-function popBmarkPane(){
-  var mB={},tmB=[],lB={}, tlB=[],f;
+function popBmarkPane(){//retrieves bookmark data from browser's local storage and creates bookmark list from it. 
+    var mB={},tB=[],lB={},f;
     if(localStorage){
         f=allStorage()
-
         for (ite=0; ite<f.length; ite++){
           var w=(f[ite]);
+          
           var bool = w.slice(0,5);
           var type = w.slice(6,9);
+          
           if (type == "Map"){
             extractN(f[ite]);
           }
@@ -148,59 +148,121 @@ function popBmarkPane(){
             extractNE(f[ite]);
           }
         }
+    }
 
-    };
-
-    tmB.sort(sortNumber);
-    tlB.sort(sortNumber);
+    tB.sort();
+    tB.reverse();
     rrr();
 
     function extractNE(t){
         tt=t.replace('bMark_Loc_','')
         yy=tt.indexOf('_');
         zz=Number(tt.slice(0,yy))
-        tlB.push(zz);
+        tB.push(zz);
         lB[zz] = t
     }
 
     function extractN(t){
         tt=t.replace('bMark_Map_','')
         yy=tt.indexOf('_');
-        zz=Number(tt.slice(0,yy))
-        tmB.push(zz);
-        mB[zz] = t
-    }
-  
-    function sortNumber(a,b) {
-        return a - b;
-    }
-
-    function rrr(){ 
+        zz=tt.slice(yy)
+        zzz=zz.replace('_','')
+        tB.push(zzz);
       
-        for (var ii=0; ii<tlB.length; ii++){
-            var item = lB[tlB[ii]];
-            console.log(item)
-            try{
-                var d = $.parseJSON(localStorage.getItem(item));
-                var itemId = item;
-                var item=d.name;
-                var te = '<li><a onclick="retrieveExtent(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ ' (map extent)</a></li>'
-                $('#bookMarkList').prepend(te);    
-            }catch(err){};
-        }
+        mB[zzz] = t
+    }
 
-        for (var ii=0; ii<tmB.length; ii++){
-            var item = mB[tmB[ii]];
+
+
+    function rrr(){
+      
+      var te
+        for (var ii=0; ii<tB.length; ii++){
+            var item = mB[tB[ii]];
+          
             try{
                 var d = $.parseJSON(localStorage.getItem(item));
+              
                 var itemId = item;
                 var item=d.name;
-                var te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
+              if (itemId.slice(6,9)==="Map"){
+                  te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
+                } else if (itemId.slice(6,9)==="Loc"){
+                  te = '<li><a onclick="retrieveExtent(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ ' (map extent)</a></li>'              
+                }
                 $('#bookMarkList').prepend(te);    
             }catch(err){};
         }
     }
 }
+
+// function popBmarkPane(){//retrieves bookmark data from browser's local storage and creates bookmark list from it. 
+//   var mB={},tmB=[],lB={}, tlB=[],f;
+//     if(localStorage){
+//         f=allStorage()
+//         for (ite=0; ite<f.length; ite++){
+//           var w=(f[ite]);
+//           var bool = w.slice(0,5);
+//           var type = w.slice(6,9);
+//           if (type == "Map"){
+//             extractN(f[ite]);
+//           }
+//           else if (type == "Loc"){
+//             extractNE(f[ite]);
+//           }
+//         }
+//     };
+
+//     tmB.sort(sortNumber);
+//     tlB.sort(sortNumber);
+//     rrr();
+
+//     function extractNE(t){
+//         tt=t.replace('bMark_Loc_','')
+//         yy=tt.indexOf('_');
+//         zz=Number(tt.slice(0,yy))
+//         tlB.push(zz);
+//         lB[zz] = t
+//     }
+
+//     function extractN(t){
+//         tt=t.replace('bMark_Map_','')
+//         yy=tt.indexOf('_');
+//         zz=Number(tt.slice(0,yy))
+//         tmB.push(zz);
+//         mB[zz] = t
+//     }
+  
+//     function sortNumber(a,b) {
+//         return a - b;
+//     }
+
+//     function rrr(){ 
+      
+//         for (var ii=0; ii<tlB.length; ii++){
+//             var item = lB[tlB[ii]];
+//             console.log(item)
+//             try{
+//                 var d = $.parseJSON(localStorage.getItem(item));
+//                 var itemId = item;
+//                 var item=d.name;
+//                 var te = '<li><a onclick="retrieveExtent(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ ' (map extent)</a></li>'
+//                 $('#bookMarkList').prepend(te);    
+//             }catch(err){};
+//         }
+
+//         for (var ii=0; ii<tmB.length; ii++){
+//             var item = mB[tmB[ii]];
+//             try{
+//                 var d = $.parseJSON(localStorage.getItem(item));
+//                 var itemId = item;
+//                 var item=d.name;
+//                 var te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
+//                 $('#bookMarkList').prepend(te);    
+//             }catch(err){};
+//         }
+//     }
+// }
 
 function reScaleSnaps(elem, z){
   var m=100*((1-z)/2);

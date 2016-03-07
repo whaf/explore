@@ -321,7 +321,7 @@ function getLayersIn(m){
        }
     }
     try{featUrlStrToImplement(oList)}catch(r){};
-    // try{legendd.refresh()}catch(f){};
+    try{legendd.refresh()}catch(f){};
 }
 
 function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT SINCE ONLY ONE IS ALLOWED AT A TIME
