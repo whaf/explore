@@ -35,7 +35,7 @@ function resizeElementHeight(e, t) {//resizes height of element to fit window
 }
 
 function reorderByList(){
-    var featureLayersAvailable = [], featureLayersDisplayedByOrder = [],dodo;
+    var featureLayersAvailable = [], featureLayersDisplayedByOrder = [],dodo,e,n,d;
     dodo = $("#sortable").children("div").each(function () {
 
         var zz = $(this).find("input").attr("onclick").split(" ");
@@ -44,7 +44,7 @@ function reorderByList(){
         var z = zz[3].length - 1;
         var q = String(zz[3].substr(0, z));
         var i = "/";
-        uu = r+i+q;
+        var uu = r+i+q;
 
         featureLayersAvailable.push(uu);
         if ($.inArray(uu, featureLayersDisplayed) != -1) {
@@ -52,19 +52,20 @@ function reorderByList(){
         }
     });
  
- 
-    e = map.getLayersVisibleAtScale(map.getScale());
-    n = e.length
+    try{
+        e = z.getLayersVisibleAtScale(map.getScale());
+        n = e.length
 
-    d = featureLayersDisplayedByOrder.reverse()
-    for (var r=0; r<d.length; r++){
+        d = featureLayersDisplayedByOrder.reverse()
+        for (var r=0; r<d.length; r++){
 
-        var tmpLayer = map.getLayer(d[r])
-        if(tmpLayer && tmpLayer !== undefined){
-            n = e.length
-            map.reorderLayer(tmpLayer, n-r);
-        }  
-    }
+            var tmpLayer = map.getLayer(d[r])
+            if(tmpLayer && tmpLayer !== undefined){
+                n = e.length
+                map.reorderLayer(tmpLayer, n-r);
+            }  
+        }
+    }catch(r){}
 }
 
 function reorderTheseFeatures(){
@@ -741,7 +742,7 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     try{evalPlace(ppp.Plc)}catch(s){}  
 
     reorderByList();
-
+    
     evalScales(ppp);
 
     paramEvaluatorInit(ppp)//sets index layer (health score)
@@ -863,12 +864,10 @@ function setMapFromBookmark_(bmarkSynt){
 function evalScales(mapParamObject){ //converts scale rendering spec in mapParamObject (passed in url text) to WHAFapp.currentMapParams object
     var togL1=['togglerU','togglerD','togglerMj','togglerBsn','togglerC'], 
     togL2=['tU','tD', 'tMj', 'tBsn','tC'];
-    // scales=['upMaskFL','dnMaskFL','MajorMaskFL','BsnMaskFL'];
     for (var i=0; i<togL1.length; i++){
         var w=mapParamObject[togL2[i]];
         if (w && w != undefined){
             WHAFapp.currentMapParams[togL1[i]]=sConverter(w);
-            // if(i<4){DSS_objectives[scales[i]]=sConverter(w);}
         } else{
             WHAFapp.currentMapParams[togL1[i]]='none'
         }

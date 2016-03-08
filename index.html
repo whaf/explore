@@ -1186,11 +1186,6 @@
             
             mode = "watershedZoom";
 
-            // navToolbar = new Navigation(map);
-            // var spatialReferenceG = new SpatialReference({
-            //     wkid: 102100
-            // });
-
             map.on("load", function (){
                 loadQT();
                 $('body').animate({'opacity':1}, 1000)
@@ -1218,21 +1213,16 @@
             map.on("Click", executeClick);
             map.on("Click", executeIdentifyTask);
             map.on("update-start", function(){
-                //console.log("UPDATE_START")
                 showLoad();
                 WHAFapp.mapLoading=1;
             });           
-            map.on("update-end", doodleJump) //{
-                function doodleJump(evt){
-                    //console.log("UPDATE_END")
-
-                    $("#loader").hide();
-                    updateTrigger();
-                    legendd.refresh()
-                }
-            // });
+            map.on("update-end", doodleJump);
+            function doodleJump(evt){
+                $("#loader").hide();
+                updateTrigger();
+                legendd.refresh()
+            }
             map.on("extent-change", function(){offsetCheck()});
-
 
             legendd = new Legend({
                 map: mainMap,

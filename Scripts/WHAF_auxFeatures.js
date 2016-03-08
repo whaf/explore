@@ -299,7 +299,7 @@ function featUrlStrToImplement(lst){
         auxFeatObjectUrl[fti].implement()
     }
     buildIdTasks()
-    try{legendd.refresh()}catch(f){};
+    //try{legendd.refresh()}catch(f){};
 }
 
 function getLayersIn(m){
@@ -443,11 +443,12 @@ function processRestUrl(e, t, n, r, ident) {
     if(ident){
         identifyLayerbyID("show", e);
         $("#sortable .btn-warning").removeClass("btn-warning infoTableTogglerOn");
-        o = '#'+r
+        var o = '#'+r
         button = $(o).children().children(':nth-child(2)').children()
         $(button).addClass("btn-warning infoTableTogglerOn")
     }
 }
+
 // function preProcessRestUrl() {
 //     var e = document.getElementById("addedLayerName").value;
 //     var t = document.getElementById("AddingRestPoint").value;
@@ -787,14 +788,10 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             imageParametersFeature.layerIds.push(ooob[sLyr])
         };
         imageParametersFeature.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-
-        //WHAFapp.layerCemetary[layerItemID]="Up"
         console.log(layerItemID)
         h = new ArcGISDynamicMapServiceLayer(t, {
             imageParameters: imageParametersFeature
         });
-
-        //h=WHAFapp.layerCemetary[layerItemID]
 
         if(t==hillshadeService){
             setHillShadeOpacity(t,h,e);        
@@ -830,9 +827,7 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             }
             try{reorderByList()}catch(r){}
             legendd.layerInfos.push(v);
-            try {
-                // legendd.refresh()
-            } catch (m) {}
+            try {legendd.refresh()} catch (m) {}
             var g = $(s).parent().parent().find("a")
         } else {          
             var ddd = $(s).parent().attr('id');
@@ -849,7 +844,7 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
                 }
             }
             legendd.layerInfos.splice(b, 1);
-             try{legendd.refresh()}catch(r){};
+            try{legendd.refresh()}catch(r){};
         }
 
         r = map.getLayersVisibleAtScale(map.getScale())
