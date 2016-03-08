@@ -46,17 +46,18 @@ function retrieveMap(item){
     }catch(r){};
 
     
-
-    if (d.paramString && d.paramString !== undefined){
-        if (d.paramString.indexOf("?xtnt")===0){//if paramString was not encoded
-            rrParams=d.paramString;
-            setMapFromBookmark(rrParams);
-        } else{
-            WhafMapConstructor(d.paramString)
-        }
-      } else {
-      setmapFromJSON(d);
-    };
+    try{
+        if (d.paramString && d.paramString !== undefined){
+            if (d.paramString.indexOf("?xtnt")===0){//if paramString was not encoded
+                rrParams=d.paramString;
+                setMapFromBookmark(rrParams);
+            } else{
+                WhafMapConstructor(d.paramString)
+            }
+          } else {
+          setmapFromJSON(d);
+        };
+    }catch(err){}
 }
 
 function refreshMap(){

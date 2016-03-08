@@ -299,6 +299,7 @@ function featUrlStrToImplement(lst){
         auxFeatObjectUrl[fti].implement()
     }
     buildIdTasks()
+    try{legendd.refresh()}catch(f){};
 }
 
 function getLayersIn(m){
@@ -321,7 +322,7 @@ function getLayersIn(m){
        }
     }
     try{featUrlStrToImplement(oList)}catch(r){};
-    try{legendd.refresh()}catch(f){};
+    
 }
 
 function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT SINCE ONLY ONE IS ALLOWED AT A TIME
@@ -412,8 +413,7 @@ function preProcessRestUrl() {
     WHAFapp.currentMapParams.theseFeatures.push(u)
 }
 
-function processRestUrl(e, t, n, r, ident) {// r = layerItemID
-    // console.log(e,t,n,r,ident)
+function processRestUrl(e, t, n, r, ident) {
     var i = "*",ttt;
     if (e == undefined) {
         var e = document.getElementById("AddingRestPoint").value;
@@ -434,19 +434,10 @@ function processRestUrl(e, t, n, r, ident) {// r = layerItemID
         var c = '<input type="checkbox" value=' + o + ' title="" autocomplete="off" onclick="' + f + "respondToAddFeatureUrl(checked, '" + u + "', " + o + ", '" + a + "','" + i + "', $(this).parent().parent())\">"
     }
 
-    // var rrr='<a class="btn btn-small addCustImp" onclick="impTog()" title="Add customized impaired waters layers" href="#"><i class="icon-plus"></i></a>'
     var ttt='<a class="btn btn-small pull-right" title = "Select to view feature attributes on click" href="#"><i class="icon-info-sign infoTableToggler" onclick="infoLabelChanger($(this))"></i></a>'
-    // if( t===availableAuxFeatures[2.12][0] ){//check for adding extra + button to impaired waters button
-    //     ttt=rrr+sss;
-    // } else{
-    //     ttt=sss;
-    // }
-
 
     var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span3">'+ttt+'</div><div class="span1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
 
-    // var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span7">' + c + a + '</label><div class="span3 offset1"><a class="btn btn-mini" href="#"><i class="icon-cog infoTableToggler" title = "Set Selection" onclick=""></i></a><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class=""><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
-    // var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span1 offset1"><a class="btn btn-mini" href="#"><i class="icon-cog infoTableToggler" title = "Set Selection" onclick=""></i></a><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class="span1 offset1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
     $("#sortable").append(h)
     
     if(ident){
@@ -796,9 +787,15 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             imageParametersFeature.layerIds.push(ooob[sLyr])
         };
         imageParametersFeature.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+
+        //WHAFapp.layerCemetary[layerItemID]="Up"
+        console.log(layerItemID)
         h = new ArcGISDynamicMapServiceLayer(t, {
             imageParameters: imageParametersFeature
         });
+
+        //h=WHAFapp.layerCemetary[layerItemID]
+
         if(t==hillshadeService){
             setHillShadeOpacity(t,h,e);        
         }
@@ -1018,7 +1015,7 @@ function reorderer(){
 }
 
 function sortableLayerRemover(){
-    c = $('#sortable').children()
+    var c = $('#sortable').children()
     $.each(c, function( i, v ) {
         idi=($(v).attr('id'))
         //console.log(idi)

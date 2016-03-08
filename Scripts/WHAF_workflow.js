@@ -729,29 +729,30 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     }
 
     $('#loader').show()
-  var ppp = retrieveEncodedParams(v);
-  var bm = evalBaseMapParam(ppp), ex = setFromExtentParams(ppp), mm = ppp.auxFtLst;
-  map.setBasemap(bm)
-  map.setExtent(ex)
-  $('#sortable').html('');
-  auxFeatObjectUrl={};
-  forceRemoveAux();
-  WHAFapp.currentMapParams.theseFeatures = []
+    var ppp = retrieveEncodedParams(v);
+    var bm = evalBaseMapParam(ppp), ex = setFromExtentParams(ppp), mm = ppp.auxFtLst;
+    map.setBasemap(bm)
+    map.setExtent(ex)
+    $('#sortable').html('');
+    auxFeatObjectUrl={};
+    forceRemoveAux();
+    WHAFapp.currentMapParams.theseFeatures = []
 
- try{evalPlace(ppp.Plc)}catch(s){}  
+    try{evalPlace(ppp.Plc)}catch(s){}  
+
+    reorderByList();
+
+    evalScales(ppp);
+
+    paramEvaluatorInit(ppp)//sets index layer (health score)
+
+    evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
+
+    try{getLayersIn(mm)}catch(u){};
+
+    try{scaleAttrFromUrl()}catch(r){};//assigns the scale property value on scale layer based on passed parameters
+
     
-  reorderByList();
-  
-  evalScales(ppp);
-  
-  paramEvaluatorInit(ppp)//sets index layer (health score)
-    
-  evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
-
-  try{getLayersIn(mm)}catch(u){};
-
-  try{scaleAttrFromUrl()}catch(r){};//assigns the scale property value on scale layer based on passed parameters
-
 }
 
 function retrieveEncodedParams(e){

@@ -72,20 +72,24 @@ function exportBookMarksToJson(){
 }
 
 function importBookMarksTricks(){
-  
-    var Y=$('#adHocPlaceHolde1').val();
-    var y = $.parseJSON(Y)
-
+    var u=[], Y=$('#adHocPlaceHolde1').val(),y = $.parseJSON(Y)
     for (var v=0;v<y.length; v++){  
-       d = $.parseJSON( y[v] )
-       if(d.name && d.name!== undefined){
-         storeMapp(d)
-       }
+       var d = $.parseJSON( y[v] )
+       u.push(d.name)
+    }  
+    u.sort().reverse();
+    for (var i=0; i< u.length; i++){  
+        var b = u[i]
+        for (var v=0;v<y.length; v++){  
+            var d = $.parseJSON( y[v] )
+            if(d.name === b && b !== undefined){
+                storeMapp(d)
+            }
+        }
     }
 
-    function storeMapp(item){
+    function storeMapp(ff){
         var index = bMarkIndex();
-        var ff=item;
         var item = ff.name
         var itemId = 'bMark_Map_'+index+'_'+item;
         var kk=JSON.stringify(ff);
@@ -93,11 +97,9 @@ function importBookMarksTricks(){
         var te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
         $('#bookMarkList').prepend(te);
     }
-
-    // $('#bMarkGetter').hide();
     $('#adHocMessage').hide();
-    
 }
+
 
 function advMenuSetup(which){
   
