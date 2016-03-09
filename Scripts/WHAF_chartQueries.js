@@ -47,11 +47,11 @@ function askDNR(service, show){		//Gets data for landuse from the server, popula
 				
 				if(Number(WHAFapp.landuseData[service][areaInSqMeters])){
 					try {
-						var r = WHAFapp.landuseData[service][areaInSqMeters]/4046.86
-						var s = WHAFapp.landuseData[service][areaInSqMeters]/2590000
+						var r = WHAFapp.landuseData[service][areaInSqMeters]*0.0002471054
+						var s = r*0.0015625
 						var c = addCommas(r.toFixed(0))
 						var d = addCommas(s.toFixed(2))
-						o='Land Area: '+c+' Acres ('+d+' Square Miles)'
+						o='Total Watershed Area: '+c+' Acres ('+d+' Square Miles)'
 						$('#landUseChartsArea').html(o)
 					} catch(err){console.log("No value available for land area.")}
 				}else{$('#landUseChartsArea').html('')}
