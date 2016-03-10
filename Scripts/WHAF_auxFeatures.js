@@ -303,12 +303,14 @@ function featUrlStrToImplement(lst){
       setTimeout(function(){  
         if (list[i]){
           auxFeatObjectUrl[list[i]].implement()
+        }else{
+            buildIdTasks();
+            try{legendd.refresh()}catch(f){};
         }
         var r = i+1;
         lyrsIn(r)},300)
     }
-     buildIdTasks()
-     try{legendd.refresh()}catch(f){};
+     
 }
 
 function getLayersIn(m){
@@ -360,6 +362,8 @@ function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT S
             }
         })
     })
+
+console.log("Built ID task")
 }
 
 
