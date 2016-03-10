@@ -747,7 +747,7 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
 
     paramEvaluatorInit(ppp)//sets index layer (health score)
 
-    evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
+    //evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
 
     try{getLayersIn(mm)}catch(u){};
 

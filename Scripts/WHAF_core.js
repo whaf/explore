@@ -91,8 +91,7 @@ function forceRemoveAux(){//removes all layers added to map (that have an 'ident
   for (i in k){
     d=k[i].identifier
     if (d==='WHAF_added_layer'){
-      map.removeLayer(k[i])
-      console.log(k[i])
+      map.removeLayer(k[i]);
     }  
   }
   identFalser();

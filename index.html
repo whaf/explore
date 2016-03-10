@@ -1194,6 +1194,11 @@
 
             // setPrintInfo();
 
+            navToolbar = new Navigation(map);
+            var spatialReferenceG = new SpatialReference({
+                wkid: 102100
+            });
+
             auxInit1();
             
             if (!mapParamObject.auxFtLst){//inserts predefined auxiliary layers into aux layer box if no other parameters are provided by url

@@ -294,12 +294,21 @@ function featUrlStrToImplement(lst){
             }
         } catch(err){};
     }
-
+    var list=[]
     for (fti in auxFeatObjectUrl){
-        auxFeatObjectUrl[fti].implement()
+       list.push(fti) 
     }
-    buildIdTasks()
-    //try{legendd.refresh()}catch(f){};
+    lyrsIn(0)
+    function lyrsIn(i){
+      setTimeout(function(){  
+        if (list[i]){
+          auxFeatObjectUrl[list[i]].implement()
+        }
+        var r = i+1;
+        lyrsIn(r)},300)
+    }
+     buildIdTasks()
+     try{legendd.refresh()}catch(f){};
 }
 
 function getLayersIn(m){
@@ -770,6 +779,7 @@ function respondToAddFeatureUrl(e, t, n, r, i, s){
 }
 
 function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
+    
     require(["esri/layers/ArcGISDynamicMapServiceLayer","esri/layers/ImageParameters"],
     function(ArcGISDynamicMapServiceLayer,ImageParameters){
         var subLayersll, o = map.getScale(), a=t + "/" + n,mapFeature,f,l,c,h,p,imageParametersFeature;
