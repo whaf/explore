@@ -53,13 +53,14 @@ function reorderByList(){
     });
  
     try{
-        e = z.getLayersVisibleAtScale(map.getScale());
+        e = map.getLayersVisibleAtScale(map.getScale());
         n = e.length
 
         d = featureLayersDisplayedByOrder.reverse()
         for (var r=0; r<d.length; r++){
 
             var tmpLayer = map.getLayer(d[r])
+            console.log(d[r])
             if(tmpLayer && tmpLayer !== undefined){
                 n = e.length
                 map.reorderLayer(tmpLayer, n-r);
@@ -747,7 +748,7 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
 
     paramEvaluatorInit(ppp)//sets index layer (health score)
 
-    //evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
+    evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
 
     try{getLayersIn(mm)}catch(u){};
 

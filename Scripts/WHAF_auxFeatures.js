@@ -302,15 +302,15 @@ function featUrlStrToImplement(lst){
     function lyrsIn(i){
       setTimeout(function(){  
         if (list[i]){
-          auxFeatObjectUrl[list[i]].implement()
+            auxFeatObjectUrl[list[i]].implement()
+            var r = i+1;
+            lyrsIn(r);
         }else{
             buildIdTasks();
             try{legendd.refresh()}catch(f){};
         }
-        var r = i+1;
-        lyrsIn(r)},300)
-    }
-     
+      },300)
+    }     
 }
 
 function getLayersIn(m){
