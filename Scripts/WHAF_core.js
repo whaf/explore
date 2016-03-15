@@ -87,16 +87,46 @@ function evalDrawParams(e) {
 }
 
 function forceRemoveAux(){//removes all layers added to map (that have an 'identifier' property with value 'WHAF_added_layer')
-  var k = map.getLayersVisibleAtScale()
-  for (i in k){
-    d=k[i].identifier
-    if (d==='WHAF_added_layer'){
-      map.removeLayer(k[i]);
-    }  
+  
+if (checkLoad()){//checks that layers are not removed prior to their loading
+
+    console.log("All layers Loaded")
+      var k = map.getLayersVisibleAtScale()
+      for (i in k){
+        d=k[i].identifier
+        if (d==='WHAF_added_layer'){
+          map.removeLayer(k[i]);
+        }  
+      }
+      $('#sortable').html('');
+      identFalser();
+      legendd.layerInfos=[];
+  }else{
+    console.log("Layers Still Loading")
+    setTimeout(function(){forceRemoveAux()},100)
   }
-  identFalser();
-  legendd.layerInfos=[]
 }
+
+function checkLoad(){// returns true if all loaded layers are done loading
+                     // (layers are pushed to list through modification of 
+                     // js.arcgis.com.3.13.js addLayer function.) 
+  L=WHAFapp.loadingLyrs;
+  for (var i=0; i<L.length; i++){
+    if(L[i].loaded){
+      var index = L.indexOf(L[i]);
+      if (index > -1) {
+          L.splice(index, 1);        
+      }
+    }
+  }
+  if(L.length>0){
+    checkLoad();
+  }else{
+    return true
+  }          
+}
+
+
 
 function setFromExtentParams_(e) {
     var inExtent;

@@ -59,8 +59,7 @@ function reorderByList(){
         d = featureLayersDisplayedByOrder.reverse()
         for (var r=0; r<d.length; r++){
 
-            var tmpLayer = map.getLayer(d[r])
-            console.log(d[r])
+            var tmpLayer = map.getLayer(d[r]);
             if(tmpLayer && tmpLayer !== undefined){
                 n = e.length
                 map.reorderLayer(tmpLayer, n-r);
@@ -735,7 +734,7 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     var bm = evalBaseMapParam(ppp), ex = setFromExtentParams(ppp), mm = ppp.auxFtLst;
     map.setBasemap(bm)
     map.setExtent(ex)
-    $('#sortable').html('');
+    
     auxFeatObjectUrl={};
     forceRemoveAux();
     WHAFapp.currentMapParams.theseFeatures = []

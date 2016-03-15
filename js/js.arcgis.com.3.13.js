@@ -8865,6 +8865,9 @@ require({
                             return Z(this.extent, this.width, this.height, a)
                         },
                         addLayer: function(a, c) {
+                            WHAFapp.loadingLyrs.push(a);
+                            try{checkLoad()}catch(er){};//removes all layers from WHAFapp.loadingLyrs if they are loaded
+                            //WHAF add-on
                             a && !this.getLayer(a.id) && this._addLayer(a, a instanceof M ? this.graphicsLayerIds : this.layerIds, c);
                             return a
                         },

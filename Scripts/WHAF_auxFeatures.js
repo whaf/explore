@@ -843,22 +843,30 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             legendd.layerInfos.push(v);
             try {legendd.refresh()} catch (m) {}
             var g = $(s).parent().parent().find("a")
-        } else {          
-            var ddd = $(s).parent().attr('id');
-            $('#'+ddd+' input').prop('checked',false);//force unchecking box to fix issue with drag-not-unchecking
-            try {map.removeLayer(p)}catch (m) {}
-            // var p = map.getLayer(c);
-            $("#loader").hide();
-            var y = $.inArray(mapFeature.id, featureLayersDisplayed);
-            featureLayersDisplayed.splice(y, 1);
-            var b;
-            for (var w = 0; w < legendd.layerInfos.length; w++) {
-                if (legendd.layerInfos[w].layer.id === h.id) {
-                    b = w
+        } else {      
+            function lRemover(){
+                if(checkLoad()){
+                    var ddd = $(s).parent().attr('id');
+                    $('#'+ddd+' input').prop('checked',false);//force unchecking box to fix issue with drag-not-unchecking
+                    
+                    try {map.removeLayer(p)}catch (m) {}
+                    $("#loader").hide();
+                    var y = $.inArray(mapFeature.id, featureLayersDisplayed);
+                    featureLayersDisplayed.splice(y, 1);
+                    var b;
+                    for (var w = 0; w < legendd.layerInfos.length; w++) {
+                        if (legendd.layerInfos[w].layer.id === h.id) {
+                            b = w
+                        }
+                    }
+                    legendd.layerInfos.splice(b, 1);
+                    try{legendd.refresh()}catch(r){};
+                }else{
+                    setTimeout(function(){lRemover()},100)
                 }
             }
-            legendd.layerInfos.splice(b, 1);
-            try{legendd.refresh()}catch(r){};
+            lRemover()//ensures that layer is doneloading before attempting to remove it
+
         }
 
         r = map.getLayersVisibleAtScale(map.getScale())
