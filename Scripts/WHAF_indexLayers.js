@@ -1,4 +1,5 @@
 function respond(j, n, r, timeStampIn) {
+  $('.popover').hide()
   e = healthScoreIndex[j]
   try {
         removeFirstLayer(j,e)
@@ -19,6 +20,7 @@ function respond(j, n, r, timeStampIn) {
     if(timeStampIn !== true){
         timeStampIndex(e)
     }
+    $('#flipButtL2').removeClass('disabled').addClass('btn-info').prop('title', 'Include only layers associated with selected health score index')
 }
 
 function changeScoreOpacity(e) {
@@ -70,6 +72,11 @@ function removeFirstLayer(j,e){
     WHAFapp.currentMapParams.indexLayer = j;
     $('.scoreButton').children().removeClass( "btn-info" );
     majors.setVisibleLayers([e]);
+
+    // $('#flipButtL2').hide()
+    $('#flipButtL2').addClass('disabled').removeClass('btn-info').prop('title','Available when an index is displayed')
+
+    lyrListToggler()
 }
 
 function changeOpacity(op) {
@@ -85,6 +92,172 @@ function changeOpacity(op) {
         .css({
         'opacity': WHAFapp.currentMapParams.indOp
     });
+}
+
+
+function lyrListToggler(el){//toggles and updates button to add index related features
+    var k = $('#adHocLayerListUl li');
+    
+    if (el&&WHAFapp.currentMapParams.indexLayer && WHAFapp.currentMapParams.indexLayer !== undefined){
+        try{setIndNameInPlace()}catch(err){}
+        var key=WHAFapp.currentMapParams.indexLayer[0].toLowerCase()
+        if($('#flipButtL2').hasClass('on')){
+            showAll();
+        } else{
+            showSome();
+        }
+    }else{
+      showAll()}
+  
+    function showSome(){
+        var list = relatedFeatures[key]
+        var nameList=[]
+        for (var i=0; i<list.length; i++){
+            try{nameList.push( availableAuxFeatures[list[i]][0])}catch(err){}
+        }
+
+        for (var i=0;i<k.length; i++){
+            var t=$(k[i]).text();
+            if (nameList.indexOf(t)===-1){
+                $(k[i]).hide()
+            }
+        } 
+
+        t=$('#adHocLayerListUl').html();
+        $('#adHocLayerListUl2').html(t); 
+        // $('#flipButtL2').html('<strong>Show all layers</strong>');
+        // $('#flipButtL2').addClass('on');
+        $('.addLayerBox').hide();$('#addLayerBox5').show()
+    }
+
+    function showAll(){
+        for (var i=0;i<k.length; i++){
+            var t=$(k[i]).text();
+            $(k[i]).show();
+        } 
+        $('#flipButtL2').html('<strong>Index related layers</strong>');
+        $('#flipButtL2').removeClass('on');
+
+        
+    }
+}
+
+
+function setIndNameInPlace(){
+  var n=WHAFapp.currentMapParams.indexLayer;
+  console.log(n)
+  for (f in indexdescNewJson){
+
+    if(indexdescNewJson[f].catchmentId===n){
+      $('#indexTitleForLyrs').html("Layers related to "+indexdescNewJson[f].name)
+    } else if (indexdescNewJson[f].watershedId===n){
+      $('#indexTitleForLyrs').html("Layers related to "+indexdescNewJson[f].name)
+    }
+    else if(indexdescNewJson[f].metrics){
+      g=indexdescNewJson[f].metrics;
+      for (var i=0;i<g.length; i++){
+        if(g[i].catchmentId === n){
+         $('#indexTitleForLyrs').html("Layers related to "+g[i].name) 
+        }
+      }
+    }
+
+  }
+
+}
+
+
+function lyrListToggler2(el){//Manually show index related features (from index popover)
+    console.log(el)
+    var t,k = $('#adHocLayerListUl li'),key=el[0].toLowerCase();   
+    setIndNameInPlace2(el)
+    showSome();    
+    $('#adHocLayerListUl li').show();
+    $('.popover ').hide();
+
+    function showSome(){
+        var list = relatedFeatures[key]
+        var nameList=[]
+        for (var i=0; i<list.length; i++){
+            try{nameList.push( availableAuxFeatures[list[i]][0])}catch(err){}
+        }
+
+        for (var i=0;i<k.length; i++){
+            var t=$(k[i]).text();
+            if (nameList.indexOf(t)===-1){
+                $(k[i]).hide()
+            }
+        } 
+        t=$('#adHocLayerListUl').html();
+        $('#adHocLayerListUl2').html(t); 
+    }
+    $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
+    $('#layersModal').fadeIn();
+    $('.addLayerBox').hide();$('#addLayerBox5').show()
+}
+
+function setIndNameInPlace2(n){
+  console.log(n)
+  if (indexdescNewJson[n]){
+    $('#indexTitleForLyrs').html("Related to "+indexdescNewJson[n].name)
+    console.log(indexdescNewJson[n].name)
+  }
+
+  else{
+    for (f in indexdescNewJson){
+
+      if(indexdescNewJson[f].metrics){
+        g=indexdescNewJson[f].metrics;
+        for (var i=0;i<g.length; i++){
+          if(g[i].fieldName === n){
+           $('#indexTitleForLyrs').html("Layers related to "+g[i].name) 
+          }
+        }
+      }
+
+    }
+  }
+}
+
+
+
+// function lyrListToggler2(el){//Manually show index related features (from index popover)
+//     var t,k = $('#adHocLayerListUl li'),key=el[0].toLowerCase();   
+//     console.log(el)
+//     showSome();    
+//     $('#adHocLayerListUl li').show();
+//     $('.popover ').hide();
+
+//     function showSome(){
+//         var list = relatedFeatures[key]
+//         var nameList=[]
+//         for (var i=0; i<list.length; i++){
+//             try{nameList.push( availableAuxFeatures[list[i]][0])}catch(err){}
+//         }
+
+//         for (var i=0;i<k.length; i++){
+//             var t=$(k[i]).text();
+//             if (nameList.indexOf(t)===-1){
+//                 $(k[i]).hide()
+//             }
+//         } 
+//         t=$('#adHocLayerListUl').html();
+//         $('#adHocLayerListUl2').html(t); 
+//     }
+//     $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
+//     $('#layersModal').fadeIn();
+//     $('.addLayerBox').hide();$('#addLayerBox5').show()
+
+// }
+
+
+
+var relatedFeatures={
+  "h":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50],
+  "g":[1.48,1.49,1.50,1.51,1.53,1.54,1.55,1.56,1.76,1.77],
+  "b":[1.311,1.312,1.314,1.34,1.35,1.36,1.37,1.38,1.39,1.391],
+  "c":[1.22,,1.25,1.251,1.252,1.26,1.28,1.29,1.30,1.31,1.314,1.34,1.45,1.451,1.46,1.51,1.61,1.62,1.70,1.71,1.72,1.74],
+  "w":[1.18,1.20,1.22,1.40,1.41,1.42,,1.43,1.44,1.47,1.52,1.57,1.58,1.59,1.60]
 }
 
 healthScoreIndex = {
@@ -225,7 +398,8 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
-        "why":"The Hydrology Component health score combines and averages five health scores that each capture different aspects of the hydrologic cycle.  Quantity of vegetation, amount of impervious surface, water consumption, loss of places that store water and deviation in stream flow patterns tell a story about the overall health of our hydrologic systems that store, use and distribute water."
+        "why":"The Hydrology Component health score combines and averages five health scores that each capture different aspects of the hydrologic cycle.  Quantity of vegetation, amount of impervious surface, water consumption, loss of places that store water and deviation in stream flow patterns tell a story about the overall health of our hydrologic systems that store, use and distribute water.",
+        "relatedFeatures":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50]
     },
     "H_S_PC": {
         "name": "Perennial Cover",
@@ -238,7 +412,8 @@ indexdescNewJson={
         "caveats": "",
         "longDescLink": "",
         "auxFeatures":"", 
-        "why":"When permanent vegetation is removed it impacts the water cycle directly by removing water storage found in leaves, stems and roots; and eliminating the evapotranspiration of water vapor into the atmosphere.  This loss of storage causes water to leave the landscape and move downstream more quickly.  This effect is often compounded by the land use that replaces lost vegetation with annual row crops or hard surfaces like roads and buildings."
+        "why":"When permanent vegetation is removed it impacts the water cycle directly by removing water storage found in leaves, stems and roots; and eliminating the evapotranspiration of water vapor into the atmosphere.  This loss of storage causes water to leave the landscape and move downstream more quickly.  This effect is often compounded by the land use that replaces lost vegetation with annual row crops or hard surfaces like roads and buildings.",
+        "relatedFeatures":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50]
     }, 
     "H_S_IC": {
         "name": "Impervious Cover",
@@ -252,7 +427,8 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
-        "why":"Impervious surfaces are hard surfaces that affect the water cycle by blocking water from soaking into the ground.  This results in more water flow on the surface that quickly reaches streams and lakes; and less water moving through the soil where contaminants can be filtered and groundwater replenished."
+        "why":"Impervious surfaces are hard surfaces that affect the water cycle by blocking water from soaking into the ground.  This results in more water flow on the surface that quickly reaches streams and lakes; and less water moving through the soil where contaminants can be filtered and groundwater replenished.",
+        "relatedFeatures":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50]
     },
     "H_S_WW": {
         "name": "Water Withdrawal",

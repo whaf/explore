@@ -48,12 +48,13 @@
     <div id="layersModal" class="well span8" style="position:absolute; padding:8px; border: 1px solid #717171; cursor:move" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-header">
             <button type="button" style="opacity:1; margin-top:-12px" class="close closeX" data-dismiss="modal" aria-hidden="true" onclick="$('#layersModal').hide();setModalElement($('#myModal'))">×</button>
-            <div id="addLayerBox3">
-                <h4 id="layersModalLabel">Select additional layers
+            <div id="addLayerBox3" class="addLayerBox">
+                <h4 id="layersModalLabel">Select additional layers</h4>
 
-                 <a id="flipButtL" class="btn btn-small btn-info pull-right" href="#" onclick="$('#addLayerBox3').hide();$('#addLayerBox4').fadeIn();">Get layers from web</a>
+                <btn id="flipButtL" class="btn btn-small btn-info pull-right" href="#" onclick="$('.addLayerBox').hide();$('#addLayerBox4').fadeIn();"><strong>Get layers from web</strong></btn>
+           
+                <btn id="flipButtL2" class="btn btn-small btn-info pull-right" href="#" onclick="lyrListToggler('something');$('.addLayerBox').hide();$('#addLayerBox5').show()"><strong>Show index related layers</strong></btn>
 
-                 </h4>
 
                 <div id="adHocLayerLister" class="btn-group">
 
@@ -64,10 +65,10 @@
                 </div>
                 <div id="GDRSnote2">* Layer available only inside the DNR network </div>
             </div>
-            <div id="addLayerBox4">
+            <div id="addLayerBox4" class="addLayerBox">
                 <h4 id="layersModalLabel">Add features from the web: &#160;<a title="Online map services can be added to this map. Click here for detailed information." a href="http://www.dnr.state.mn.us/whaf/explore/services.html" target='_blank' class="icon-question-sign"></a>
 
-                <a id="flipButtW" class="btn btn-small btn-info pull-right" href="#" onclick="$('#addLayerBox3').fadeIn();$('#addLayerBox4').hide()">Other Layers</a>
+                <a id="flipButtW" class="btn btn-small btn-info pull-right" href="#" onclick="$('.addLayerBox').hide();$('#addLayerBox3').fadeIn();">Other Layers</a>
 
                 </h4> 
                 <div id="adHocLayerLister2" class="btn-group">
@@ -85,6 +86,17 @@
                             <input class="btn btn-block btn-info" type="button" onclick="preProcessRestUrl()" value="Add">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div id="addLayerBox5" class="addLayerBox">
+                <h4 id="layersModalLabel">Select additional layers</h4>
+                <p id="indexTitleForLyrs"></p>
+
+                <a id="flipButtW2" class="btn btn-small btn-info pull-right" href="#" onclick="$('.addLayerBox').hide();$('#addLayerBox3').fadeIn();"><strong>Show all layers</strong></a>
+
+                <div id="adHocLayerLister2" class="btn-group">                  
+
+                    <ul id="adHocLayerListUl2" class="dropdown-menu span4" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
                 </div>
             </div>
         </div>
@@ -348,7 +360,7 @@
                                        <div style="display:inline-block" id = "aSlider" class="buttonaSlider " style="float:left"></div>  
 
 
-                                       <div style="display:inline-block"><button id="indRemoveBut" class="btn btn-mini" data-placement="right" data-toggle="tooltip" data-original-title="Remove Index Scores" style="margin-left:13px;" onclick="removeFirstLayer(); hideLegend(); $('#indexTitle_slider').hide();" ><i class="icon-remove-circle"></i></button></div>
+                                       <div style="display:inline-block"><button id="indRemoveBut" class="btn btn-mini" data-placement="left" data-toggle="tooltip" data-original-title="Remove Index Scores" style="margin-left:13px;" onclick="removeFirstLayer(); hideLegend(); $('#indexTitle_slider').hide();" ><i class="icon-remove-circle"></i></button></div>
 
                                     <!-- </div>   -->
                                    <!-- </div> -->
@@ -376,12 +388,10 @@
 
                                 <button type="button" class="close" style="opacity:1;margin-top:-18px; margin-right:-18px;" onclick="$('#featuresPlace').fadeToggle();">×</button>
 
-                                <!-- <button id="plusLayers" class="btn btn-small btn-block btn-info" type="button">Add more layers</button> -->
                                 <div id="featureTabs">
                                     <ul>
                                         <li id="hohoLi"><a onclick="fixTabsCss('hohoLi')" href="#featureTab1">Map layers</a></li>
-                                        <li id="momoLi"><a onclick="fixTabsCss('momoLi')" href="#featureTab2">Legend</a></li>
-                                                                          
+                                        <li id="momoLi"><a onclick="fixTabsCss('momoLi')" href="#featureTab2">Legend</a></li>                           
                                     </ul>
 
                                     <div id="featureTab1">
@@ -990,7 +1000,7 @@
             $("#pieChartModal, #waterUsePlace, #legendPlace, #featuresPlace").draggable({cancel: "#featurePlace, #legendAux",scroll: false});
             $("#myModal, #bookmarkModal").draggable({cancel:"#bookmarkInnerBox", scroll: false});
             $("#layersModal").draggable({cancel: "#adHocLayerListUl, #adHocLayerList, #adHocLayerLister2",scroll: false});
-            $("#appInfoModal").draggable({scroll: true}).resizable();
+            // $("#appInfoModal").draggable({scroll: true}).resizable();
             $( "#mapRunSortable" ).sortable().disableSelection();
             $("#myCarousel2").carousel('pause'); $("#myCarouseTut").carousel('pause');
             $( "#hillSlider" ).slider({value: opcity,
@@ -1139,7 +1149,7 @@
             $('#waterUsePlace').load('waterUseCharts.html');
             $('#info1').load('whatsAwatershed.html');            
             $('#mapScalePlace').load('scaleButtons.html', function(){resizeElementHeight('dropDownWS', 180);});
-            $('#appInfoPlace').load('appInfoModal.html');
+            // $('#appInfoPlace').load('appInfoModal.html');
 
             try{serverTest(masksUrl);}catch(err){console.log("unable to test server")}
             
@@ -1188,8 +1198,11 @@
 
             map.on("load", function (){
                 loadQT();
-                $('body').animate({'opacity':1}, 1000)
+                
+                $('body').animate({'opacity':1}, 1000);
+                
             });
+
             setIndexLayer();
 
             // setPrintInfo();
@@ -1209,6 +1222,7 @@
                 try {
                     WS_functionality();
                     loadBasins();
+
                 } catch (err) {
                     setTimeout(function () {
                         console.log("trying again"), WS_functionality()

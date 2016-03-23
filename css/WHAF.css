@@ -122,6 +122,11 @@ body {
     margin-bottom: 0px; 
 }
 
+#addLayerBox3 .btn, #flipButtW2{
+    margin-left:10px;
+    margin-bottom:5px;
+}
+
 #WsRemoverInner {
         opacity:0.6;
 }
@@ -425,8 +430,8 @@ body {
 
 #appInfoModal{
     position:absolute;
-    left:20%;
-    top:55%;
+  /*  left:20%;
+    top:55%;*/
     width:auto;
     height:auto;
     max-height:750px;
@@ -460,7 +465,7 @@ body {
     height:auto;
     z-index: 10001;
     display: none;
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.7);
 }
 
 #featurePlace, #legendAux{
@@ -480,7 +485,7 @@ body {
     cursor:auto;
 }
 
-#featureTab1, #featureTab2{
+#featureTab1, #featureTab2, #featureTab3{
     padding:5px;
     padding-top: 10px;
     background-color:rgba(205,205,205,1);
@@ -650,7 +655,7 @@ figure{
    min-width: 50px;
  }
 
-#adHocLayerListUl {
+#adHocLayerListUl, #adHocLayerListUl2{
     max-height:400px;
     width:370px;
     overflow:auto;
@@ -662,7 +667,7 @@ figure{
     margin-bottom:4px;
 }
 
-#addLayerBox4{
+#addLayerBox4, #addLayerBox5{
     display: none;
 }
 
@@ -1859,4 +1864,10 @@ $('.subMenu').css(ccc)
     position:absolute;
     z-index: 101;
     display: none;   
+}
+
+.indLyrsBut{
+    margin-top:10px;
+    margin-bottom:5px;
+    margin-left:-5px;
 }

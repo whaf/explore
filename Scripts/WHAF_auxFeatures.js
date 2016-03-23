@@ -131,7 +131,7 @@ var availableAuxFeatures = {//NOTE: DO NOT CHANGE NAMES (I.E. FLOATS) IN THIS OB
 
 var availableAuxFeatures2 = [];
 
-function gdrsNoter(){
+function gdrsNoter(){//shows asterix under available features list if it includes a layer that's only visible in DNR network
     var aster = false;
     WHAFapp.currentMapParams.theseFeatures.forEach(function(e){
         var ast = (e.title[e.title.length-1]);
@@ -140,56 +140,6 @@ function gdrsNoter(){
     if(aster==true){$("#GDRSnote").show()}else{$("#GDRSnote").hide()};
 } 
 
-function restCompR_(featObject){
-    var rest = featObject.group;
-    var title = featObject.title;
-    var res = rest.replace("http://","").split("/")
-    var resStr = ""
-    for (i=0;i<res.length; i++){
-        if (res[i] == "arcgis"){resStr = resStr+"~aA"}
-        else if (res[i] == "rest"){resStr = resStr+"~rR"}
-        else if (res[i] == "services"){resStr = resStr+"~sS"}
-        else if (res[i] == "MapServer"){resStr = resStr+"~mM"}
-        else if (i == 0){resStr = resStr+res[i]}
-        else {resStr = resStr+"~"+res[i]} 
-        }
-    resStr = resStr+"~"+featObject.layerID;
-    var ch = 0;
-    if (featObject.checked){ch=1};
-    var iden = 0;
-    if (featObject.identify){iden=1}; 
-    var featLink = [];
-    featLink.push(resStr, title, ch, iden);
-
-    return featLink; 
-}
-
-
-function restCompR__(featObject){
-    var title=featObject.title, res, resStr, ch=0, iden=0, featLink = [], rest = featObject.group;
-    if (featObject.checked){ch=1};
-    if (featObject.identify){iden=1};  
-    if(title && title !== undefined){
-      res = rest.replace("http://","").split("/")
-      resStr = ""
-      for (i=0;i<res.length; i++){
-          if (res[i] == "arcgis"){resStr = resStr+"~aA"}
-          else if (res[i] == "rest"){resStr = resStr+"~rR"}
-          else if (res[i] == "services"){resStr = resStr+"~sS"}
-          else if (res[i] == "MapServer"){resStr = resStr+"~mM"}
-          else if (i == 0){resStr = resStr+res[i]}
-          else {resStr = resStr+"~"+res[i]} 
-          }
-      resStr = resStr+"~"+featObject.layerID;
-      featLink.push(resStr, title, ch, iden);
-    }
-  
-    else{
-      resStr = resStr;
-      featLink.push(rest, ch, iden);
-    }
-    return featLink; 
-}
 
 function restCompR(featObject){
     var title=featObject.title, res, resStr, ch=0, iden=0, featLink = [], rest = featObject.group;
@@ -276,8 +226,7 @@ function compRestRebuild(stri){
 
 
 function featObjToUrlString(obj){//returns a list of lists, each compressed feature details from theseFeatures object
-    J = obj
-    fList = ""
+    var J=obj,fList=""
     for (var F=0; F<J.length; F++){
             var r = restCompR(J[F]);//creates a shortened string with layer parameters
             fList=fList+r+"]"
@@ -286,7 +235,7 @@ function featObjToUrlString(obj){//returns a list of lists, each compressed feat
 }
 
 function featUrlStrToImplement(lst){
-    for (g in lst){
+    for (var g in lst){
         try{
             var url = featObjRebuild(lst[g]); 
             if (url.title && url.title!== undefined){
@@ -362,8 +311,6 @@ function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT S
             }
         })
     })
-
-console.log("Built ID task")
 }
 
 
@@ -461,60 +408,6 @@ function processRestUrl(e, t, n, r, ident) {
         $(button).addClass("btn-warning infoTableTogglerOn")
     }
 }
-
-// function preProcessRestUrl() {
-//     var e = document.getElementById("addedLayerName").value;
-//     var t = document.getElementById("AddingRestPoint").value;
-//     var n = t.lastIndexOf("/");
-//     var r = Number(t.substr(n + 1));
-//     var i = t.slice(0, n);
-//     auxFeatureConstructor(e, i, r, "", "", "dynamic", "*", "added");
-//     layerItemID++;
-//     processRestUrl(t, e, false, layerItemID);
-//     var s = layerItemID;
-//     var o = i;
-//     var u = {
-//         id: s,
-//         group: o,
-//         title: displayName,
-//         layerID: r,
-//         checked: false,
-//         identify: false
-//     };
-//     WHAFapp.currentMapParams.theseFeatures.push(u)
-// }
-
-// function processRestUrl(e, t, n, r, ident) {// r = layerItemID
-//     var i = "*";
-//     if (e == undefined) {
-//         var e = document.getElementById("AddingRestPoint").value;
-//     }
-//     if (t == undefined) {
-//         var t = document.getElementById("addedLayerName").value;
-//     }
-//     var s = e.lastIndexOf("/");
-//     var o = Number(e.substr(s + 1));
-//     var u = e.slice(0, s);
-//     var a = t;
-//     var f = "checkLayerbyID(checked, $(this).parent().parent().parent().attr('id'));";
-//     var l = "removeLayerObjectbyID($(this).parent().parent().parent().attr('id'))";
-//     if (n) {
-//         var c = '<input type="checkbox" value=' + o + ' checked title="" autocomplete="off" onclick="'+f+'respondToAddFeatureUrl(checked, \'' + u + "', " + o + ", '" + a + "','" + i + "', $(this).parent().parent())\">";
-//         respondToAddFeatureUrl(n, u, o, a, i, $(this).parent().parent())
-//     } else {
-//         var c = '<input type="checkbox" value=' + o + ' title="" autocomplete="off" onclick="' + f + "respondToAddFeatureUrl(checked, '" + u + "', " + o + ", '" + a + "','" + i + "', $(this).parent().parent())\">"
-//     }
-//     var h = '<div id ="' + r + '" class="ui-state-default state-default1"><div class="row-fluid"><label class="checkbox auxFeatCheck span8">' + c + a + '</label><div class="span1 offset1"><a class="btn btn-mini" href="#"><i class="icon-info-sign infoTableToggler" title = "Select to view feature attributes on click" onclick="infoLabelChanger($(this))"></i></a></div><div class="span1 offset1"><button onclick = "$(this).parent().parent().find(\'input\').prop(\'checked\', true); $(this).parent().parent().find(\'label\').click(); $(this).parent().parent().parent().remove(); identFalser(); ' + l + '" class="close" type="button">×</button></div></div></div>';
-//     $("#sortable").append(h)
-    
-//     if(ident){
-//         identifyLayerbyID("show", e);
-//         $("#sortable .btn-warning").removeClass("btn-warning infoTableTogglerOn");
-//         o = '#'+r
-//         button = $(o).children().children(':nth-child(2)').children()
-//         $(button).addClass("btn-warning infoTableTogglerOn")
-//     }
-// }
 
 function identifyLayerbyID(e, t) {
     var sc,sc1;
@@ -706,7 +599,7 @@ function getShortUrl(url){
 }
 
 function setHsOpacParam(opac){
-    hillShadeOpLocal = Number(opac)*100
+    var hillShadeOpLocal = Number(opac)*100
     changeHillOpacity(hillShadeOpLocal)
     $( "#hillSlider" ).slider({value:hillShadeOpLocal})
 }
@@ -731,10 +624,6 @@ function decode(str) {
     return decodeURIComponent(escape(RawDeflate.inflate($.base64.decode(str))));
 }
 
-
-
-
-
 function changeHillOpacity(e){    
         WHAFapp.currentMapParams.hillShadeOp = e / 100; 
         try {
@@ -744,7 +633,7 @@ function changeHillOpacity(e){
 
 function infoLabelChanger(e) {//enable query added layer
     WHAFapp.suspender = false;
-    button = $(e).parent();
+    var button = $(e).parent();
     var t = $(button).parent().parent().find("input").attr("onclick").split(" ");
     var n = t[2].length - 3;
     var r = t[2].substr(1, n);
@@ -865,7 +754,7 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
                     setTimeout(function(){lRemover()},100)
                 }
             }
-            lRemover()//ensures that layer is doneloading before attempting to remove it
+            lRemover()//ensures that layer is done loading before attempting to remove it
 
         }
 

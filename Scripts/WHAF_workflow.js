@@ -106,6 +106,7 @@ function prepPopOver(){
     }
 
     function ffer (key, summ, cont, date, cav, cId, wId, indName, metrics){
+       
         o = '#'+key
         var allCont = cont;
 
@@ -125,7 +126,8 @@ function prepPopOver(){
             summDiv = '<div >'+summi+'</div>';
         }
 
-        
+        allCont = allCont+'<br><btn id="" class="btn btn-small indLyrsBut" href="#" onclick="lyrListToggler2(\''+key+'\')"><strong>Show map layers related to this index</strong></btn>'
+
         if (date && date!='undefined'){
             allCont = allCont+'<p><br><b>Source data date: </b>'+date+'</p>'
         }
@@ -153,6 +155,7 @@ function prepPopOver(){
                 var hdate = metrics[r].sourceDataDate;
                 var hCav = metrics[r].caveats;
                 var hAllCont = hCont;
+                try{hAllCont=hAllCont+'<br><btn id="" class="btn btn-small indLyrsBut" href="#" onclick="lyrListToggler2(\''+metrics[r].fieldName+'\')"><strong>Show map layers related to this index</strong></btn>'}catch(err){}
                 if (hdate && hdate!='undefined'){
                     hAllCont = hAllCont+'<p><br><b>Source data date: </b>'+hdate+'</p>'
                 };
@@ -198,8 +201,8 @@ function popoverInit(){
       $(indLi).children().popover('show');
     })
 
-    $('#map, #indexDescription, .accordion-heading ').mouseenter(function(){
-      $('.popover').hide()
+    $('#map,  #layersModal').mouseenter(function(){
+      $('.popover').fadeOut()
     });
 }
 

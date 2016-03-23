@@ -388,6 +388,7 @@ function WS_functionality() {//starting up the app
             highlightedWatershedEvt = t
         });
     });
+    
 }
 
 function loadBasins() {
