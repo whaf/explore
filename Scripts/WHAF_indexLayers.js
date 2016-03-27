@@ -94,6 +94,12 @@ function changeOpacity(op) {
     });
 }
 
+function preLyrListToggler(element){
+    if ($(element).hasClass('disabled')===false){
+        $('.addLayerBox').hide();$('#addLayerBox5').show()
+        lyrListToggler(element)
+    }
+}
 
 function lyrListToggler(el){//toggles and updates button to add index related features
     var k = $('#adHocLayerListUl li');

@@ -34,6 +34,23 @@ function resizeElementHeight(e, t) {//resizes height of element to fit window
     theElement.style.height = n - bottomBuffer + "px"
 }
 
+function reorderImpairesLayers(){//reorders the custom impairment layers, to be invoked on drag 
+    var orderedList=[],serial=1,n,layerList=WHAFapp.selectableLayer,a;
+    a=$('#selSortable1').children();
+    for (var i=0; i<a.length; i++){
+        orderedList.push($(a[i]).attr('id')); 
+    }
+    n=orderedList.length*2;
+    for (var j=0; j<orderedList.length; j++){
+        ll=layerList[orderedList[j]].lyrs
+        for (var t in ll){
+            map.reorderLayer(ll[t],n-serial)
+            serial++
+        }
+    }
+
+}
+
 function reorderByList(){
     var featureLayersAvailable = [], featureLayersDisplayedByOrder = [],dodo,e,n,d;
     dodo = $("#sortable").children("div").each(function () {

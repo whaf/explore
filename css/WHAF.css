@@ -1345,7 +1345,7 @@ figure{
 .compFont:focus {
   font-weight: bold;
 }
-
+/*
 input[type=radio]:not(old){
   width     : 2em;
   margin    : 0;
@@ -1410,7 +1410,7 @@ input[type=radio]:not(old):checked + label > span > span{
   background-image : -webkit-linear-gradient(rgb(78,115,203),rgb(58,135,173));
   background-image :         linear-gradient(rgb(78,115,203),rgb(58,135,173));
 }
-
+*/
 .popTitleBox{
     display: inline-block;
 }
@@ -1871,3 +1871,93 @@ $('.subMenu').css(ccc)
     margin-bottom:5px;
     margin-left:-5px;
 }
+
+#layerSelectionModal{
+    position:absolute;
+    left: 554px;
+    top:95px;
+    min-height:30px;
+    height:auto;
+    z-index: 10001;
+    display: none;
+    background-color: rgba(255,255,255,1);
+    cursor: move;
+}
+
+#impLayerNameBox, #selTabs{
+    cursor:auto;
+}
+
+#layerFieldsListUl{
+    max-height:350px;
+    min-height: 20px;
+    overflow:auto;
+}
+
+#fieldValueBox select{
+    height:120px;
+}
+
+#FieldsValueListUl, #impParamsListUl, #impParamsListUl2, #operatorList{
+    /*width: 500px;*/
+    margin-bottom: 20px;
+    height: auto;
+    min-height: 20px;
+    max-height:185px;
+    overflow:auto;
+    font-size: smaller;
+}
+
+#FieldsValueListUl li a{
+    line-height: 14px;
+}
+
+#SettingsBlock{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#queryBox textarea{
+    width: 500px;
+    overflow:auto;
+}
+
+#restUrlLyrLink, #legLayerName{
+    margin-bottom:10px;
+}
+
+#restUrlLyrLink pre {
+padding:0px 5px;
+}
+
+#symbologyArea{
+    padding-top: 10px;
+}
+
+#impairLyrSetPlace ul label, #impairLyrSetPlace2 ul label{
+    padding-left: 30px;
+}
+
+#impForList ul{
+    margin-bottom: 20px;
+}
+
+.specLyrBut{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.selSortable{
+  padding-top:3px,
+  padding-bottom:1px,
+  margin-bottom:5px,
+  background-color:#aaaaaa
+}
+
+#selSortable1 label{
+  font-size:12px  
+}
+
+
+
+
