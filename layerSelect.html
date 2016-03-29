@@ -1,171 +1,140 @@
-        <div class="modal-header">
-            <button type="button" style="opacity:1; margin-top:-12px" class="close closeX" data-dismiss="modal" aria-hidden="true" onclick="$('#layerSelectionModal').hide()">x</button>
-        </div>
-
-            <div>
-                <div id="SettingsBlock" class="" style="">
-
-                        <legend id="legLayerName">Custom Impaired Water Layer</legend>
-                        <input id="impLayerNameBox" class="span9" type="text" val="Name your layer">
-                        
-
-
-
-<div class="tabbable" id="selTabs">
-    <ul id="imptabs" class="nav nav-tabs">
-        <li class="active"><a href="#basicSel" data-toggle="tab">Select by impairment parameter</a></li>
-        <li><a href="#affectedUseSel" data-toggle="tab">Select by TDML</a></li>
-        <li><a href="#advancedSel" data-toggle="tab">Advanced</a></li>
-    </ul>
-    
-        <div class="" id="lyrQueD">
-            <div id="restUrlLyrLink" type="text" class="" style="display:none" value="">Layer Rest url: <pre><code></code></pre></div>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="basicSel">
-
-                    <div id="impairLyrSetPlace" class="row">
-                        <div id="impForList" class="span3">
-                            <div id="impTitle2"> Water bodies:</div>
-                            <ul id="impWaterBodListUl" class="dropdown-menu span3" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu">
-                                <label class="radio"><input type="radio" name="WBRadios" id="impSCheck" value="streams" checked>Streams</label>
-                                <label class="radio"><input type="radio"name="WBRadios" id="impLCheck" value="lakes">Lakes</label>
-                                <label class="radio"><input type="radio" name="WBRadios" id="impWCheck" value="wetlands">Wetlands</label>
-                            </ul>
-
-                        </div>
-                        <div id="fieldValueBox" class="span6">
-                            <div id="impParamsTitle"> Impairment Parameters</div>
-                            <ul id="impParamsListUl" class="dropdown-menu span6" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="affectedUseSel">
-
-                    <div id="impairLyrSetPlace2" class="row">
-                        <div id="impForList2" class="span3">
-                            <div id="impTitle2_2"> Water bodies:</div>
-                            <ul id="impWaterBodListUl2" class="dropdown-menu span3" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu">
-                                <label class="radio"><input type="radio" name="WBRadios2" id="impSCheck2" value="streams" checked>Streams</label>
-                                <label class="radio"><input type="radio"name="WBRadios2" id="impLCheck2" value="lakes">Lakes</label>
-                                <label class="radio"><input type="radio" name="WBRadios2" id="impWCheck2" value="wetlands">Wetlands</label>
-                            </ul>
-                            <div id="impTitle2"> Affected Use:</div>
-                            <ul id="impForListUl2" class="dropdown-menu span3" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu">
-                                <label class="checkbox"><input type="checkbox" checked id="impCCheck" value="">Aquatic Consumption</label>
-                                <label class="checkbox"><input type="checkbox" checked id="impBCheck" value="">Aquatic Life</label>
-                                <label class="checkbox"><input type="checkbox" checked id="impRCheck" value="">Aquatic Recreation</label>
-                                <label class="checkbox"><input type="checkbox" checked id="impDWCheck" value="">Drinking Water</label>
-                                <label class="checkbox"><input type="checkbox" checked id="impLUCheck" value="">Limited Use Water</label>
-                            </ul>
-
-
-                        </div>
-                        <div id="fieldValueBox2" class="span6">
-                            <div id="impParamsTitle2"> Approved TMDL plan for:</div>
-                            <ul id="impParamsListUl2" class="dropdown-menu span6" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="advancedSel">
-                    <div id="layerSetPlace" class="row" style="">
-                        <div id="layerFieldNames" class="span3">
-                            <div id="fieldsTitle"> Available Fields</div>
-                            <ul id="layerFieldsListUl" class="dropdown-menu span3" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
-                        </div>
-                        <div id="fieldValueBox" class="span6">
-                            <div id="uniqueValsTitle"> Unique values</div>
-                            <ul id="FieldsValueListUl" class="dropdown-menu span6" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
-                            <div class="btn-toolbar">
-                                <button ondblclick="queAdd($(this).text())" class="btn btn-small">=</button>
-                                <button ondblclick="queAdd($(this).text())" class="btn btn-small">></button>
-                                <button ondblclick="queAdd($(this).text())" class="btn btn-small"><</button>
-                                <button ondblclick="queAdd($(this).text())" class="btn btn-small">AND</button>
-                                <button ondblclick="queAdd($(this).text())" class="btn btn-small">OR</button>
-                                <button ondblclick="queAdd($(this).text())" class="btn btn-small">IS</button>
-                                <button class="btn btn-danger btn-small pull-right" onclick="$('#lyrQueryArea').val('')">Clear</button>
-
-                            </div>
-                            <div id="queryBox"><textarea id="lyrQueryArea" rows="5"></textarea></div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- tab-content -->
-
-        </div>
-
-        <div id="symbologyArea">
-            <div class="input-prepend">
-              <span class="add-on">Line color</span>
-              <input class="" style="width:auto" id="lColPicker" type="text" placeholder="Select">
-            </div>
-
-            <div class="input-prepend">
-              <span class="add-on">Line Width</span>
-              <select id="lineWidth" style="width:auto" value="1"> 
-                  <option>0</option>
-                  <option>0.5</option>
-                  <option>1</option>
-                  <option>1.5</option>
-                  <option>2</option>
-                  <option>2.5</option>
-                  <option>3</option>
-                  <option>3.5</option>
-                  <option>4</option>
-                  <option>4.5</option>
-                  <option>5</option>
-              </select>
-            </div>
-
-            <div class="input-prepend">
-              <span class="add-on">Fill color</span>
-              <input class="span2" id="fColPicker" type="text" placeholder="Select">
-            </div>
-
-            <div id="pointSzPicker" class="input-prepend" style="">
-              <span class="add-on">Point Size</span>
-              <select id="pointSize" style="width:auto" value="5"> 
-                  <option>0</option>
-                  <option>0.5</option>
-                  <option>1</option>
-                  <option>1.5</option>
-                  <option>2</option>
-                  <option>2.5</option>
-                  <option>3</option>
-                  <option>3.5</option>
-                  <option>4</option>
-                  <option>4.5</option>
-                  <option>5</option>
-                  <option>5.5</option>
-                  <option>6</option>
-                  <option>6.5</option>
-                  <option>7</option>
-                  <option>7.5</option>
-                  <option>8</option>
-                  <option>8.5</option>
-                  <option>9</option>
-                  <option>9.5</option>
-                  <option>10</option>
-                  <option>10.5</option>
-                  <option>11</option>
-                  <option>11.5</option>
-                  <option>12</option>
-              </select>
-            </div>
-
-        </div>
-
-    </div>
+<div class="modal-header">
+    <button type="button" style="opacity:1; margin-top:-12px" class="close closeX" data-dismiss="modal" aria-hidden="true" onclick="$('#layerSelectionModal').hide()">x</button>
 </div>
 
-                    <div class="row-fluid">
-                        
-                        <div id="impBoxNextPlc" class="span2 offset10">
-                            <input id="impNextBut" class="btn btn-block btn-info" type="" onclick="impairSelect(); reorderImpairesLayers()" value="Add layer">
-                            <input id="impChangeBut" class="btn btn-block btn-info" type="" style="display:none" value="Change Symbol">
-                        </div>
-                    </div>
-                </div>
+<div>
+  <div id="SettingsBlock" class="" style="">
+    <legend id="legLayerName">Custom Impaired Water Layer</legend>
+    <input id="impLayerNameBox" class="btn-block" type="text" val="Name your layer">
+    <div id="impWaterBodListUl" class="well well-small">
+      <label class="radio inline">Water bodies:</label>
+      <label class="radio inline"><input type="radio" name="WBRadios" id="impSCheck" value="streams" checked>Streams</label>
+      <label class="radio inline"><input type="radio"name="WBRadios" id="impLCheck" value="lakes">Lakes</label>
+      <label class="radio inline"><input type="radio" name="WBRadios" id="impWCheck" value="wetlands">Wetlands</label>
+    </div>
+    <div class="tabbable" id="selTabs">
+      <ul id="imptabs" class="nav nav-tabs">
+          <li class="active"><a href="#basicSel" data-toggle="tab" onclick="resetLyrTitle()">Select by impairment parameter</a></li>
+          <li><a href="#affectedUseSel" data-toggle="tab" onclick="resetLyrTitle()">Select by Affected Use</a></li>
+          <li><a href="#advancedSel" data-toggle="tab" onclick="resetLyrTitle()">Advanced</a></li>
+      </ul>
+        
+      <div class="" id="lyrQueD">
+        <div id="restUrlLyrLink" type="text" class="" style="display:none" value="">Layer Rest url: <pre><code></code></pre></div>
+        <div class="tab-content">
+          <div class="tab-pane active" id="basicSel">
+            <div id="impairLyrSetPlace" class="row">
+              <div id="fieldValueBox" class="span9">
+                  <div id="impParamsTitle"> Impairment Parameters</div>
+                  <ul id="impParamsListUl" class="dropdown-menu span6" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
+              </div>
             </div>
+          </div>
+          <div class="tab-pane" id="affectedUseSel">
+              <div id="impairLyrSetPlace2" class="row">
+                  <div id="fieldValueBox2" class="span9">
+                      <div id="impParamsTitle2">Affected Use:</div>
+                      <ul id="impForListUl" class="dropdown-menu span6" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu">
+                        <label class="checkbox"><input type="checkbox" id="impCCheck" value="">Aquatic Consumption</label>
+                        <label class="checkbox"><input type="checkbox" id="impBCheck" value="">Aquatic Life</label>
+                        <label class="checkbox"><input type="checkbox" id="impRCheck" value="">Aquatic Recreation</label>
+                        <label class="checkbox"><input type="checkbox" id="impDWCheck" value="">Drinking Water</label>
+                        <label class="checkbox"><input type="checkbox" id="impLUCheck" value="">Limited Use Water</label>
+
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="tab-pane" id="advancedSel">
+              <div id="layerSetPlace" class="row" style="">
+                  <div id="layerFieldNames" class="span3">
+                      <div id="fieldsTitle"> Available Fields</div>
+                      <ul id="layerFieldsListUl" class="dropdown-menu span3" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
+                  </div>
+                  <div id="fieldValueBox3" class="span6">
+                      <div id="uniqueValsTitle"> Unique values</div>
+                      <ul id="FieldsValueListUl" class="dropdown-menu span6" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
+                      <div class="btn-toolbar">
+                          <button ondblclick="queAdd($(this).text())" class="btn btn-small">=</button>
+                          <button ondblclick="queAdd($(this).text())" class="btn btn-small">></button>
+                          <button ondblclick="queAdd($(this).text())" class="btn btn-small"><</button>
+                          <button ondblclick="queAdd($(this).text())" class="btn btn-small">AND</button>
+                          <button ondblclick="queAdd($(this).text())" class="btn btn-small">OR</button>
+                          <button ondblclick="queAdd($(this).text())" class="btn btn-small">IS</button>
+                          <button class="btn btn-danger btn-small pull-right" onclick="$('#lyrQueryArea').val('')">Clear</button>
+
+                      </div>
+                      <div id="queryBox"><textarea id="lyrQueryArea" rows="5"></textarea></div>
+                  </div>
+              </div>
+          </div>
+        </div><!-- tab-content -->
+      </div>
+        <div id="symbologyArea">
+          <div class="input-prepend">
+            <span class="add-on">Line color</span>
+            <input class="" style="width:auto" id="lColPicker" type="text" placeholder="Select">
+          </div>
+          <div class="input-prepend">
+            <span class="add-on">Line Width</span>
+            <select id="lineWidth" style="width:auto" value="1"> 
+                <option>0</option>
+                <option>0.5</option>
+                <option>1</option>
+                <option>1.5</option>
+                <option>2</option>
+                <option>2.5</option>
+                <option>3</option>
+                <option>3.5</option>
+                <option>4</option>
+                <option>4.5</option>
+                <option>5</option>
+            </select>
+          </div>
+          <div class="input-prepend">
+            <span class="add-on">Fill color</span>
+            <input class="span2" id="fColPicker" type="text" placeholder="Select">
+          </div>
+          <div id="pointSzPicker" class="input-prepend" style="">
+            <span class="add-on">Point Size</span>
+            <select id="pointSize" style="width:auto" value="5"> 
+                <option>0</option>
+                <option>0.5</option>
+                <option>1</option>
+                <option>1.5</option>
+                <option>2</option>
+                <option>2.5</option>
+                <option>3</option>
+                <option>3.5</option>
+                <option>4</option>
+                <option>4.5</option>
+                <option>5</option>
+                <option>5.5</option>
+                <option>6</option>
+                <option>6.5</option>
+                <option>7</option>
+                <option>7.5</option>
+                <option>8</option>
+                <option>8.5</option>
+                <option>9</option>
+                <option>9.5</option>
+                <option>10</option>
+                <option>10.5</option>
+                <option>11</option>
+                <option>11.5</option>
+                <option>12</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="row-fluid">      
+      <div id="impBoxNextPlc" class="span2 offset10">
+          <input id="impNextBut" class="btn btn-block btn-info" type="" onclick="impairSelect(); reorderImpairesLayers()" value="Add layer">
+          <input id="impChangeBut" class="btn btn-block btn-info" type="" style="display:none" value="Change Symbol">
+      </div>
+  </div>
+</div>
+<!-- </div>
+ -->

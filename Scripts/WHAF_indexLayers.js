@@ -4,7 +4,6 @@ function respond(j, n, r, timeStampIn) {
   try {
         removeFirstLayer(j,e)
     } catch (i) {}
-    //indexText(e);
     $("#legend").show();
     $('#indexTitle_slider').show()
     
@@ -20,7 +19,9 @@ function respond(j, n, r, timeStampIn) {
     if(timeStampIn !== true){
         timeStampIndex(e)
     }
-    $('#flipButtL2').removeClass('disabled').addClass('btn-info').prop('title', 'Include only layers associated with selected health score index')
+
+    indRelatedTabToggle('on')
+    // $('#flipButtL2').removeClass('disabled').addClass('btn-info').prop('title', 'Include only layers associated with selected health score index')
 }
 
 function changeScoreOpacity(e) {
@@ -72,9 +73,8 @@ function removeFirstLayer(j,e){
     WHAFapp.currentMapParams.indexLayer = j;
     $('.scoreButton').children().removeClass( "btn-info" );
     majors.setVisibleLayers([e]);
-
-    // $('#flipButtL2').hide()
-    $('#flipButtL2').addClass('disabled').removeClass('btn-info').prop('title','Available when an index is displayed')
+    indRelatedTabToggle('off')
+    // $('#flipButtL2').addClass('disabled').removeClass('btn-info').prop('title','Available when an index is displayed')
 
     lyrListToggler()
 }
@@ -101,21 +101,13 @@ function preLyrListToggler(element){
     }
 }
 
-function lyrListToggler(el){//toggles and updates button to add index related features
+function lyrListToggler(){//toggles and updates button to add index related features
     var k = $('#adHocLayerListUl li');
     
-    if (el&&WHAFapp.currentMapParams.indexLayer && WHAFapp.currentMapParams.indexLayer !== undefined){
+    if (WHAFapp.currentMapParams.indexLayer && WHAFapp.currentMapParams.indexLayer !== undefined){
         try{setIndNameInPlace()}catch(err){}
         var key=WHAFapp.currentMapParams.indexLayer[0].toLowerCase()
-        if($('#flipButtL2').hasClass('on')){
-            showAll();
-        } else{
-            showSome();
-        }
-    }else{
-      showAll()}
-  
-    function showSome(){
+
         var list = relatedFeatures[key]
         var nameList=[]
         for (var i=0; i<list.length; i++){
@@ -131,20 +123,10 @@ function lyrListToggler(el){//toggles and updates button to add index related fe
 
         t=$('#adHocLayerListUl').html();
         $('#adHocLayerListUl2').html(t); 
-        // $('#flipButtL2').html('<strong>Show all layers</strong>');
-        // $('#flipButtL2').addClass('on');
-        $('.addLayerBox').hide();$('#addLayerBox5').show()
-    }
-
-    function showAll(){
         for (var i=0;i<k.length; i++){
             var t=$(k[i]).text();
             $(k[i]).show();
-        } 
-        $('#flipButtL2').html('<strong>Index related layers</strong>');
-        $('#flipButtL2').removeClass('on');
-
-        
+        }        
     }
 }
 
@@ -155,15 +137,15 @@ function setIndNameInPlace(){
   for (f in indexdescNewJson){
 
     if(indexdescNewJson[f].catchmentId===n){
-      $('#indexTitleForLyrs').html("Layers related to "+indexdescNewJson[f].name)
+      $('#indexTitleForLyrs').html("Layers related to <strong>"+indexdescNewJson[f].name+"</strong>")
     } else if (indexdescNewJson[f].watershedId===n){
-      $('#indexTitleForLyrs').html("Layers related to "+indexdescNewJson[f].name)
+      $('#indexTitleForLyrs').html("Layers related to <strong>"+indexdescNewJson[f].name+"</strong>")
     }
     else if(indexdescNewJson[f].metrics){
       g=indexdescNewJson[f].metrics;
       for (var i=0;i<g.length; i++){
         if(g[i].catchmentId === n){
-         $('#indexTitleForLyrs').html("Layers related to "+g[i].name) 
+         $('#indexTitleForLyrs').html("Layers related to <strong>"+g[i].name+"</strong>") 
         }
       }
     }
@@ -205,7 +187,8 @@ function lyrListToggler2(el){//Manually show index related features (from index 
 function setIndNameInPlace2(n){
   console.log(n)
   if (indexdescNewJson[n]){
-    $('#indexTitleForLyrs').html("Related to "+indexdescNewJson[n].name)
+    indRelatedTabToggle('on')
+    $('#indexTitleForLyrs').html("Layers related to <strong>"+indexdescNewJson[n].name+"</strong>")
     console.log(indexdescNewJson[n].name)
   }
 
@@ -216,7 +199,8 @@ function setIndNameInPlace2(n){
         g=indexdescNewJson[f].metrics;
         for (var i=0;i<g.length; i++){
           if(g[i].fieldName === n){
-           $('#indexTitleForLyrs').html("Layers related to "+g[i].name) 
+           indRelatedTabToggle('on')
+           $('#indexTitleForLyrs').html("Layers related to <strong>"+g[i].name+"</strong>") 
           }
         }
       }
@@ -849,7 +833,7 @@ indexdescNewJson={
         }, {
             "name": "Potential contaminants",
             "watershedId": "",
-            "catchmentId": "WQ Metric - Localized Pollution Sources, Animal Units",
+            "catchmentId": "WQ Metric - Localized Pollution Sources, Potential Contaminants",
             "indexSummary": "Potential contaminant sites, representing a wide range of activity types, present within a catchment",
             "shortDesc": "<h4>Potential Contaminant Sites Metric</h4>Potential contaminants are identified from a database managed by the Minnesota Pollution Control Agency (October 2014 data).  The contaminate types include air pollution sources, hazardous waste producers and disposal sites, petroleum tanks, tank leak sites, solid waste dumps and landfills, contaminated sites that are under remediation, and storm water discharge sites.  The total number of sites is divided by catchment land area.   Scores range from 0 to 100, with a density of 1.87 points/km2 or greater = 0; no sites present = 100.",
             "sourceData": "",

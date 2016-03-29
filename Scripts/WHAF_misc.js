@@ -461,17 +461,14 @@ function aFeatureById(id){// get an item from theseFeature array by id
 }
 
 function loadSelectableLyr(urlId,auxID) {
-    // console.log("tryin to retrieve ",auxID)
+    
     var g,R,query=scaleQuer($('#lyrQueryArea').val()), featureP=aFeatureById(auxID);
     var url=WHAFapp.impairments.url+urlId;
     $('#loader').show();
 
     //assign properties to feature record
     featureP.queryExp=$('#lyrQueryArea').val();
-    // console.log(featureP.queryExp)
     featureP.impParms = getCheckedParams();
-
-    // console.log(url)//WHAFapp.selectableLayer[auxID])
 
     if(WHAFapp.selectableLayer[auxID].lyrs[lyrId] === undefined || WHAFapp.selectableLayer[auxID].loaded===false){
         var lyrId=WHAFapp.selectableLayer[auxID].lyrSerial;
@@ -492,7 +489,24 @@ function loadSelectableLyr(urlId,auxID) {
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('graphic-add',function(){
             reorderImpairesLayers();
         });
-        map.addLayer(WHAFapp.selectableLayer[auxID].lyrs[lyrId]);                    
+        var lyrr=WHAFapp.selectableLayer[auxID].lyrs[lyrId]
+
+        // console.log(WHAFapp.selectableLayer[auxID])
+        
+
+       lyrr.layerInfos=[]
+        map.addLayer(lyrr);
+        var lyrTitle = WHAFapp.selectableLayer.givenName
+        var hLyrr={
+            layer:lyrr,
+            title:lyrTitle
+        }
+        
+        console.log(lyrr)
+
+        legendd.layerInfos.push(hLyrr);
+        try{legendd.refresh()}catch(err){};
+
     }else{
         addImpairment()
     }
@@ -500,8 +514,73 @@ function loadSelectableLyr(urlId,auxID) {
     function addImpairment(){
         g = WHAFapp.selectableLayer[auxID].lyrs[lyrId].geometryType;
         R = symbStarter(g,auxID);
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].setRenderer(R)//new  WHAFapp.SimpleRendererCons(R));
-        //WHAFapp.selectableLayer[auxID].lyrs[lyrId].id = "impGraphic";
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].setRenderer(R)
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].identifier = "impLine";
+        try {
+            WHAFapp.selectableLayer[auxID].lyrs[lyrId].selectFeatures(query,WHAFapp.FeatureLayerCons.SELECTION_NEW);
+            WHAFapp.selectableLayer[auxID].lyrs[lyrId].currentQuery=query;
+        } catch (s) {console.log(("failed to load a scale layer"))}
+
+    };
+}
+
+function loadSelectableLyr_(urlId,auxID) {
+    // console.log("tryin to retrieve ",auxID)
+    var g,R,query=scaleQuer($('#lyrQueryArea').val()), featureP=aFeatureById(auxID);
+    var url=WHAFapp.impairments.url+urlId;
+    $('#loader').show();
+
+    //assign properties to feature record
+    featureP.queryExp=$('#lyrQueryArea').val();
+    featureP.impParms = getCheckedParams();
+
+    if(WHAFapp.selectableLayer[auxID].lyrs[lyrId] === undefined || WHAFapp.selectableLayer[auxID].loaded===false){
+        var lyrId=WHAFapp.selectableLayer[auxID].lyrSerial;
+
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId] = new WHAFapp.FeatureLayerCons(url, {
+            maxAllowableOffset: 0,
+            mode: WHAFapp.FeatureLayerCons.MODE_SELECTION
+        });
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=false;
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('selection-complete',function(){
+            WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=true;
+        })
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('load', function(){
+            addImpairment();
+            WHAFapp.selectableLayer.loadStatus="ready";
+            $('#loader').hide();
+        });
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('graphic-add',function(){
+            reorderImpairesLayers();
+        });
+        var lyrr=WHAFapp.selectableLayer[auxID].lyrs[lyrId]
+
+        console.log(lyrr)
+        
+
+//        lyrr.layerInfos=[{name:"An impaired thing"}]
+       lyrr.visibleLayers=[0]
+
+
+        map.addLayer(lyrr);
+
+
+        var hLyrr={
+            layer:lyrr,
+            title:"An impaired Layer"
+        }
+
+        legendd.layerInfos.push(hLyrr);
+        try{legendd.refresh()}catch(err){};
+
+    }else{
+        addImpairment()
+    }
+    WHAFapp.selectableLayer[auxID].lyrSerial++;
+    function addImpairment(){
+        g = WHAFapp.selectableLayer[auxID].lyrs[lyrId].geometryType;
+        R = symbStarter(g,auxID);
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].setRenderer(R)
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].identifier = "impLine";
         try {
             WHAFapp.selectableLayer[auxID].lyrs[lyrId].selectFeatures(query,WHAFapp.FeatureLayerCons.SELECTION_NEW);
@@ -528,14 +607,16 @@ function symbStarter(geometry,auxID){//get renderer from color and size pickers
        "type": "esriSLS",
        "style": "esriSLSSolid",
        "color": rgbaTRans(lColor),
-       "width": lWidth
+       "width": lWidth,
+       "value":"Impi Thing",
+       "label":"Impaired Water"
     }
 
     fillJson = {
         "type": "esriSFS",
         "style": "esriSFSSolid",
         "color": rgbaTRans(fColor),
-        "outline": lineJson
+        "outline": lineJson,
     }
 
     pointJson =  {
@@ -557,10 +638,12 @@ function symbStarter(geometry,auxID){//get renderer from color and size pickers
             break;
     }
 
-    r.label="Impaired Water"
+    r.label="Impaired Water";
+    r.value="Impairithingy";
 
     renderer = new  WHAFapp.SimpleRendererCons(r);
-
+   
+console.log("renderer")
     return renderer
 
     function rgbaTRans(rgba){
@@ -798,18 +881,14 @@ function getImpairVals() {
         var z = WHAFapp.impairments[l[n]];
         var a = z.layerIds;
         var M = z.impParams;
-        console.log("M in getImpairVals: ",M)
+        // console.log("M in getImpairVals: ",M)
         var MM = z.impParamsAsUniqueVal=[];
-        var D = z.approved_D;
-        console.log("D in getImpairVals: ",D)
-        var DD = z.approved_D_AsUinqueVal=[];
-
+      
         for (b in a) {
             var u = WHAFapp.impairments.url + a[b]
             getImpairParams(WHAFapp.impairments.impField, u, M,MM);
-            getImpairParams("APPROVED_D", u, D,DD);
             if (n==2 && b ==1){//to execute after completion of loop 
-                setTimeout(function(){prePopulateImpList();prePopulateApprovedList()},2000)    
+                setTimeout(function(){prePopulateImpList()},2000)    
             };
         };
     }
@@ -882,21 +961,10 @@ function prePopulateImpList(){
   }
 }
 
-function prePopulateApprovedList(){
-  if($('#impParamsListUl2').html()==''){
-    populateApTdmlList();
-    }else{
-    setTimeout(function(){
-      prePopulateApprovedList()
-    },2000)
-  }
-}
-
-
 function populateImpList(){
     var go=0;
     console.log("Go = 0")
-  setAU_vals();//set unique values for 'affected use' field in impairment object
+    setAU_vals();//set unique values for 'affected use' field in impairment object
   var F = [], l = ['streams', 'lakes', 'wetlands'];
   for (i in l){
    var ch=$('#imp'+l[i][0].toUpperCase()+'Check').prop('checked');
@@ -912,8 +980,6 @@ function populateImpList(){
     }
   }
   F.sort()
-  // console.log(F)
-  // console.log(F)
   $('#impParamsListUl').html('');
   for (var i=0; i<F.length; i++){
     
@@ -924,48 +990,54 @@ function populateImpList(){
 
     setImpParams(F[i],go);
   };
-    $('#impParamsListUl label').on('click',function(){
+    $('#impParamsListUl label, #impForListUl label').on('click',function(){
         var WBI=impNamer(), plhld = WBI+' (click to rename)'
         $('#impLayerNameBox').attr('placeholder',plhld);
         WHAFapp.selectableLayer.givenName=WBI;
     });
 }
 
-function populateApTdmlList(){
-    var go=0;
-    console.log("Go = 0")
-    setAU_vals();//set unique values for 'affected use' field in impairment object
-    var F = [], l = ['streams', 'lakes', 'wetlands'];
-    for (i in l){
-        var ch=$('#imp'+l[i][0].toUpperCase()+'Check2').prop('checked');
-        var lst = WHAFapp.impairments[l[i]].approved_D;
-        if(ch){
-          for (v in lst){
-            var V=lst[v].trim()
-            if(F.indexOf(V)==-1 && V!==''){
-                F.push(V);
-                setImpTitle(l[i]);//#######################
-            }
-          }
-        }
-    }
-    F.sort()
-    $('#impParamsListUl2').html('');
-    for (var i=0; i<F.length; i++){
+
+// $('#impForListUl label').on('click',function(){
+//     var WBI=impNamer(), plhld = WBI+' (click to rename)'
+//     $('#impLayerNameBox').attr('placeholder',plhld);
+//     WHAFapp.selectableLayer.givenName=WBI;
+// });
+// function populateApTdmlList(){
+//     var go=0;
+//     console.log("Go = 0")
+//     setAU_vals();//set unique values for 'affected use' field in impairment object
+//     var F = [], l = ['streams', 'lakes', 'wetlands'];
+//     for (i in l){
+//         var ch=$('#imp'+l[i][0].toUpperCase()+'Check2').prop('checked');
+//         var lst = WHAFapp.impairments[l[i]].approved_D;
+//         if(ch){
+//           for (v in lst){
+//             var V=lst[v].trim()
+//             if(F.indexOf(V)==-1 && V!==''){
+//                 F.push(V);
+//                 setImpTitle(l[i]);//#######################
+//             }
+//           }
+//         }
+//     }
+//     F.sort()
+//     $('#impParamsListUl2').html('');
+//     for (var i=0; i<F.length; i++){
     
-        if(i===F.length-1){
-            go=1;
-            console.log("GO=1")
-        }
-        setImpParams2(F[i],go);//#######################
-    };
+//         if(i===F.length-1){
+//             go=1;
+//             console.log("GO=1")
+//         }
+//         setImpParams2(F[i],go);//#######################
+//     };
     
-    $('#impParamsListUl2 label').on('click',function(){
-        var WBI=impNamer2(), plhld = WBI+' (click to rename)'
-        $('#impLayerNameBox').attr('placeholder',plhld);
-        WHAFapp.selectableLayer.givenName=WBI;
-    });
-}
+//     $('#impParamsListUl2 label').on('click',function(){
+//         var WBI=impNamer2(), plhld = WBI+' (click to rename)'
+//         $('#impLayerNameBox').attr('placeholder',plhld);
+//         WHAFapp.selectableLayer.givenName=WBI;
+//     });
+// }
 
 function setImpTitle(WB){
     var placeholder;
@@ -1021,7 +1093,7 @@ function initImpairedModule(){
         esri.config.defaults.io.corsEnabledServers.push(dmn)
     };
     $('#impWaterBodListUl input').on("change",function(){populateImpList()});
-    $('#impWaterBodListUl2 input').on("change",function(){populateApTdmlList()});
+    // $('#impWaterBodListUl2 input').on("change",function(){populateApTdmlList()});
 
     $('#layerSelectionModal').css(g);
     initSymbolSelect();
@@ -1037,97 +1109,25 @@ function selGetter(){
 }
 
 function impairSelect(){
+    var v,r=$('#lyrQueD .tab-pane')
+    for (var i=0; i<r.length; i++){
+      if ($(r[i]).hasClass('active')){
+        v=r[i].id 
+      }
+    }
+    if (v==='basicSel'){
+      impParamSelect()
+    } else if (v === 'affectedUseSel'){
+      affectedUseSelect()
+    } else if (v==='advancedSel'){
+      advancedSelect()
+    }
+}
 
+function impParamSelect(){
     layerItemID++
-    var WB = selGetter(),outQuery,nnn;
-    var impObject=impLyrDetails()
-    var featureP={
-        checked:true,
-        group:WHAFapp.impairments.url,
-        identify:false, 
-        layerID:WHAFapp.impairments[WB].layerIds,
-        id:layerItemID,
-        WB:WB,
-        affectedUse:impObject.affectedUse
-    };
-
-    WHAFapp.currentMapParams.theseFeatures.push(featureP);
-    nnn=WHAFapp.currentMapParams.theseFeatures.indexOf(featureP)
-    featureParams = WHAFapp.currentMapParams.theseFeatures[nnn];//get object to add properties later in this function
-  
-    var G=[],query = '',field = WHAFapp.impairments.impField;
-    var list = WHAFapp.impairments[WB].impParamsAsUniqueVal;
-
-    $("#impParamsListUl input:checkbox:checked").each(function(){
-        G.push($(this).val());
-    });
-  
-  for (var i=0; i<G.length; i++){
-    Q=selectWith(field,G[i],list)
-    if (i<G.length-1){
-     query = query + Q +" OR ";  
-    }else{
-     query = query + Q; 
-    }
-  } 
-
-  outQuery = getCheckedUses(query);
-  if(outQuery===false){
-    return
-  } else{
-      $('#lyrQueryArea').val(outQuery);
-      loadSelFl(featureP.layerID);
-      $('#layerSelectionModal').fadeOut();
-  }
-
-    function getCheckedUses(query){ // adds affected use to query if not all affected use boxes are checked
-
-        var affectedUseVals, useList=[], bigUseList,g=$('#impForListUl .checkbox input'),f=$('#impForListUl .checkbox input:checked'),addedQuery, newQuery;
-        // console.log(f)
-        for (var i=0; i<f.length; i++){        
-            useList.push($(f[i]).parent().text());
-        }
-
-        affectedUseVals=WHAFapp.impairments[WB].AffectedUseAsUniqueVal
-
-        if(useList.length===0){
-            alert('Please check at least one "Affected Use" box');
-            $('#impForListUl').effect('highlight',{color:'rgba(200,20,20,0.5)',duration:800});
-            return false;
-        }
-        if(useList.length<g.length && useList.length>0){
-            bigUseList=selectWithFromMultiple(useList, affectedUseVals);
-            
-            addedQuery = " AND (AFFECTED_U = '"+bigUseList[0]+"'";
-            for (var i=1; i<bigUseList.length; i++){
-                addedQuery=addedQuery+" OR AFFECTED_U = '"+bigUseList[i]+"'";
-            }
-            addedQuery=addedQuery+")";
-            if (query && query !==''){
-                newQuery = "("+query+")"+addedQuery;
-            } else{
-                newQuery = addedQuery.replace('AND ','');
-            }
-            return newQuery;
-        } else{
-            if (! query || query===''){
-                $('#loader').hide();
-                alert("Please specify selection values for impairment layer (Impairment Parameters and, optionally, Affected Use)");
-                $('#impForListUl, #impParamsListUl').effect('highlight',{color:'rgba(200,20,20,0.5)',duration:800});
-               return false;
-            }
-            return query;
-        }
-    }
-  function loadSelFl(urls){
-    var buttonVal='',c,cc,h,buttonName,auxID;
-    auxID=layerItemID;
-    WHAFapp.selectableLayer[auxID]={lyrSerial:0,lyrs:[]}
-    for (ur in urls){
-        loadSelectableLyr(urls[ur],auxID);
-        buttonVal=auxID;
-    }
-
+    var WB = selGetter(),outQuery,buttonName;
+    var impObject=impLyrDetails();
     if($('#impLayerNameBox').val()===''){
         if (WHAFapp.selectableLayer.givenName){
             console.log("given name")
@@ -1137,22 +1137,41 @@ function impairSelect(){
             buttonName=WHAFapp.selectableLayer.name;
         }
     } else{
-        buttonName=$('#impLayerNameBox').val()
+        buttonName=$('#impLayerNameBox').val();
+        WHAFapp.selectableLayer.givenName=buttonName;
     }
-    featureParams.title=buttonName;
+    var featureP={
+        checked:true,
+        group:WHAFapp.impairments.url,
+        identify:false, 
+        layerID:WHAFapp.impairments[WB].layerIds,
+        id:layerItemID,
+        WB:WB,
+        affectedUse:impObject.affectedUse,
+        title:buttonName
+    };
+    WHAFapp.currentMapParams.theseFeatures.push(featureP);
 
-    impId=layerItemID;
+    var G=[],query = '',field = WHAFapp.impairments.impField;
+    // var list = WHAFapp.impairments[WB].impParamsAsUniqueVal;
 
-    cc= 'onclick="selFLToggler($(this)) "'
-    c = '<input type="checkbox" value=' + buttonVal + ' checked title="" autocomplete="off" '+cc+' ><span>'
+    $("#impParamsListUl input:checkbox:checked").each(function(){
+        G.push($(this).val());
+    });
+  
+    for (var i=0; i<G.length; i++){
+        Q=field+" LIKE '%"+G[i]+"%'";
+        if (i<G.length-1){
+            query = query + Q +" OR ";  
+        }else{
+            query = query + Q; 
+        }
+    };
 
-    h = '<div class="ui-state-default state-default1" id="'+impId+'"><div class="row-fluid"><label class="checkbox auxFeatCheck offset1 span7">' + c + buttonName + '</span></label><div class="span3"><a class="btn btn-small pull-right" href="#" title = "Set Selection" onclick="impSettingsMod(\''+auxID+'\')"><i class="icon-cog infoTableToggler"></i></a></div><div class="span1"><button onclick = "impLyrRemove('+impId+') " class="close" type="button">×</button></div></div></div>';
+    $('#lyrQueryArea').val(query);
+    loadSelFl(featureP.layerID,featureP.title);
+    $('#layerSelectionModal').fadeOut();
 
-    $("#selSortable1").prepend(h);
-    $('#impLayerNameBox').val('');
-    
-
-  }
     $('#customImpBut input').prop('checked',true);
 
     var fff={
@@ -1164,6 +1183,122 @@ function impairSelect(){
     $('#selSortable').css(fff);
     unHushImpairesLayers();
     $('#selSortable1').show();$('#impLyrToggler').text('-');  
+}
+
+function affectedUseSelect(){
+    layerItemID++
+    var WB = selGetter(),outQuery;
+    var impObject=impLyrDetails()
+    if($('#impLayerNameBox').val()===''){
+        if (WHAFapp.selectableLayer.givenName){
+            console.log("given name")
+            buttonName=WHAFapp.selectableLayer.givenName;
+        } else{
+            console.log("name")
+            buttonName=WHAFapp.selectableLayer.name;
+        }
+    } else{
+        buttonName=$('#impLayerNameBox').val()
+    }
+    var featureP={
+        checked:true,
+        group:WHAFapp.impairments.url,
+        identify:false, 
+        layerID:WHAFapp.impairments[WB].layerIds,
+        id:layerItemID,
+        WB:WB,
+        affectedUse:impObject.affectedUse,
+        title:buttonName
+    };
+    WHAFapp.currentMapParams.theseFeatures.push(featureP);
+
+    var G=impObject.affectedUse,query = '',field='AFFECTED_U';
+    for (var i=0; i<G.length; i++){
+        Q=field+" LIKE '%"+G[i]+"%'";
+        if (i<G.length-1){
+            query = query + Q +" OR ";  
+        }else{
+            query = query + Q; 
+        }
+    };
+
+    $('#lyrQueryArea').val(query);
+    loadSelFl(featureP.layerID,featureP.title);;
+    $('#layerSelectionModal').fadeOut();
+
+    $('#customImpBut input').prop('checked',true);
+
+    var fff={
+      'padding-top':'3px',
+      'padding-bottom':'1px',
+      'margin-bottom':'5px',
+      'background-color':'#aaaaaa'
+    };
+    $('#selSortable').css(fff);
+    unHushImpairesLayers();
+    $('#selSortable1').show();$('#impLyrToggler').text('-');  
+}
+
+function advancedSelect(){
+    layerItemID++
+    var WB = selGetter(),outQuery;
+    var impObject=impLyrDetails()
+    if($('#impLayerNameBox').val()===''){
+        if (WHAFapp.selectableLayer.givenName){
+            console.log("given name")
+            buttonName=WHAFapp.selectableLayer.givenName;
+        } else{
+            console.log("name")
+            buttonName=WHAFapp.selectableLayer.name;
+        }
+    } else{
+        buttonName=$('#impLayerNameBox').val()
+    }
+    var featureP={
+        checked:true,
+        group:WHAFapp.impairments.url,
+        identify:false, 
+        layerID:WHAFapp.impairments[WB].layerIds,
+        id:layerItemID,
+        WB:WB,
+        affectedUse:impObject.affectedUse,
+        title:buttonName
+    };
+    WHAFapp.currentMapParams.theseFeatures.push(featureP);
+
+    if($('#lyrQueryArea').val() && $('#lyrQueryArea').val()!== ''){
+        loadSelFl(featureP.layerID,featureP.title);
+        $('#layerSelectionModal').fadeOut();
+    } else{
+        alert("No query provided")
+    }
+    $('#customImpBut input').prop('checked',true);
+
+    var fff={
+      'padding-top':'3px',
+      'padding-bottom':'1px',
+      'margin-bottom':'5px',
+      'background-color':'#aaaaaa'
+    };
+    $('#selSortable').css(fff);
+    unHushImpairesLayers();
+    $('#selSortable1').show();$('#impLyrToggler').text('-');  
+}
+
+function loadSelFl(urls,bTitle){
+    var buttonVal='',c,cc,h,buttonName,auxID,buttonName=bTitle;
+    auxID=layerItemID;
+    WHAFapp.selectableLayer[auxID]={lyrSerial:0,lyrs:[]}
+    for (ur in urls){// two scale dependent services are queried and loaded
+        loadSelectableLyr(urls[ur],auxID);
+        buttonVal=auxID;
+    }
+    impId=layerItemID;
+    cc= 'onclick="selFLToggler($(this)) "';
+    c = '<input type="checkbox" value=' + buttonVal + ' checked title="" autocomplete="off" '+cc+' ><span>';
+    h = '<div class="ui-state-default state-default1" id="'+impId+'"><div class="row-fluid"><label class="checkbox auxFeatCheck offset1 span7">' + c + buttonName + '</span></label><div class="span3"><a class="btn btn-small pull-right" href="#" title = "Set Selection" onclick="impSettingsMod(\''+auxID+'\')"><i class="icon-cog infoTableToggler"></i></a></div><div class="span1"><button onclick = "impLyrRemove('+impId+') " class="close" type="button">×</button></div></div></div>';
+    $("#selSortable1").prepend(h);
+    $('#impLayerNameBox').val('');
 }
 
 
@@ -1207,6 +1342,8 @@ function impLyrDetails(){
     return impProps
 }
 
+
+
 function selFLToggler(r){//togges visibility for two feature layers (scale dependent, identical features)
     var qq=$(r).prop('checked'),ff,aa,bb;
     ff=$(r).parent().parent().parent().prop('id')
@@ -1215,6 +1352,7 @@ function selFLToggler(r){//togges visibility for two feature layers (scale depen
     bb=WHAFapp.selectableLayer[aa].lyrs;
     for(g in bb){
         if(qq===true){
+            // $('#loader').show();
             bb[g].show();
         } else if (qq==false){
             bb[g].hide();
@@ -1223,49 +1361,73 @@ function selFLToggler(r){//togges visibility for two feature layers (scale depen
 }
 
 
-function impNamer(list){
-  g=$('#impParamsListUl label input')
-  var nl=[],x = WHAFapp.selectableLayer.name
-  for (var i=0; i<g.length; i++){
-    if($(g[i]).prop('checked')){
-        d = $(g[i]).val();
-      if (nl.length ===0){
-        x=x+': '+d;
-        nl.push(d)
-      } else{
-         x=x+', '+d;
-        nl.push(d)
+function impNamer(list){//returns a string for naming a selected impaired water layer based on checked boxes
+
+    var v,g,r=$('#lyrQueD .tab-pane'),nl=[],x = WHAFapp.selectableLayer.name;
+    for (var i=0; i<r.length; i++){
+      if ($(r[i]).hasClass('active')){
+        v=r[i].id 
       }
     }
-  }
-  if(list==="list"){
-    return nl
-  } else{
-    return x    
-  }
+    if (v==='basicSel' || list==="list"){
+        g=$('#impParamsListUl label input');
+        for (var i=0; i<g.length; i++){
+            if($(g[i]).prop('checked')){
+                d = $(g[i]).val();
+              if (nl.length ===0){
+                x=x+': '+d;
+                nl.push(d)
+              } else{
+                 x=x+', '+d;
+                nl.push(d)
+              }
+            }
+        }
+    } else if (v === 'affectedUseSel'){
+        g=$('#impForListUl label input');
+        for (var i=0; i<g.length; i++){
+            if($(g[i]).prop('checked')){
+                d = $(g[i]).parent().text();
+              if (nl.length ===0){
+                x=x+': '+d;
+                nl.push(d)
+              } else{
+                 x=x+', '+d;
+                nl.push(d)
+              }
+            }
+        }
+    } else if (v==='advancedSel'){
+      x='';
+    }
+    if(list==="list"){
+        return nl
+    } else{
+        return x    
+    }
 }
 
-function impNamer2(list){
-  g=$('#impParamsListUl2 label input')
-  var nl=[],x = WHAFapp.selectableLayer.name
-  for (var i=0; i<g.length; i++){
-    if($(g[i]).prop('checked')){
-        d = $(g[i]).val();
-      if (nl.length ===0){
-        x=x+': '+d;
-        nl.push(d)
-      } else{
-         x=x+', '+d;
-        nl.push(d)
-      }
-    }
-  }
-  if(list==="list"){
-    return nl
-  } else{
-    return x    
-  }
-}
+// function impNamer2(list){
+//   g=$('#impParamsListUl2 label input')
+//   var nl=[],x = WHAFapp.selectableLayer.name
+//   for (var i=0; i<g.length; i++){
+//     if($(g[i]).prop('checked')){
+//         d = $(g[i]).val();
+//       if (nl.length ===0){
+//         x=x+': '+d;
+//         nl.push(d)
+//       } else{
+//          x=x+', '+d;
+//         nl.push(d)
+//       }
+//     }
+//   }
+//   if(list==="list"){
+//     return nl
+//   } else{
+//     return x    
+//   }
+// }
 function polySymbSetter(lyr){//change renderer and query
     var laYers = WHAFapp.selectableLayer[lyr].lyrs,k;
     var featureP = aFeatureById(lyr);
@@ -1586,6 +1748,7 @@ function getSharedImpaired(){
 }
 
 function setCheckedParams(list){//,Y,ser){
+    console.log("sort this out")
   f=$('#impParamsListUl .checkbox input');
   if($('#impParamsListUl .checkbox input').length === undefined || $('#impParamsListUl .checkbox input').length ===0){
     setTimeout(function(){setCheckedParams(list)},300)//,Y,ser)},300)
@@ -1708,4 +1871,25 @@ function clearImpairLayers(){
     if($('#impLayerButt').prop('checked')){
       $('#impLayerButt').click();
     } 
+}
+
+function resetLyrTitle(){
+    WHAFapp.selectableLayer.givenName='';
+    var plhld ='Layer name: '+WHAFapp.selectableLayer.name+' (click to rename)';
+    $('#impLayerNameBox').attr('placeholder',plhld);
+
+}
+
+//FUNCTIONS REGULATING BEHAVIOR OF INDEX RELATED FEATURES
+function indRelatedTabToggle(o){  
+  if (o==="on"){
+    $('#indRelatedTab').removeClass('disabled');
+    $('#noIndexNote').hide();
+    $('#adHocLayerListUl2').show();
+  } else if (o==="off"){
+    $('#indRelatedTab').addClass('disabled');
+    $('#noIndexNote').show()
+    $('#adHocLayerListUl2').hide();
+    $('#indexTitleForLyrs').html('');
+  }
 }
