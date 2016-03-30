@@ -488,6 +488,12 @@ function loadSelectableLyr(urlId,auxID) {
         });
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('graphic-add',function(){
             reorderImpairesLayers();
+            $('#loader2').hide()
+        });
+
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('error',function(){
+            $('#loader2').hide();
+            alert("Sorry, we encountered a problem loading this layer. Please try again. ")
         });
         var lyrr=WHAFapp.selectableLayer[auxID].lyrs[lyrId]
 
@@ -1109,6 +1115,7 @@ function selGetter(){
 }
 
 function impairSelect(){
+    
     var v,r=$('#lyrQueD .tab-pane')
     for (var i=0; i<r.length; i++){
       if ($(r[i]).hasClass('active')){
@@ -1116,10 +1123,13 @@ function impairSelect(){
       }
     }
     if (v==='basicSel'){
+        $('#loader2').show()
       impParamSelect()
     } else if (v === 'affectedUseSel'){
+        $('#loader2').show()
       affectedUseSelect()
     } else if (v==='advancedSel'){
+        $('#loader').show()
       advancedSelect()
     }
 }
