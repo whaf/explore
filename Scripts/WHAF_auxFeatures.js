@@ -29,6 +29,7 @@ function auxFeatureConstructor(displayName, restUrl, layerId, scaleMax, scaleMin
         }
 
         WHAFapp.currentMapParams.theseFeatures.push(layerItem);
+        $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
         gdrsNoter();
     }
 
