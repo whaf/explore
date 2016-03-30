@@ -1296,7 +1296,7 @@ function loadSelFl(urls,bTitle){
     impId=layerItemID;
     cc= 'onclick="selFLToggler($(this)) "';
     c = '<input type="checkbox" value=' + buttonVal + ' checked title="" autocomplete="off" '+cc+' ><span>';
-    h = '<div class="ui-state-default state-default1" id="'+impId+'"><div class="row-fluid"><label class="checkbox auxFeatCheck offset1 span7">' + c + buttonName + '</span></label><div class="span3"><a class="btn btn-small pull-right" href="#" title = "Set Selection" onclick="impSettingsMod(\''+auxID+'\')"><i class="icon-cog infoTableToggler"></i></a></div><div class="span1"><button onclick = "impLyrRemove('+impId+') " class="close" type="button">×</button></div></div></div>';
+    h = '<div class="ui-state-default state-default1" id="'+impId+'"><div class="row-fluid"><label class="checkbox auxFeatCheck offset1 span7">' + c + buttonName + '</span></label><div class="span3"><a class="btn btn-small pull-right" href="#" title = "Set Selection" onclick="impSettingsMod(\''+auxID+'\')"><i class="icon-cog infoTableToggler"></i></a></div><div class="span1"><button onclick = "impLyrRemove('+impId+',this) " class="close" type="button">×</button></div></div></div>';
     $("#selSortable1").prepend(h);
     $('#impLayerNameBox').val('');
 }
@@ -1609,9 +1609,11 @@ function impLyrsMinizer(){
     }
 }
 
-function impLyrRemove(id){
+function impLyrRemove(id,th){
     var y=WHAFapp.selectableLayer[id];
     var x=y.lyrs;
+    $(th).parent().parent().find('input').prop('checked', true);
+    $(th).parent().parent().find('label').click(); 
     for (z in x){
         map.removeLayer(x[z]); 
     }
