@@ -740,7 +740,8 @@ function searchShow(){
 }
 
 function topWSDD(){
-    $('#dropDownWS').scrollTop(0);
+    setTimeout(function(){$('#dropDownWS').scrollTop(0)},100) 
+    
 }
 
 function WhafMapConstructor(v){//sets the map from url or bookmark from encoded params 

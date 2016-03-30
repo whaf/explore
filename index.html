@@ -1166,7 +1166,9 @@
             $('#disclaimerPlace').load('disclaimer.html');
             $('#waterUsePlace').load('waterUseCharts.html');
             $('#info1').load('whatsAwatershed.html');            
-            $('#mapScalePlace').load('scaleButtons.html', function(){resizeElementHeight('dropDownWS', 180);});
+            $('#mapScalePlace').load('scaleButtons.html', function(){resizeElementHeight('dropDownWS', 180);
+                $('#majorsDDButton').click(function(){topWSDD()});
+            });
             // $('#appInfoPlace').load('appInfoModal.html');
             $('#layerSelectionModal').load('layerSelect.html');
            
