@@ -432,7 +432,7 @@ function getflyOver(){//initiates fly-over (Google Earth) for major watershed
     } else{
         for (var i=0; i<exceptionList[r].length; i++){
             m=r+'_'+exceptionList[r][i];
-            url = WHAFapp.flyOverUrl+'flyOver_'+m+'.kmz';
+            url = WHAFapp.flyOverUrl+'flyover_'+m+'.kmz';
             addTour(url, i+1);           
         }
     }
