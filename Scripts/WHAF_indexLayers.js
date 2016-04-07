@@ -101,14 +101,14 @@ function preLyrListToggler(element){
     }
 }
 
-function lyrListToggler(){//toggles and updates button to add index related features
+function lyrListToggler(){//toggles and updates button to add index related features, based on currently displaying index
     var k = $('#adHocLayerListUl li');
     
     if (WHAFapp.currentMapParams.indexLayer && WHAFapp.currentMapParams.indexLayer !== undefined){
         try{setIndNameInPlace()}catch(err){}
         var key=WHAFapp.currentMapParams.indexLayer[0].toLowerCase()
 
-        var list = relatedFeatures[key]
+        var list = getRelList()
         var nameList=[]
         for (var i=0; i<list.length; i++){
             try{nameList.push( availableAuxFeatures[list[i]][0])}catch(err){}
@@ -130,8 +130,28 @@ function lyrListToggler(){//toggles and updates button to add index related feat
     }
 }
 
+function getRelList(){//gets 'related features' list from indexdescNewJson object based on currently displaying index 
+  var n=WHAFapp.currentMapParams.indexLayer,H;
+  for (f in indexdescNewJson){
 
-function setIndNameInPlace(){
+    if(indexdescNewJson[f].catchmentId===n){
+      H=indexdescNewJson[f].relatedFeatures
+    } else if (indexdescNewJson[f].watershedId===n){
+      H=indexdescNewJson[f].relatedFeatures
+    }
+    else if(indexdescNewJson[f].metrics){
+      g=indexdescNewJson[f].metrics;
+      for (var i=0;i<g.length; i++){
+        if(g[i].catchmentId === n){
+          H=g[i].relatedFeatures;
+        }
+      }
+    }
+  }
+  return H
+}
+
+function setIndNameInPlace(){//Sets index name in 'index related layers' box based on currently displaying index 
   var n=WHAFapp.currentMapParams.indexLayer;
   console.log(n)
   for (f in indexdescNewJson){
@@ -157,14 +177,14 @@ function setIndNameInPlace(){
 
 function lyrListToggler2(el){//Manually show index related features (from index popover)
     console.log(el)
-    var t,k = $('#adHocLayerListUl li'),key=el[0].toLowerCase();   
+    var t,k = $('#adHocLayerListUl li');   
     setIndNameInPlace2(el)
     showSome();    
     $('#adHocLayerListUl li').show();
     $('.popover ').hide();
 
     function showSome(){
-        var list = relatedFeatures[key]
+        var list = getRelList2(el)
         var nameList=[]
         for (var i=0; i<list.length; i++){
             try{nameList.push( availableAuxFeatures[list[i]][0])}catch(err){}
@@ -182,6 +202,30 @@ function lyrListToggler2(el){//Manually show index related features (from index 
     $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
     $('#layersModal').fadeIn();
     $('.addLayerBox').hide();$('#addLayerBox5').show()
+}
+
+function getRelList2(n){
+  var H;
+  console.log(n)
+  if (indexdescNewJson[n]){
+    indRelatedTabToggle('on');
+    H=indexdescNewJson[n].relatedFeatures;
+  }
+  else{
+    for (f in indexdescNewJson){
+      if(indexdescNewJson[f].metrics){
+        g=indexdescNewJson[f].metrics;
+        for (var i=0;i<g.length; i++){
+          if(g[i].fieldName === n){
+            indRelatedTabToggle('on');
+            H=g[i].relatedFeatures
+          }
+        }
+      }
+
+    }
+  }
+  return H
 }
 
 function setIndNameInPlace2(n){
@@ -210,39 +254,7 @@ function setIndNameInPlace2(n){
 }
 
 
-
-// function lyrListToggler2(el){//Manually show index related features (from index popover)
-//     var t,k = $('#adHocLayerListUl li'),key=el[0].toLowerCase();   
-//     console.log(el)
-//     showSome();    
-//     $('#adHocLayerListUl li').show();
-//     $('.popover ').hide();
-
-//     function showSome(){
-//         var list = relatedFeatures[key]
-//         var nameList=[]
-//         for (var i=0; i<list.length; i++){
-//             try{nameList.push( availableAuxFeatures[list[i]][0])}catch(err){}
-//         }
-
-//         for (var i=0;i<k.length; i++){
-//             var t=$(k[i]).text();
-//             if (nameList.indexOf(t)===-1){
-//                 $(k[i]).hide()
-//             }
-//         } 
-//         t=$('#adHocLayerListUl').html();
-//         $('#adHocLayerListUl2').html(t); 
-//     }
-//     $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
-//     $('#layersModal').fadeIn();
-//     $('.addLayerBox').hide();$('#addLayerBox5').show()
-
-// }
-
-
-
-var relatedFeatures={
+var relatedFeatures={//deprecated but may still be useful: index related layers per component (prelim list) 
   "h":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50],
   "g":[1.48,1.49,1.50,1.51,1.53,1.54,1.55,1.56,1.76,1.77],
   "b":[1.311,1.312,1.314,1.34,1.35,1.36,1.37,1.38,1.39,1.391],
@@ -389,7 +401,7 @@ indexdescNewJson={
         "auxFeatures": "",
         "fieldName":"",
         "why":"The Hydrology Component health score combines and averages five health scores that each capture different aspects of the hydrologic cycle.  Quantity of vegetation, amount of impervious surface, water consumption, loss of places that store water and deviation in stream flow patterns tell a story about the overall health of our hydrologic systems that store, use and distribute water.",
-        "relatedFeatures":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50]
+        "relatedFeatures":[1.77,1.13,1.25,1.251,1.252,1.26,1.27,1.48,1.49,1.50,1.52]
     },
     "H_S_PC": {
         "name": "Perennial Cover",
@@ -403,7 +415,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures":"", 
         "why":"When permanent vegetation is removed it impacts the water cycle directly by removing water storage found in leaves, stems and roots; and eliminating the evapotranspiration of water vapor into the atmosphere.  This loss of storage causes water to leave the landscape and move downstream more quickly.  This effect is often compounded by the land use that replaces lost vegetation with annual row crops or hard surfaces like roads and buildings.",
-        "relatedFeatures":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50]
+        "relatedFeatures":[1.25,1.251,1.252]
     }, 
     "H_S_IC": {
         "name": "Impervious Cover",
@@ -418,7 +430,7 @@ indexdescNewJson={
         "auxFeatures": "",
         "fieldName":"",
         "why":"Impervious surfaces are hard surfaces that affect the water cycle by blocking water from soaking into the ground.  This results in more water flow on the surface that quickly reaches streams and lakes; and less water moving through the soil where contaminants can be filtered and groundwater replenished.",
-        "relatedFeatures":[1.18,1.22,1.25,1.251,1.252,1.315,1.32,1.40,1.41,1.42,1.451,1.46,1.48,1.49,1.50]
+        "relatedFeatures":[1.26]
     },
     "H_S_WW": {
         "name": "Water Withdrawal",
@@ -433,6 +445,7 @@ indexdescNewJson={
         "auxFeatures": "",
         "fieldName":"",
         "why":"The removal of water for human use can reduce stream flows and lake levels, lowers groundwater aquifers and impact water quality and water temperature.  Sustainable quantity and quality of groundwater is essential for safe drinking water in the future.",
+        "relatedFeatures":[1.52],
         "metrics": [{
             "name": "Predicted Vulnerability",
             "watershedId": "",
@@ -445,6 +458,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"h_i_ww_pv",
+            "relatedFeatures":[1.52],
             "why":"While this prediction is inexact, water use trends can be used to identify emerging problem areas in terms of water use and water supply."
         }]
     },
@@ -460,6 +474,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.13,1.48,1.49,1.50],
         "why":"The loss of places that store water means precipitation leaves the landscape more quickly.  This can lead to higher flows during rain events and less stored water during times of drought.  Draining wetlands and straightening streams eliminates important and productive habitats, and reduces plant and animal biodiversity.",
         "metrics": [{
             "name": "Altered Watercourse",
@@ -473,6 +488,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"h_m_lhs_aw",
+            "relatedFeatures":[1.13],
             "why":"Streams are altered to move water more quickly off the land.  Some stream alteration replaces miles of meanders with short, straight stream segments.  Straightened streams have excess energy that creates both headcuts and downstream erosion.   Some stream alteration adds miles of ditches to drain wetlands and bogs for other uses",
         }, {
             "name": "Wetland Loss",
@@ -486,6 +502,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"h_m_lhs_wl",
+            "relatedFeatures":[1.48,1.49,1.50],
             "why":"Wetland drainage reduces the upland water storage. This increases the rate and magnitude of stream flow after rainfall events, leads to a greater delivery of contaminants to streams and lakes, and destabilizes streams and streambanks"
         }]
     },
@@ -501,6 +518,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.77,1.13,1.25,1.251,1.252,1.27],
         "why":"Stream flow patterns  that deviate from expected rates are responding to alterations that change the water cycle.  Annual, monthly and daily patterns of flow are responses to different types of alteration.  Water cycle imbalances lead to instability in the stream channel, erosion challenges and water supply challenges"
     },
     "G_S_MEAN": {
@@ -515,6 +533,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.76,1.77,1.57,1.58,1.69],
         "why":""
     },
     "G_S_SES": {
@@ -543,6 +562,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.57,1.58,1.69],
         "why":"Risk of contamination to groundwater informs other land use decisions that could impact water quality and drinking water supplies."
     },
     "G_S_CV": {
@@ -557,6 +577,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.76,1.77],
         "why":"More frequent extreme events and less predictable precipitation patterns may have greater impact in areas that already trend toward wet or dry conditions."
     },
     "B_S_MEAN": {
@@ -570,7 +591,8 @@ indexdescNewJson={
         "caveats": "",
         "longDescLink": "",
         "auxFeatures": "",
-        "fieldName":""
+        "relatedFeatures":[1.25,1.251,1.252,1.27,1.35,1.36,1.37,1.38,1.32,1.312,1.311,1.314],
+            "fieldName":""
     },
     "B_S_THQ": {
         "name": "Terrestrial Habitat Quality",
@@ -584,6 +606,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.314,1.25,1.251,1.252,1.27],
         "why":"Critical amounts of quality habitat are needed to support continued health of diverse plant and animal communities."
     },
     "B_S_SSQ": {
@@ -598,6 +621,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
         "why":"The health of aquatic communities found in streams indicates the status of the local aquatic resource as well as reflecting the influence of the contributing landscape on stream health.",
         "metrics": [{
             "name": "Fish Index",
@@ -611,6 +635,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"b_m_ssq_fi",
+            "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
             "why":"The health of aquatic communities in streams reflects local conditions and the influence of the contributing landscape.  Fish community health may be more indicative of the larger landscape, given their mobility and longevity.  Aquatic macroinvertebrates are less mobile and more reflective of local habitat conditions.  Adult mussels are less mobile, but the larval stage is distributed by host fish so mussel communities reflect both local conditions and stream system health.   ‘Dead shell’ records add valuable indicators of species change over time."
         }, {
             "name": "Fish Index (extrapolated)",
@@ -624,6 +649,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"b_m_ssq_fi_EX",
+            "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
             "why":"The health of aquatic communities in streams reflects local conditions and the influence of the contributing landscape.  Fish community health may be more indicative of the larger landscape, given their mobility and longevity.  Aquatic macroinvertebrates are less mobile and more reflective of local habitat conditions.  Adult mussels are less mobile, but the larval stage is distributed by host fish so mussel communities reflect both local conditions and stream system health.   ‘Dead shell’ records add valuable indicators of species change over time."
         }, {
             "name": "Invertebrate Index",
@@ -637,6 +663,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"b_m_ssq_ii",
+            "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
             "why":"The health of aquatic communities in streams reflects local conditions and the influence of the contributing landscape.  Fish community health may be more indicative of the larger landscape, given their mobility and longevity.  Aquatic macroinvertebrates are less mobile and more reflective of local habitat conditions.  Adult mussels are less mobile, but the larval stage is distributed by host fish so mussel communities reflect both local conditions and stream system health.   ‘Dead shell’ records add valuable indicators of species change over time."
         }, {
             "name": "Invertebrate Index (extrapolated)",
@@ -650,6 +677,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"b_m_ssq_ii_EX",
+            "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
             "why":"The health of aquatic communities in streams reflects local conditions and the influence of the contributing landscape.  Fish community health may be more indicative of the larger landscape, given their mobility and longevity.  Aquatic macroinvertebrates are less mobile and more reflective of local habitat conditions.  Adult mussels are less mobile, but the larval stage is distributed by host fish so mussel communities reflect both local conditions and stream system health.   ‘Dead shell’ records add valuable indicators of species change over time."
         }, {
             "name": "Mussels Index",
@@ -663,6 +691,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"b_m_ssq_ms",
+            "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
             "why":"The health of aquatic communities in streams reflects local conditions and the influence of the contributing landscape.  Fish community health may be more indicative of the larger landscape, given their mobility and longevity.  Aquatic macroinvertebrates are less mobile and more reflective of local habitat conditions.  Adult mussels are less mobile, but the larval stage is distributed by host fish so mussel communities reflect both local conditions and stream system health.   ‘Dead shell’ records add valuable indicators of species change over time."
         }, {
             "name": "Mussels Index (extrapolated)",
@@ -676,6 +705,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"b_m_ssq_ms_EX",
+            "relatedFeatures":[1.35,1.36,1.37,1.38,1.314],
             "why":"The health of aquatic communities in streams reflects local conditions and the influence of the contributing landscape.  Fish community health may be more indicative of the larger landscape, given their mobility and longevity.  Aquatic macroinvertebrates are less mobile and more reflective of local habitat conditions.  Adult mussels are less mobile, but the larval stage is distributed by host fish so mussel communities reflect both local conditions and stream system health.   ‘Dead shell’ records add valuable indicators of species change over time."
         }]
     },
@@ -691,6 +721,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.312,1.311,1.32,1.314],
         "why":"As a general condition, having a large number of different species within a system creates more resilience to stresses.  Some individual animal communities are healthies with low diversity, but at a watershed scale, overall animal species richness contributes to health and resilience."
     },
     "B_S_ARSR": {
@@ -705,6 +736,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.312,1.311,1.314],
         "why":"As a general condition, having a large number of different animal species within a system creates more resilience to stresses.  The richness of At-Risk Species indicates the presence of species in “greatest conservation need” and may reflect the presence of key habitats necessary to support them."
     },
     "C_S_MEAN": {
@@ -719,6 +751,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.45,1.46,1.314,1.25,1.251,1.252,1.27,1.11,1.51,1.34],
         "why":""
     },
     "C_S_THC": {
@@ -733,6 +766,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.34,1.314,1.25,1.251,1.252,1.27],
         "why":"Patches of habitat that together create a mosaic across a landscape provide essential connections for travel corridors, places of refuge, and seasonal access to breeding and nesting grounds."
     },
     "C_S_AC": {
@@ -747,6 +781,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.45,1.46],
         "why":"Structures on streams can disconnect stream segments, block fish passage, alter meander patterns, change the slope and width of streams, trap water and sediment,  create upstream head-cuts and downstream erosion.  These changes degrade aquatic habitat and create instability in the stream system."
     },
     "C_S_RC": {
@@ -761,6 +796,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.25,1.27,1.11,1.51,1.34],
         "why":"Access to the riparian area is important to aquatic and terrestrial species particularly during seasonal high flow or flood events.  Riparian lands are also important year round as travel corridors and habitat connectors, often providing the only remaining natural land cover in developed landscapes."
     },
     "W_S_MEAN": {
@@ -774,6 +810,7 @@ indexdescNewJson={
         "caveats": "",
         "longDescLink": "",
         "auxFeatures": "",
+        "relatedFeatures":[1.47,1.60,1.315,1.12,1.27,1.43,1.44],
         "fieldName":""
     },
     "W_S_NPS": {
@@ -788,6 +825,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.27,1.43,1.44,1.315],
         "why":"Nonpoint sources of pollution can move off the landscape into waterways which can contaminate drinking water and degrade aquatic communities.",
         "metrics": [{
             "name": "Upland Phosphorus", 
@@ -801,6 +839,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_nps_pr",
+            "relatedFeatures":[1.27,1.43,1.44,1.315],
             "why":"Phosphorus is an essential element for plant life, but the additional phosphorus added as fertilizer can be carried by rainfall into surface water and ground water.  Excess phosphorus levels can lead to algae blooms in surface waters which further alter the chemical and physical properties of these waters."
         }]
     },
@@ -817,6 +856,7 @@ indexdescNewJson={
         "auxFeatures": "",
         "fieldName":"",
         "why":"",
+        "relatedFeatures":[1.47,1.60,1.315],
         "metrics": [{
             "name": "Animal Units",
             "watershedId": "",
@@ -829,6 +869,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_ps_a",
+            "relatedFeatures":[1.47,1.60,1.315],
             "why":"A high density of animals being raised in feedlots creates a greater risk of contamination from animal waste."
         }, {
             "name": "Potential contaminants",
@@ -842,6 +883,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_ps_pc",
+            "relatedFeatures":[1.47,1.60,1.315],
             "why":"A high density of potential contaminant sites creates a greater risk of contamination from those varied contaminant sources."
         }, {
             "name": "Superfund Sites",
@@ -855,6 +897,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_ps_sf",
+            "relatedFeatures":[1.47,1.60,1.315],
             "why":"A presence of superfund sites increases the risk of contamination from former activities at that location."
         }, {
             "name": "Wastewater Treatment Plants",
@@ -868,6 +911,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_ps_wtp",
+            "relatedFeatures":[1.47,1.60,1.315],
             "why":"Higher concentrations of phosphorus, nitrogen and CBOD in waste water creates a greater level of risk of contamination from those effluents."
         }, {
             "name": "Open Pit Mines",
@@ -881,6 +925,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_ps_opm",
+            "relatedFeatures":[1.47,1.60,1.315],
             "why":"Open pit mines create a risk of contamination from mineral extraction activities that can create acid mine drainage, airborne mercury, and sulfate leeching."
         }, {
             "name": "Septic Systems",
@@ -894,6 +939,7 @@ indexdescNewJson={
             "longDescLink": "",
             "auxFeatures": "",
             "fieldName":"w_m_ps_ss",
+            "relatedFeatures":[1.47,1.60,1.315],
             "why":"A high density of households with individual water and sewer services increases the risk of septic system failure.  Untreated effluent can carry human disease, nutrients and bacteria into groundwater and contaminate well water, or reach nearby streams or water bodies."
         }]
     },
@@ -909,6 +955,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
+        "relatedFeatures":[1.12],
         "why":"The number of water bodies assessed and found to be impaired for different human uses shows where surface water systems are being impacted by the different water quality risks factors."
     },
     "A_S_MEAN": {
