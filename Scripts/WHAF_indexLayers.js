@@ -94,12 +94,12 @@ function changeOpacity(op) {
     });
 }
 
-function preLyrListToggler(element){
-    if ($(element).hasClass('disabled')===false){
-        $('.addLayerBox').hide();$('#addLayerBox5').show()
-        lyrListToggler(element)
-    }
-}
+// function preLyrListToggler(element){
+//     if ($(element).hasClass('disabled')===false){
+//         $('.addLayerBox').hide();$('#addLayerBox5').show()
+//         lyrListToggler(element)
+//     }
+// }
 
 function lyrListToggler(){//toggles and updates button to add index related features, based on currently displaying index
     var k = $('#adHocLayerListUl li');
@@ -201,7 +201,7 @@ function lyrListToggler2(el){//Manually show index related features (from index 
     }
     $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
     $('#layersModal').fadeIn();
-    $('.addLayerBox').hide();$('#addLayerBox5').show()
+    $('.addLayerBox').hide();$('#indRelatedTab a').click();
 }
 
 function getRelList2(n){
