@@ -34,6 +34,23 @@ function resizeElementHeight(e, t) {//resizes height of element to fit window
     theElement.style.height = n - bottomBuffer + "px"
 }
 
+function reorderImpairesLayers(){//reorders the custom impairment layers, to be invoked on drag 
+    var orderedList=[],serial=1,n,layerList=WHAFapp.selectableLayer,a;
+    a=$('#selSortable1').children();
+    for (var i=0; i<a.length; i++){
+        orderedList.push($(a[i]).attr('id')); 
+    }
+    n=orderedList.length*2;
+    for (var j=0; j<orderedList.length; j++){
+        ll=layerList[orderedList[j]].lyrs
+        for (var t in ll){
+            map.reorderLayer(ll[t],n-serial)
+            serial++
+        }
+    }
+
+}
+
 function reorderByList(){
     var featureLayersAvailable = [], featureLayersDisplayedByOrder = [],dodo,e,n,d;
     dodo = $("#sortable").children("div").each(function () {
@@ -53,13 +70,13 @@ function reorderByList(){
     });
  
     try{
-        e = z.getLayersVisibleAtScale(map.getScale());
+        e = map.getLayersVisibleAtScale(map.getScale());
         n = e.length
 
         d = featureLayersDisplayedByOrder.reverse()
         for (var r=0; r<d.length; r++){
 
-            var tmpLayer = map.getLayer(d[r])
+            var tmpLayer = map.getLayer(d[r]);
             if(tmpLayer && tmpLayer !== undefined){
                 n = e.length
                 map.reorderLayer(tmpLayer, n-r);
@@ -106,6 +123,7 @@ function prepPopOver(){
     }
 
     function ffer (key, summ, cont, date, cav, cId, wId, indName, metrics){
+       
         o = '#'+key
         var allCont = cont;
 
@@ -125,7 +143,8 @@ function prepPopOver(){
             summDiv = '<div >'+summi+'</div>';
         }
 
-        
+        allCont = allCont+'<br><btn id="" class="btn btn-small indLyrsBut" href="#" onclick="lyrListToggler2(\''+key+'\')"><strong>Show map layers related to this index</strong></btn>'
+
         if (date && date!='undefined'){
             allCont = allCont+'<p><br><b>Source data date: </b>'+date+'</p>'
         }
@@ -153,6 +172,7 @@ function prepPopOver(){
                 var hdate = metrics[r].sourceDataDate;
                 var hCav = metrics[r].caveats;
                 var hAllCont = hCont;
+                try{hAllCont=hAllCont+'<br><btn id="" class="btn btn-small indLyrsBut" href="#" onclick="lyrListToggler2(\''+metrics[r].fieldName+'\')"><strong>Show map layers related to this index</strong></btn>'}catch(err){}
                 if (hdate && hdate!='undefined'){
                     hAllCont = hAllCont+'<p><br><b>Source data date: </b>'+hdate+'</p>'
                 };
@@ -198,8 +218,8 @@ function popoverInit(){
       $(indLi).children().popover('show');
     })
 
-    $('#map, #indexDescription, .accordion-heading ').mouseenter(function(){
-      $('.popover').hide()
+    $('#map,  #layersModal').mouseenter(function(){
+      $('.popover').fadeOut()
     });
 }
 
@@ -720,7 +740,9 @@ function searchShow(){
 }
 
 function topWSDD(){
+
     setTimeout(function(){$('#dropDownWS').scrollTop(0)},100);
+
 }
 
 function WhafMapConstructor(v){//sets the map from url or bookmark from encoded params 
@@ -734,7 +756,7 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     var bm = evalBaseMapParam(ppp), ex = setFromExtentParams(ppp), mm = ppp.auxFtLst;
     map.setBasemap(bm)
     map.setExtent(ex)
-    $('#sortable').html('');
+    
     auxFeatObjectUrl={};
     forceRemoveAux();
     WHAFapp.currentMapParams.theseFeatures = []

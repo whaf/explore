@@ -2034,9 +2034,9 @@
 }
 
 .esriLegendServiceLabel {
-    font-weight: bold;
-    /*color:red;*/
-    font-size:0;
+    /*font-weight: bold;
+    color:red;
+    font-size:*/
 }
 
 .esriLegendLayerLabel {

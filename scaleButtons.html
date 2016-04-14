@@ -17,7 +17,7 @@
 
 <div id="selectButGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
   <button class="btn" id="selectButTop" onclick="maskCheckReset(); serialMasker(this.id);WHAFapp.currentMapParams.togglerMj='mask'" data-placement="bottom" data-toggle="tooltip">Major Watershed</button>
-  <button class="btn dropdown-toggle" data-toggle="dropdown" onclick = "topWSDD()"><span class="caret"></span></button>
+  <button id="majorsDDButton" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
   <ul class="dropdown-menu pull-right" id="dropDownWS" style="overflow:auto;">
       <li class="starrButton disabled"><a onclick = "zoomToSelectedMajor()" href="#">Zoom</a></li>
       <li class="starrButton disabled"><a id="mjMajorOutline" href="#" onclick = "scaleSymbology('major','outline');ticker(this.id, 'keepOn'); WHAFapp.currentMapParams.togglerMj='outline'">Outline</a></li>

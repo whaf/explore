@@ -1,0 +1,64 @@
+<div class="modal-header">
+    <button type="button" style="opacity:1; margin-top:-12px" class="close closeX" data-dismiss="modal" aria-hidden="true" onclick="$('#layersModal').hide();setModalElement($('#myModal'))">×</button>
+
+
+    <div class="tabbable" id="selTabs">
+      <ul id="imptabs" class="nav nav-tabs">
+          <li class="active"><a href="#addLayerBox3" data-toggle="tab">Available layers</a></li>
+          <li><a href="#addLayerBox5" data-toggle="tab">Index related layers</a></li>
+          <li><a href="#addLayerBox4" data-toggle="tab">Layers from web</a></li>
+      </ul>
+
+
+
+        <div id="addLayerBox3" class="tab-pane active">
+            <h4 id="layersModalLabel">Select additional layers</h4>
+
+            <btn id="flipButtL" class="btn btn-small btn-info pull-right" href="#" onclick="$('.addLayerBox').hide();$('#addLayerBox4').fadeIn();"><strong>Get layers from web</strong></btn>
+       
+            <btn id="flipButtL2" class="btn btn-small btn-info pull-right" href="#" onclick="preLyrListToggler(this)"><strong>Show index related layers</strong></btn>
+
+
+            <div id="adHocLayerLister" class="btn-group">
+
+
+                <input id="adHocLayerList" class="span4 dropdown-toggle" autocomplete="off" placeholder="Search available layers" data-toggle="dropdown" type="text">                  
+
+                <ul id="adHocLayerListUl" class="dropdown-menu span4" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
+            </div>
+            <div id="GDRSnote2">* Layer available only inside the DNR network </div>
+        </div>
+        <div id="addLayerBox4" class="tab-pane">
+            <h4 id="layersModalLabel">Add features from the web: &#160;<a title="Online map services can be added to this map. Click here for detailed information." a href="http://www.dnr.state.mn.us/whaf/explore/services.html" target='_blank' class="icon-question-sign"></a>
+
+            <a id="flipButtW" class="btn btn-small btn-info pull-right" href="#" onclick="$('.addLayerBox').hide();$('#addLayerBox3').fadeIn();">Other Layers</a>
+
+            </h4> 
+            <div id="adHocLayerLister2" class="btn-group">
+
+                <input id="AddingRestPoint" class="span4 dropdown-toggle" placeholder="Enter REST url here" data-toggle="dropdown" type="text" autocomplete="off">
+
+                <div class="row-fluid">
+                    <div id="layerNameArea" class="span10">
+                        <input class="span10" id="addedLayerName" type="text" autocomplete="off" placeholder="Layer name">
+                    </div>
+                    
+                    <div class="span2">
+                        <input class="btn btn-block btn-info" type="button" onclick="preProcessRestUrl()" value="Add">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addLayerBox5" class="tab-pane">
+            <h4 id="layersModalLabel">Select additional layers</h4>
+            <p id="indexTitleForLyrs"></p>
+
+            <a id="flipButtW2" class="btn btn-small btn-info pull-right" href="#" onclick="$('.addLayerBox').hide();$('#addLayerBox3').fadeIn();"><strong>Show all layers</strong></a>
+
+            <div id="adHocLayerLister2" class="btn-group">                  
+
+                <ul id="adHocLayerListUl2" class="dropdown-menu span4" style="display: block;position: relative;margin-left: 0px;" role="menu" aria-labelledby="dropdownMenu"></ul>
+            </div>
+        </div>
+    </div>
+</div>
