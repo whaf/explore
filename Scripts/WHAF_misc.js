@@ -478,8 +478,10 @@ function loadSelectableLyr(urlId,auxID) {
             mode: WHAFapp.FeatureLayerCons.MODE_SELECTION
         });
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=false;
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('selection-complete',function(){
-            WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=true;
+        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('selection-complete',function(e){
+            if(e.features.length>0){
+                WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=true;
+            }
         })
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('load', function(){
             addImpairment();
@@ -501,6 +503,7 @@ function loadSelectableLyr(urlId,auxID) {
         
 
        lyrr.layerInfos=[]
+       // console.log("SHOW? :",lyrr.showing)
         map.addLayer(lyrr);
         var lyrTitle = WHAFapp.selectableLayer.givenName
         var hLyrr={
@@ -523,78 +526,13 @@ function loadSelectableLyr(urlId,auxID) {
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].setRenderer(R)
         WHAFapp.selectableLayer[auxID].lyrs[lyrId].identifier = "impLine";
         try {
-            WHAFapp.selectableLayer[auxID].lyrs[lyrId].selectFeatures(query,WHAFapp.FeatureLayerCons.SELECTION_NEW);
+            WHAFapp.selectableLayer[auxID].lyrs[lyrId].selectFeatures(query,WHAFapp.FeatureLayerCons.SELECTION_NEW, function(r){console.log("DEFERRED: ", r)});
             WHAFapp.selectableLayer[auxID].lyrs[lyrId].currentQuery=query;
         } catch (s) {console.log(("failed to load a scale layer"))}
 
     };
 }
 
-function loadSelectableLyr_(urlId,auxID) {
-    // console.log("tryin to retrieve ",auxID)
-    var g,R,query=scaleQuer($('#lyrQueryArea').val()), featureP=aFeatureById(auxID);
-    var url=WHAFapp.impairments.url+urlId;
-    $('#loader').show();
-
-    //assign properties to feature record
-    featureP.queryExp=$('#lyrQueryArea').val();
-    featureP.impParms = getCheckedParams();
-
-    if(WHAFapp.selectableLayer[auxID].lyrs[lyrId] === undefined || WHAFapp.selectableLayer[auxID].loaded===false){
-        var lyrId=WHAFapp.selectableLayer[auxID].lyrSerial;
-
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId] = new WHAFapp.FeatureLayerCons(url, {
-            maxAllowableOffset: 0,
-            mode: WHAFapp.FeatureLayerCons.MODE_SELECTION
-        });
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=false;
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('selection-complete',function(){
-            WHAFapp.selectableLayer[auxID].lyrs[lyrId].showing=true;
-        })
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('load', function(){
-            addImpairment();
-            WHAFapp.selectableLayer.loadStatus="ready";
-            $('#loader').hide();
-        });
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].on('graphic-add',function(){
-            reorderImpairesLayers();
-        });
-        var lyrr=WHAFapp.selectableLayer[auxID].lyrs[lyrId]
-
-        console.log(lyrr)
-        
-
-//        lyrr.layerInfos=[{name:"An impaired thing"}]
-       lyrr.visibleLayers=[0]
-
-
-        map.addLayer(lyrr);
-
-
-        var hLyrr={
-            layer:lyrr,
-            title:"An impaired Layer"
-        }
-
-        legendd.layerInfos.push(hLyrr);
-        try{legendd.refresh()}catch(err){};
-
-    }else{
-        addImpairment()
-    }
-    WHAFapp.selectableLayer[auxID].lyrSerial++;
-    function addImpairment(){
-        g = WHAFapp.selectableLayer[auxID].lyrs[lyrId].geometryType;
-        R = symbStarter(g,auxID);
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].setRenderer(R)
-        WHAFapp.selectableLayer[auxID].lyrs[lyrId].identifier = "impLine";
-        try {
-            WHAFapp.selectableLayer[auxID].lyrs[lyrId].selectFeatures(query,WHAFapp.FeatureLayerCons.SELECTION_NEW);
-            WHAFapp.selectableLayer[auxID].lyrs[lyrId].currentQuery=query;
-        } catch (s) {console.log(("failed to load a scale layer"))}
-
-    };
-}
 
 function symbStarter(geometry,auxID){//get renderer from color and size pickers
 
@@ -968,6 +906,7 @@ function prePopulateImpList(){
 }
 
 function populateImpList(){
+    $('#impForListUl input:checkbox').prop('checked',false);
     var go=0;
     console.log("Go = 0")
     setAU_vals();//set unique values for 'affected use' field in impairment object
