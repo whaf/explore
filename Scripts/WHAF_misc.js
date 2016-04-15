@@ -1090,16 +1090,14 @@ function impTog(){
 }
 
 function initImpairedModule(){
-    // alert("Inited")
     var dmn = "http://pca-gis02.pca.state.mn.us",g={left: '554px',top:'95px'};
     $('#impLayerNameBox').val('');
     $('#impChangeBut').hide();
-    $('#impNextBut, #lyrQueD, #imptabs').show();
+    $('#impNextBut, #lyrQueD, #imptabs, #impWaterBodListUl').show();
     if(esri.config.defaults.io.corsEnabledServers.indexOf(dmn)===-1);{
         esri.config.defaults.io.corsEnabledServers.push(dmn)
     };
     $('#impWaterBodListUl input').on("change",function(){populateImpList()});
-    // $('#impWaterBodListUl2 input').on("change",function(){populateApTdmlList()});
 
     $('#layerSelectionModal').css(g);
     initSymbolSelect();
@@ -1522,7 +1520,7 @@ function impSettingsMod(layer){
         $('#layerSelectionModal').fadeIn()
         loadSymbforLyr(layer);
         $('#impChangeBut').show();
-        $('#impNextBut, #lyrQueD, #imptabs').hide();
+        $('#impNextBut, #lyrQueD, #imptabs, #impWaterBodListUl').hide();
         $('#impChangeBut').attr("onclick","polySymbSetter('"+i+"'); $('#layerSelectionModal').fadeOut()");
     }
 }
