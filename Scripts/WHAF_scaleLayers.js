@@ -409,7 +409,7 @@ function masksLoader(){//loads mask layers for different scales
     }
 
     function loadCtmentScale() {
-        var e="catch_id='"+m+"'AND " + t + "=" + t, ctmntUrl = assessmentURL + "/42";
+        var e="catch_id='"+m+"'AND " + t + "=" + t, ctmntUrl = assessmentURL + "/70";
         var query = scaleQuer(e);
         if(DSS_objectives.ctmntFL === undefined || DSS_objectives.ctmntFL.loaded===false){
             DSS_objectives.ctmntFL = new WHAFapp.FeatureLayerCons(ctmntUrl, {
@@ -941,7 +941,7 @@ function CATCH_ID_ByPoint(point){//from map point, gets catchment, major and bas
             qCatchmentsC.returnGeometry = false;
             qCatchmentsC.outFields = ["*"]//"CATCH_ID","MAJOR", "HUC_8"];
             qCatchmentsC.geometry = point;
-            qIdtCatchments = new  WHAFapp.QueryTaskCons(assessmentURL + "/42");//watershed boundary drawn from index scores layer
+            qIdtCatchments = new  WHAFapp.QueryTaskCons(assessmentURL + "/70");//watershed boundary drawn from index scores layer
             qIdtCatchments.execute(qCatchmentsC, showMeCID);
         }
 
