@@ -17,7 +17,7 @@ function respond(j, n, r, timeStampIn) {
     t = "<strong>Watershed: ${MAJNAME} " + n + " Score: ${" + e + "}</strong>"
 
     if(timeStampIn !== true){
-        timeStampIndex(e)
+        timeStampIndex(j)
     }
 
     indRelatedTabToggle('on')

@@ -709,10 +709,10 @@ function timeStampIndex(index){
    perennHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2011\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2006\', \'Perennial Cover (catchment scale)\', \'31\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2001\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2001</div></div>'
     $('#scoreTimeStamp').html('');
     switch(index){
-        case 39:
+        case "Hyd Index - Perennial Cover, 2011":
             $('#scoreTimeStamp').html(perennHtml);
             break;
-        case 42:
+        case "Hyd Index - Impervious Cover, 2011":
             $('#scoreTimeStamp').html(impervHtml);
             break;
     }    
