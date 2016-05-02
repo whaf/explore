@@ -886,5 +886,6 @@ function completeParamLoad(){
     } else{//IF PARAMETERS ARE PASSED OLD STYLE, CREATE MAP VIEW
         evalDrawParams(mapParamObject);
         paramEvaluatorInit(mapParamObject);
+        generalImplementation()
     }
 }
