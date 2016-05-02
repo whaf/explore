@@ -754,23 +754,23 @@ function WhafMapConstructor(v){//sets the map from url or bookmark from encoded 
     $('#loader').show()
     var ppp = retrieveEncodedParams(v);
     var bm = evalBaseMapParam(ppp), ex = setFromExtentParams(ppp), mm = ppp.auxFtLst;
-    map.setBasemap(bm)
-    map.setExtent(ex)
+    try{map.setBasemap(bm)}catch(u){}
+    try{map.setExtent(ex)}catch(u){}
     
     auxFeatObjectUrl={};
-    forceRemoveAux();
+    try{forceRemoveAux()}catch(u){};
     WHAFapp.currentMapParams.theseFeatures = []
 
     try{evalPlace(ppp.Plc)}catch(s){}  
 
-    reorderByList();
+    try{reorderByList()}catch(u){};
     
-    evalScales(ppp);
+    try{evalScales(ppp)}catch(u){};
 
-    paramEvaluatorInit(ppp)//sets index layer (health score)
+    try{paramEvaluatorInit(ppp)}catch(u){}//sets index layer (health score)
 
-    evalDrawParams(ppp);// index opacity; hillshade and hillshade opacity; aux features
-
+    try{evalDrawParams(ppp)}catch(u){};// index opacity; hillshade and hillshade opacity; aux features
+    console.log(mm)
     try{getLayersIn(mm)}catch(u){};
 
     try{scaleAttrFromUrl()}catch(r){};//assigns the scale property value on scale layer based on passed parameters
@@ -846,43 +846,6 @@ function setMapFromBookmark(bmarkSynt){
     }   
 }
 
-function setMapFromBookmark_(bmarkSynt){
-    console.log('setting map from bookmark')
-    var t=retrieveEncodedParams(bmarkSynt);// an object containing map parameters(mapParamObject)
-    WHAFapp.currentMapParams.urlLoading=1;
-    $("#loader").show();  
-
-
-    evalScales(t);
-    setFromExtentParams(t);
-    setFromBaseMapParam(t);
-
-    mjStarter=mapParamObject.Mj;
-
-    auxFeatObjectUrl = {}//clear layers in memory 
-    sortableLayerRemover()//remove default or existing layers
- 
-    paramEvaluatorInit(t)//sets index layer (health score)
-    
-    evalDrawParams(t);// index opacity; hillshade and hillshade opacity; aux features
-
-    if (mapParamObject.Plc && mapParamObject.Plc !== undefined) {
-        evalPlace(mapParamObject.Plc);
-    } else{
-        deleteScaleslayers();
-        DSS_objectives.point={};
-        try{map.graphics.remove(starLocation.mainMap);$(".locLink").text('Set map location');}catch(e){};
-        try{setDssStar('remove');}catch(err){};
-    };
-
-    if (mapParamObject.Msk && mapParamObject.Msk !==undefined){
-        WHAFapp.currentMapParams.MskLoading=1   
-    }
-
-    
-    
-}
-
 function evalScales(mapParamObject){ //converts scale rendering spec in mapParamObject (passed in url text) to WHAFapp.currentMapParams object
     var togL1=['togglerU','togglerD','togglerMj','togglerBsn','togglerC'], 
     togL2=['tU','tD', 'tMj', 'tBsn','tC'];
@@ -923,5 +886,6 @@ function completeParamLoad(){
     } else{//IF PARAMETERS ARE PASSED OLD STYLE, CREATE MAP VIEW
         evalDrawParams(mapParamObject);
         paramEvaluatorInit(mapParamObject);
+        generalImplementation()
     }
 }

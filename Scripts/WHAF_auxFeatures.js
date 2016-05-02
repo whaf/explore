@@ -283,6 +283,7 @@ function getLayersIn(m){
        }
     }
     try{featUrlStrToImplement(oList)}catch(r){};
+    console.log(oList)
     
 }
 

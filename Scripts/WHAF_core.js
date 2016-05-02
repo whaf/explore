@@ -307,7 +307,7 @@ function WS_functionality() {//starting up the app
         }
 
         dojo.connect(DSS_objectives.majorsFL, "onLoad", function () {
-            completeParamLoad();//COMPLETES LOADING OF MAP PARAMATERS AS PASSED BY URL
+            // completeParamLoad();//COMPLETES LOADING OF MAP PARAMATERS AS PASSED BY URL
             var e = map.getLayersVisibleAtScale(map.getScale());
             var t = e.length;
             try {
