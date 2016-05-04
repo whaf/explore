@@ -2,6 +2,7 @@
 
 function paramEvaluatorInit(e) {//gets index layer from parameter onto map
 
+console.log(e)
     if (e.indexLayer && e.indexLayer != "undefined") {
         if (Number(e.indexLayer)){//deprecated indexLayer params were numbers; current value retrieved with 'oldHealthScoreIndex' object 
             console.log(e.indexLayer)
@@ -20,11 +21,12 @@ function paramEvaluatorInit(e) {//gets index layer from parameter onto map
 
         else{
             var i = mapParamObject.indexLayer
-            var l=$('#accordion2 .scoreButton, #accordion2 .scoreBtn')
+            var l=$('#accordion2 .scoreButton, #accordion2 .scoreBtn');
+            $('#featuresPlace, #printPlace').hide();$('#menuPlace').fadeIn();
             for (var n=0; n<l.length; n++){
-                var f = $(l[n]).children().attr("onclick")
-                if(f.indexOf(i)!==-1){
-                    $(l[n]).children().click();
+                var ff = $(l[n]).children().attr("onclick")
+                if(ff.indexOf(i)!==-1){
+                     $(l[n]).children().click();
                  }
             }
         }
@@ -87,8 +89,8 @@ function evalDrawParams(e) {
 }
 
 function forceRemoveAux(){//removes all layers added to map (that have an 'identifier' property with value 'WHAF_added_layer')
-  
-if (checkLoad()){//checks that layers are not removed prior to their loading
+
+    if (checkLoad()){//checks that layers are not removed prior to their loading
 
     console.log("All layers Loaded")
       var k = map.getLayersVisibleAtScale()
@@ -101,15 +103,16 @@ if (checkLoad()){//checks that layers are not removed prior to their loading
       $('#sortable').html('');
       identFalser();
       legendd.layerInfos=[];
-  }else{
-    console.log("Layers Still Loading")
-    setTimeout(function(){forceRemoveAux()},100)
+    }else{
+        console.log("Layers Still Loading")
+        setTimeout(function(){forceRemoveAux()},100)
   }
 }
 
 function checkLoad(){// returns true if all loaded layers are done loading
                      // (layers are pushed to list through modification of 
                      // js.arcgis.com.3.13.js addLayer function.) 
+  
   L=WHAFapp.loadingLyrs;
   for (var i=0; i<L.length; i++){
     if(L[i].loaded){
@@ -120,6 +123,7 @@ function checkLoad(){// returns true if all loaded layers are done loading
     }
   }
   if(L.length>0){
+    WHAFapp.genCounter++
     checkLoad();
   }else{
     return true

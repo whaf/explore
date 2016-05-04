@@ -1,5 +1,5 @@
 function respond(j, n, r, timeStampIn) {
-  $('.popover').hide()
+  // $('.popover').hide()
   e = healthScoreIndex[j]
   try {
         removeFirstLayer(j,e)
@@ -318,13 +318,13 @@ healthScoreIndex = {
     "Bio Index - Terrestrial Habitat Quality": 54,
     "Bio Metric - Mussel Score Extrapolated Hightlight": 55,
     "Bio Metric - Mussel Score Extrapolated": [55, 56, 57],
-    "Bio Metric - Mussel Score": 57,
+    "Bio Metric - Mussel Score Non Extrapolated": 57,
     "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight": 58,
     "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated": [58, 59, 60],
-    "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI": 60,
+    "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Non Extrapolated": 60,
     "Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight": 61,
     "Bio Metric - Stream Species Quality, Fish IBI Extrapolated": [61, 62, 63],
-    "Bio Metric - Stream Species Quality, Fish IBI": 63,
+    "Bio Metric - Stream Species Quality, Fish IBI Non Extrapolated": 63,
     "Con Index - Aquatic Connectivity": 64,
     "Con Index - Riparian Connectivity": 65,
     "WQ Index - Localized Pollution Sources": 66,
@@ -376,13 +376,13 @@ oldHealthScoreIndex = {
     50: "Bio Index - Terrestrial Habitat Quality",
     46: "Bio Metric - Mussel Score Extrapolated Hightlight",
     48: "Bio Metric - Mussel Score Extrapolated",
-    47: "Bio Metric - Mussel Score",
+    47: "Bio Metric - Mussel Score Non Extrapolated",
     41: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight",
     42: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated",
-    43: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI",
+    43: "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Non Extrapolated",
     38: "Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight",
     39: "Bio Metric - Stream Species Quality, Fish IBI Extrapolated",
-    40: "Bio Metric - Stream Species Quality, Fish IBI",
+    40: "Bio Metric - Stream Species Quality, Fish IBI Non Extrapolated",
     33: "Con Index - Aquatic Connectivity",
     34: "Con Index - Riparian Connectivity",
     64: "WQ Index - Localized Pollution Sources",
@@ -633,7 +633,7 @@ indexdescNewJson={
         "metrics": [{
             "name": "Fish Index",
             "watershedId": "",
-            "catchmentId": "Bio Metric - Stream Species Quality, Fish IBI",
+            "catchmentId": "Bio Metric - Stream Species Quality, Fish IBI Non Extrapolated",
             "indexSummary": "Metric scores based on fish IBI (index of biotic integrity)",
             "shortDesc": "<h4>Fish Index (IBI based)</h4> This index is based on the fish IBI (Index of Biotic Integrity) published by the Minnesota Pollution Control Agency. IBI site scores were transformed to a 0-100 scale, whereby the threshold's score value determined by the PCA represents 50; site scores that are lower than the threshold value were transformed to a score between 0-50, while higher scores were transformed to a score between 50 and 100. Catchment scores represent an average of fish IBI scores in a given catchment. <br><br>Fish index scores were extrapolated to some catchments where IBI analysis was not carried out, if those were directly upstream or downstream from a catchment that has IBI sites. In those cases, scores from upstream and downstream catchments were averaged to provide extrapolated scores. Catchments with extrapolated scores are highlighted in the map when zooming in. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
             "sourceData": "Fish IBI (PCA)",
@@ -647,7 +647,7 @@ indexdescNewJson={
         }, {
             "name": "Fish Index (extrapolated)",
             "watershedId": "",
-            "catchmentId": ["Bio Metric - Stream Species Quality, Fish IBI", "Bio Metric - Stream Species Quality, Fish IBI Extrapolated", "Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight"],
+            "catchmentId": ["Bio Metric - Stream Species Quality, Fish IBI Non Extrapolated", "Bio Metric - Stream Species Quality, Fish IBI Extrapolated", "Bio Metric - Stream Species Quality, Fish IBI Extrapolated Highlight"],
             "indexSummary": "Metric scores based on fish IBI (index of biotic integrity), extrapolated",
             "shortDesc": "<h4>Fish Index (IBI based)</h4> This index is based on the fish IBI (Index of Biotic Integrity) published by the Minnesota Pollution Control Agency. IBI site scores were transformed to a 0-100 scale, whereby the threshold's score value determined by the PCA represents 50; site scores that are lower than the threshold value were transformed to a score between 0-50, while higher scores were transformed to a score between 50 and 100. Catchment scores represent an average of fish IBI scores in a given catchment. <br><br>Fish index scores were extrapolated to some catchments where IBI analysis was not carried out, if those were directly upstream or downstream from a catchment that has IBI sites. In those cases, scores from upstream and downstream catchments were averaged to provide extrapolated scores. Catchments with extrapolated scores are highlighted in the map when zooming in. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
             "sourceData": "Fish IBI (PCA)",
@@ -661,7 +661,7 @@ indexdescNewJson={
         }, {
             "name": "Invertebrate Index",
             "watershedId": "",
-            "catchmentId": "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI",
+            "catchmentId": "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Non Extrapolated",
             "indexSummary": "Metric scores based on invertebrate IBI (index of biotic integrity)",
             "shortDesc": "<h4> Invertebrate Index (IBI based)</h4> This index is based on the Invertebrate IBI (Index of Biotic Integrity) published by the Minnesota Pollution Control Agency. IBI site scores were transformed to a 0-100 scale, whereby the threshold's score value determined by the PCA represents 50; site scores that are lower than the threshold value were transformed to a score between 0-50, while higher scores were transformed to a score between 50 and 100. Catchment scores represent an average of Invertebrate IBI scores in a given catchment. <br><br>Invertebrate index scores were extrapolated to some catchments where IBI analysis was not carried out, if those were directly upstream or downstream from a catchment that has IBI sites. In those cases, scores from upstream and downstream catchments were averaged to provide extrapolated scores. Catchments with extrapolated scores are highlighted in the map when zooming in. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
             "sourceData": "",
@@ -675,7 +675,7 @@ indexdescNewJson={
         }, {
             "name": "Invertebrate Index (extrapolated)",
             "watershedId": "",
-            "catchmentId": ["Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI", "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated", "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight"],
+            "catchmentId": ["Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Non Extrapolated", "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated", "Bio Metric - Stream Species Quality, Aquatic Invertebrate IBI Extrapolated Highlight"],
             "indexSummary": "Metric scores based on invertebrate IBI (index of biotic integrity)",
             "shortDesc": "<h4> Invertebrate Index (IBI based)</h4> This index is based on the Invertebrate IBI (Index of Biotic Integrity) published by the Minnesota Pollution Control Agency. IBI site scores were transformed to a 0-100 scale, whereby the threshold's score value determined by the PCA represents 50; site scores that are lower than the threshold value were transformed to a score between 0-50, while higher scores were transformed to a score between 50 and 100. Catchment scores represent an average of Invertebrate IBI scores in a given catchment. <br><br>Invertebrate index scores were extrapolated to some catchments where IBI analysis was not carried out, if those were directly upstream or downstream from a catchment that has IBI sites. In those cases, scores from upstream and downstream catchments were averaged to provide extrapolated scores. Catchments with extrapolated scores are highlighted in the map when zooming in. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
             "sourceData": "",
@@ -689,7 +689,7 @@ indexdescNewJson={
         }, {
             "name": "Mussels Index",
             "watershedId": "",
-            "catchmentId": "Bio Metric - Mussel Score",
+            "catchmentId": "Bio Metric - Mussel Score Non Extrapolated",
             "indexSummary": "Metric scores based on Mussel Quality Survey",
             "shortDesc": "<h4>Mussel Quality Metric</h4>This metric is based on the results of the MN DNR statewide survey of mussels in Minnesota's major streams and rivers.  Each survey site has a site quality score that combines four underlying population measurements. These four measurements are scored on a 0-100 scale: count of live mussels per minute spent searching, recruitment (presence of juvenile mussels), percent sensitive mussel species, and percent of species present found live.  These four metrics are averaged together to create a mussel site quality score.  <br><br> Mussel catchment scores represent an average of the mussel site quality scores within that catchment. Mussel catchment scores were also extrapolated for catchments directly upstream or downstream from a catchment that has mussel survey sites. In those cases, scores from upstream and downstream catchments were averaged to provide extrapolated scores. Catchments with extrapolated scores are highlighted in the map when zooming in. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
             "sourceData": "",
@@ -703,7 +703,7 @@ indexdescNewJson={
         }, {
             "name": "Mussels Index (extrapolated)",
             "watershedId": "",
-            "catchmentId": ["Bio Metric - Mussel Score", "Bio Metric - Mussel Score Extrapolated", "Bio Metric - Mussel Score Extrapolated Hightlight"],
+            "catchmentId": ["Bio Metric - Mussel Score Non Extrapolated", "Bio Metric - Mussel Score Extrapolated", "Bio Metric - Mussel Score Extrapolated Hightlight"],
             "indexSummary": "Metric scores based on Mussel Quality Survey",
             "shortDesc": "<h4>Mussel Quality Metric</h4>This metric is based on the results of the MN DNR statewide survey of mussels in Minnesota's major streams and rivers.  Each survey site has a site quality score that combines four underlying population measurements. These four measurements are scored on a 0-100 scale: count of live mussels per minute spent searching, recruitment (presence of juvenile mussels), percent sensitive mussel species, and percent of species present found live.  These four metrics are averaged together to create a mussel site quality score.  <br><br> Mussel catchment scores represent an average of the mussel site quality scores within that catchment. Mussel catchment scores were also extrapolated for catchments directly upstream or downstream from a catchment that has mussel survey sites. In those cases, scores from upstream and downstream catchments were averaged to provide extrapolated scores. Catchments with extrapolated scores are highlighted in the map when zooming in. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
             "sourceData": "",

@@ -130,8 +130,20 @@ function prepPopOver(){
         var summDiv;
 
         if (cId && cId != 'undefined'){
-            var scaleW = '<div><input type="radio" value="1" name="radioPureCSS" id="radioPureCSS1'+key+'" onclick = "respond(\''+wId+'\',\''+indName+'\',\''+cId+'\')"><label class ="popTitScaleBox" for="radioPureCSS1'+key+'"><span><span></span></span>Watershed </label></div>'
-            var scaleC = '<div><input type="radio" checked="checked" value="2" name="radioPureCSS" id="radioPureCSS2'+key+'" onclick = "respond(\''+cId+'\',\''+indName+'\',\''+cId+'\')"><label class ="popTitScaleBox"  for="radioPureCSS2'+key+'"><span><span></span></span>Catchment</label></div>'
+
+
+            // var scaleW = '<label class="radio"><input type="radio" value="1" name="radio'+key+'" id="radioPureCSS1'+key+'" onclick = "respond(\''+wId+'\',\''+indName+'\',\''+cId+'\')" value="option1">Watershed</label>'
+            // var scaleC = '<label class="radio"><input type="radio" value="2" name="radio'+key+'" id="radioPureCSS2'+key+'" checked onclick = "respond(\''+cId+'\',\''+indName+'\',\''+cId+'\')" value="option2">Catchment</label>'
+
+            // var scaleW = '<label onclick = "respond(\''+wId+'\',\''+indName+'\',\''+cId+'\')" class="radio"><input type="radio" value="1" name="radio'+key+'" id="radioPureCSS1'+key+'">Watershed</label>'
+            // var scaleC = '<label onclick="respond(\''+cId+'\',\''+indName+'\',\''+cId+'\')" class="radio"><input type="radio" value="2" name="radio'+key+'" id="radioPureCSS2'+key+'" checked>Catchment</label>'
+           
+            var scaleW = '<label value="'+key+'" class="radio indexRadio"><input type="radio" name="radio'+key+'" id="radioPureCSS1'+key+'">Watershed</label>'
+            var scaleC = '<label value="'+key+'" class="radio indexRadio"><input type="radio" name="radio'+key+'" id="radioPureCSS2'+key+'">Catchment</label>'
+
+
+            // var scaleW = '<div><input type="radio" value="1" name="radioPureCSS" id="radioPureCSS1'+key+'" onclick = "respond(\''+wId+'\',\''+indName+'\',\''+cId+'\')"><label class ="popTitScaleBox" for="radioPureCSS1'+key+'"><span><span></span></span>Watershed </label></div>'
+            // var scaleC = '<div><input type="radio" checked="checked" value="2" name="radioPureCSS" id="radioPureCSS2'+key+'" onclick = "respond(\''+cId+'\',\''+indName+'\',\''+cId+'\')"><label class ="popTitScaleBox"  for="radioPureCSS2'+key+'"><span><span></span></span>Catchment</label></div>'
             var closer = '<div class="popTitleBox pull-right " style = "width:10%"><button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$(\''+o+'\').popover(\'hide\');"">×</button></div>' 
             var scaleDiv = '<div class="popTitleBox pull-right popTitScaleBox" style = "width:20%"; vertical-align:middle;>'+scaleC+scaleW+'</div>'
             var summi = '<div class="popTitleBox" style = "width:65%"><h5>'+summ+'</h5></div>'
@@ -209,13 +221,18 @@ function popoverInit(){
       $('.popover').hide();
       var ind = '#'+this.id;
       $(ind).popover('show');
-      var ggg=$(ind).popover;
+      try{setCheckRad()}catch(r){}
+      try{setScaleRad()}catch(r){}
+      // var ggg=$(ind).popover;
     })
 
     $('.scoreBtn').mouseenter(function() {
       $('.popover').hide();
       var indLi = '#'+this.id;
       $(indLi).children().popover('show');
+      try{setCheckRad()}catch(r){}
+      try{setScaleRad()}catch(r){}
+
     })
 
     $('#map,  #layersModal').mouseenter(function(){
@@ -223,6 +240,36 @@ function popoverInit(){
     });
 }
 
+function setCheckRad(){//sets onclick event for checking scale radio buttons on popover
+    $('.indexRadio input').on('click',function(){
+        var g=$(this).parent().attr('value');
+        var h=$(this).parent().text()
+        var c=$(this).prop('checked')
+        indRouter(g,h,c)
+    })
+}
+
+function indRouter(key,scale,checked){//routes score display to watershed or catchment for selected index
+  var val = indexdescNewJson[key];
+  if (scale==="Watershed"){
+    respond(val.watershedId,val.name,val.catchmentId)
+  }else if (scale==="Catchment"){
+    respond(val.catchmentId,val.name,val.catchmentId)
+  }  
+}
+
+function setScaleRad(){//checks index and checks the radio button for correct scale on popover
+    var t=$('.indexRadio input');
+    var ind = WHAFapp.currentMapParams.indexLayer;
+    for (var i=0;i<t.length; i++){
+      var key = ($(t[i]).parent().attr('value')) 
+      if (ind===indexdescNewJson[key].catchmentId && $(t[i]).parent().text()==='Catchment'){
+        $(t[i]).prop('checked',true)
+      }else if (ind===indexdescNewJson[key].watershedId && $(t[i]).parent().text()==='Watershed'){
+        $(t[i]).prop('checked',true)
+      }
+    }
+}
 function tutorialPref(checked){
     if (checked==true){
         localStorage.setItem('showTutorial',false);
