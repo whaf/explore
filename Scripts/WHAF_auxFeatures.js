@@ -29,7 +29,7 @@ function auxFeatureConstructor(displayName, restUrl, layerId, scaleMax, scaleMin
         }
 
         WHAFapp.currentMapParams.theseFeatures.push(layerItem);
-        // $('#menuPlace, #printPlace').hide();$('#featuresPlace').show();
+        // $('#menuPlace, #printPlace').hide();00$('#featuresPlace').show();
         gdrsNoter();
     }
 
@@ -497,7 +497,7 @@ function auxInit2() {
 }
 
 function refreshMapParams() {
-    var r, i, s, auxi;
+    var r, i, s, features=[], auxi,o;
     if (Object.prototype.toString.call(WHAFapp.currentMapParams.indexLayer) === "[object Array]") {
         var e = String(WHAFapp.currentMapParams.indexLayer[0]);
         for (var t = 1; t < WHAFapp.currentMapParams.indexLayer.length; t++) {
@@ -528,7 +528,16 @@ function refreshMapParams() {
         WHAFapp.currentMapParams.Plc=[Math.round(DSS_objectives.point.x), Math.round(DSS_objectives.point.y)] 
     };
     if($('#hillShadeCheck').prop('checked')===true){WHAFapp.currentMapParams.HS = 1} else {WHAFapp.currentMapParams.HS = 0}
-    auxi = featObjToUrlString(WHAFapp.currentMapParams.theseFeatures);
+    
+    o=WHAFapp.currentMapParams.theseFeatures
+    
+    for (var i=0;i<o.length; i++){
+        if(o[i].WB===undefined){//filters out impaired water viewer layers
+            features.push(o[i])
+        } 
+    }
+
+    auxi = featObjToUrlString(features);
     WHAFapp.currentMapParams.auxFtLst = auxi;
     WHAFapp.currentMapParams.hillShadeOp;
 
