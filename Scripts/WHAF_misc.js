@@ -412,6 +412,14 @@ function getReportCard(){
     win.focus();
 }
 
+function getContextCard(){
+    var r,win,url;
+    r=String(WHAFapp.currentMapParams.crossmajor)
+    url = 'http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/context_report_major_'+r+'.pdf'
+    win = window.open(url, '_blank');
+    win.focus();    
+}
+
 function getflyOver(){//initiates fly-over (Google Earth) for major watershed
     $('#flyOverNote').fadeIn();
     $('#tourList').html('');
