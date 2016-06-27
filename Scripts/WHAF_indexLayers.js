@@ -821,7 +821,7 @@ indexdescNewJson={
         "fieldName":""
     },
     "W_S_NPS": {
-        "name": "WQ Index - Non-Point Source (major)",
+        "name": "Non-Point Pollution Sources",
         "watershedId": "WQ Index - Non-Point Source (major)",
         "catchmentId": "",
         "indexSummary": "Combines 2 metrics:  Rate of chemical and nutrient application and percent impervious in riparian zone",
@@ -962,8 +962,51 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
-        "relatedFeatures":[1.12],
-        "why":"The number of water bodies assessed and found to be impaired for different human uses shows where surface water systems are being impacted by the different water quality risks factors."
+        "relatedFeatures":[1.12, 1.35, 1.36, 1.37, 1.38],
+        "why":"The number of water bodies assessed and found to be impaired for different human uses shows where surface water systems are being impacted by the different water quality risks factors.",
+        "metrics": [{
+            "name": "Aquatic Life",
+            "watershedId": "",
+            "catchmentId": "WQ Metric - Water Quality Assessments, Aquatic Life",
+            "indexSummary": "The ability of surface waters to support aquatic life",
+            "shortDesc": "<h4>Aquatic Life Metric</h4>",
+            "sourceData": "",
+            "sourceDataDate": "",
+            "caveats": "",
+            "longDescLink": "",
+            "auxFeatures": "",
+            "fieldName":"w_m_wqa_al",
+            "relatedFeatures":[1.12, 1.35, 1.36, 1.37, 1.38],
+            "why":""
+        }, {
+            "name": "Aquatic Recreation",
+            "watershedId": "",
+            "catchmentId": "WQ Metric - Water Quality Assessments, Aquatic Recreation",
+            "indexSummary": "The ability of surface waters to support aquatic recreation",
+            "shortDesc": "<h4>Aquatic Recreation Metric</h4>",
+            "sourceData": "",
+            "sourceDataDate": "",
+            "caveats": "",
+            "longDescLink": "",
+            "auxFeatures": "",
+            "fieldName":"w_m_wqa_ar",
+            "relatedFeatures":[1.12, 1.35, 1.36, 1.37, 1.38],
+            "why":""
+        }, {
+            "name": "Aquatic Consumption",
+            "watershedId": "",
+            "catchmentId": "WQ Metric - Water Quality Assessments, Aquatic Consumption",
+            "indexSummary": "The ability of surface waters to support aquatic consumption",
+            "shortDesc": "<h4>Aquatic Consumption Metric</h4>",
+            "sourceData": "",
+            "sourceDataDate": "",
+            "caveats": "",
+            "longDescLink": "",
+            "auxFeatures": "",
+            "fieldName":"w_m_wqa_ac",
+            "relatedFeatures":[1.12, 1.35, 1.36, 1.37, 1.38],
+            "why":""
+        }]
     },
     "A_S_MEAN": {
         "name": "Combined Mean Scores",
