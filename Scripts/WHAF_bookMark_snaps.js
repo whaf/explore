@@ -19,7 +19,7 @@ function storeMap(snap){
     var kk=JSON.stringify(ff);
     var te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
     if(snap=='snap'){
-        sessionStorage.setItem(snapItemId,kk);
+        // sessionStorage.setItem(snapItemId,kk);
         return(snapItemId);
     }
     else{
@@ -46,18 +46,17 @@ function retrieveMap(item){
     }catch(r){};
 
     
-    try{
-        if (d.paramString && d.paramString !== undefined){
-            if (d.paramString.indexOf("?xtnt")===0){//if paramString was not encoded
-                rrParams=d.paramString;
-                setMapFromBookmark(rrParams);
-            } else{
-                WhafMapConstructor(d.paramString)
-            }
-          } else {
-          setmapFromJSON(d);
-        };
-    }catch(err){}
+
+    if (d.paramString && d.paramString !== undefined){
+        if (d.paramString.indexOf("?xtnt")===0){//if paramString was not encoded
+            rrParams=d.paramString;
+            setMapFromBookmark(rrParams);
+        } else{
+            WhafMapConstructor(d.paramString)
+        }
+      } else {
+      setmapFromJSON(d);
+    };
 }
 
 function refreshMap(){
@@ -121,6 +120,7 @@ function bMarkIndex(){
 }
 
 function allStorage(){
+
     if(localStorage){
         var archive = [],
             keys = Object.keys(localStorage),
@@ -132,16 +132,15 @@ function allStorage(){
     }
 }
 
-function popBmarkPane(){//retrieves bookmark data from browser's local storage and creates bookmark list from it. 
-    var mB={},tB=[],lB={},f;
+function popBmarkPane(){
+  var mB={},tmB=[],lB={}, tlB=[],f;
     if(localStorage){
         f=allStorage()
+
         for (ite=0; ite<f.length; ite++){
           var w=(f[ite]);
-          
           var bool = w.slice(0,5);
           var type = w.slice(6,9);
-          
           if (type == "Map"){
             extractN(f[ite]);
           }
@@ -149,121 +148,59 @@ function popBmarkPane(){//retrieves bookmark data from browser's local storage a
             extractNE(f[ite]);
           }
         }
-    }
 
-    tB.sort();
-    tB.reverse();
+    };
+
+    tmB.sort(sortNumber);
+    tlB.sort(sortNumber);
     rrr();
 
     function extractNE(t){
         tt=t.replace('bMark_Loc_','')
         yy=tt.indexOf('_');
         zz=Number(tt.slice(0,yy))
-        tB.push(zz);
+        tlB.push(zz);
         lB[zz] = t
     }
 
     function extractN(t){
         tt=t.replace('bMark_Map_','')
         yy=tt.indexOf('_');
-        zz=tt.slice(yy)
-        zzz=zz.replace('_','')
-        tB.push(zzz);
-      
-        mB[zzz] = t
+        zz=Number(tt.slice(0,yy))
+        tmB.push(zz);
+        mB[zz] = t
+    }
+  
+    function sortNumber(a,b) {
+        return a - b;
     }
 
-
-
-    function rrr(){
+    function rrr(){ 
       
-      var te
-        for (var ii=0; ii<tB.length; ii++){
-            var item = mB[tB[ii]];
-          
+        for (var ii=0; ii<tlB.length; ii++){
+            var item = lB[tlB[ii]];
+            console.log(item)
             try{
                 var d = $.parseJSON(localStorage.getItem(item));
-              
                 var itemId = item;
                 var item=d.name;
-              if (itemId.slice(6,9)==="Map"){
-                  te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
-                } else if (itemId.slice(6,9)==="Loc"){
-                  te = '<li><a onclick="retrieveExtent(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ ' (map extent)</a></li>'              
-                }
+                var te = '<li><a onclick="retrieveExtent(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ ' (map extent)</a></li>'
+                $('#bookMarkList').prepend(te);    
+            }catch(err){};
+        }
+
+        for (var ii=0; ii<tmB.length; ii++){
+            var item = mB[tmB[ii]];
+            try{
+                var d = $.parseJSON(localStorage.getItem(item));
+                var itemId = item;
+                var item=d.name;
+                var te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
                 $('#bookMarkList').prepend(te);    
             }catch(err){};
         }
     }
 }
-
-// function popBmarkPane(){//retrieves bookmark data from browser's local storage and creates bookmark list from it. 
-//   var mB={},tmB=[],lB={}, tlB=[],f;
-//     if(localStorage){
-//         f=allStorage()
-//         for (ite=0; ite<f.length; ite++){
-//           var w=(f[ite]);
-//           var bool = w.slice(0,5);
-//           var type = w.slice(6,9);
-//           if (type == "Map"){
-//             extractN(f[ite]);
-//           }
-//           else if (type == "Loc"){
-//             extractNE(f[ite]);
-//           }
-//         }
-//     };
-
-//     tmB.sort(sortNumber);
-//     tlB.sort(sortNumber);
-//     rrr();
-
-//     function extractNE(t){
-//         tt=t.replace('bMark_Loc_','')
-//         yy=tt.indexOf('_');
-//         zz=Number(tt.slice(0,yy))
-//         tlB.push(zz);
-//         lB[zz] = t
-//     }
-
-//     function extractN(t){
-//         tt=t.replace('bMark_Map_','')
-//         yy=tt.indexOf('_');
-//         zz=Number(tt.slice(0,yy))
-//         tmB.push(zz);
-//         mB[zz] = t
-//     }
-  
-//     function sortNumber(a,b) {
-//         return a - b;
-//     }
-
-//     function rrr(){ 
-      
-//         for (var ii=0; ii<tlB.length; ii++){
-//             var item = lB[tlB[ii]];
-//             console.log(item)
-//             try{
-//                 var d = $.parseJSON(localStorage.getItem(item));
-//                 var itemId = item;
-//                 var item=d.name;
-//                 var te = '<li><a onclick="retrieveExtent(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ ' (map extent)</a></li>'
-//                 $('#bookMarkList').prepend(te);    
-//             }catch(err){};
-//         }
-
-//         for (var ii=0; ii<tmB.length; ii++){
-//             var item = mB[tmB[ii]];
-//             try{
-//                 var d = $.parseJSON(localStorage.getItem(item));
-//                 var itemId = item;
-//                 var item=d.name;
-//                 var te = '<li><a onclick="retrieveMap(\''+itemId+'\')" href="#" tabindex="-1"> <i class="bookiIcon icon-remove icon-white pull-right" onclick = "$(this).parent().remove(); localStorage.removeItem(\''+itemId+'\');" ></i>'+item+ '</a></li>'
-//                 $('#bookMarkList').prepend(te);    
-//             }catch(err){};
-//         }
-//     }
-// }
 
 function reScaleSnaps(elem, z){
   var m=100*((1-z)/2);
@@ -275,34 +212,95 @@ function graceRemove(elem){
     $(elem).fadeOut(400, function(){$(elem).remove(); shiftSnaps()});
 }
 
-function addSnap(){
+function addOverviewSnap(where){
     var title, mapRoot = 'map_root',v,e=WHAFapp.snpNumber, idName = String(e)+'_sPlace',c,cc,C,CC,h,H,m,mm,e,r,E,S,R,f,F,k,snapster,ff,FF,M,MW,mw;
-    var g='<div id="'+idName+'Menu" class="snapMenuBox"><div id="" class ="snapMenuItems"><a href=\'#\' title="Remove"><img id="" class="img-rounded info9Image snapMenuSVG" src="./img/svgs/closeR.svg" onClick="graceRemove($(this).parent().parent().parent().parent()); snpVwCtrHid()"></a></div></div>'
+    // var g='<div id="'+idName+'Menu" class="snapMenuBox"><div id="" class ="snapMenuItems"><a href=\'#\' title="Remove"><img id="" class="img-rounded info9Image snapMenuSVG" src="./img/svgs/closeR.svg" onClick="graceRemove($(this).parent().parent().parent().parent()); snpVwCtrHid()"></a></div></div>'
+    var ggg = ''//<div class="sqTitle"><h5>Basin</h5></div>'
+    WHAFapp.snapZoom=0.46
+
     c=$('#map').css('width');
     h=$('#map').css('height');
     H=Number(h.replace('px',''))*WHAFapp.snapZoom;
     C=Number(c.replace('px',''))*WHAFapp.snapZoom;
         
-    adjustSnaphotAreaPadding();
+    //adjustSnaphotAreaPadding();
 
     snapster = storeMap('snap')
 
-    if (WHAFapp.serialSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
+//    if (WHAFapp.serialSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
+    if (WHAFapp.DSSSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
         title = '<input class="snapTitle span12" id="'+idName+'_title" autocomplete="off"  type="text" value="'+WHAFapp.demikuluName+'">'
     }else{
         title = '<input class="snapTitle span12" id="'+idName+'_title" autocomplete="off" placeholder="Add Title..." type="text">'
     }
 
+    // $('#mSnapShotsArea').append('<div id="'+idName+'" class="mapSnapStrip" style="height:'+String(H)+'px">'+ggg+'<div id="'+idName+'Map" class="snapBounds" href="#"></div>'+'</div>')  
+    WHAFapp.demikuluName='';//reset the title for snaps
 
-    $('#snapShotsArea').append('<div id="'+idName+'" class="mapSnapStrip" style="height:'+String(H)+'px">'+g+'<div id="'+idName+'Map" class="snapBounds" href="#"></div>'+title+'</div>')  
+    M=$('#'+mapRoot).css('width');
+    MW=Number(M.replace('px',''));
+    mw=String((MW-2)*WHAFapp.snapZoom)+'px';
+
+    v=$('#'+mapRoot).clone();
+    v[0].id=String(e)+'_'+v[0].id;
+    
+    changeIn(v)
+    function changeIn(ii){
+        $(ii).addClass('snapRoot');
+        reScaleSnaps(ii,WHAFapp.snapZoom);
+        $(ii).click(function(){retrieveSnap(snapster)});
+        var j=$(ii).find("div,svg")
+    
+      for (r in j){
+        if(j[r].id=='map_zoom_slider'){$(j[r]).remove()}
+        if (j[r].id && j[r].id !== undefined){
+          j[r].id=String(e)+'_'+j[r].id;
+        } 
+      }
+    }
+    
+    ff=Number($('#map').css('height').replace('px',''));
+    FF=ff*WHAFapp.snapZoom;
+
+    $('.snapTitle').css({'top':FF+7});
+    $('#'+where).append(v);
+    $('#mSnapShotsArea .container').css('cursor','pointer');
+    $('#mSnapShotsArea .esriControlsBR').hide();
+
+    WHAFapp.snpNumber=WHAFapp.snpNumber+1;//change depending on elements removed
+    $('#mSnapShotsArea').fadeIn();
+}
+
+function addSnap_(where){
+    var title, mapRoot = 'map_root',v,e=WHAFapp.snpNumber, idName = String(e)+'_sPlace',c,cc,C,CC,h,H,m,mm,e,r,E,S,R,f,F,k,snapster,ff,FF,M,MW,mw;
+    // var g='<div id="'+idName+'Menu" class="snapMenuBox"><div id="" class ="snapMenuItems"><a href=\'#\' title="Remove"><img id="" class="img-rounded info9Image snapMenuSVG" src="./img/svgs/closeR.svg" onClick="graceRemove($(this).parent().parent().parent().parent()); snpVwCtrHid()"></a></div></div>'
+    var ggg = ''//<div class="sqTitle"><h5>Basin</h5></div>'
+    WHAFapp.snapZoom=0.46
+
+    c=$('#map').css('width');
+    h=$('#map').css('height');
+    H=Number(h.replace('px',''))*WHAFapp.snapZoom;
+    C=Number(c.replace('px',''))*WHAFapp.snapZoom;
+        
+    //adjustSnaphotAreaPadding();
+
+    snapster = storeMap('snap')
+
+//    if (WHAFapp.serialSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
+    if (WHAFapp.DSSSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
+        title = '<input class="snapTitle span12" id="'+idName+'_title" autocomplete="off"  type="text" value="'+WHAFapp.demikuluName+'">'
+    }else{
+        title = '<input class="snapTitle span12" id="'+idName+'_title" autocomplete="off" placeholder="Add Title..." type="text">'
+    }
+
+    $('#mSnapShotsArea').append('<div id="'+idName+'" class="mapSnapStrip" style="height:'+String(H)+'px">'+ggg+'<div id="'+idName+'Map" class="snapBounds" href="#"></div>'+'</div>')  
     WHAFapp.demikuluName='';//reset the title for snaps
 
     M=$('#'+mapRoot).css('width')
     MW=Number(M.replace('px',''));
     mw=String((MW-2)*WHAFapp.snapZoom)+'px'
-    $('.mapSnapStrip').css('width',mw)
-
-    $('.mapSnapStrip').css('width',String(C))//adjusts all mapsnaps in case window resize
+ //   $('.mapSnapStrip').css('width',mw)
+//    $('.mapSnapStrip').css('width',String(C))//adjusts all mapsnaps in case window resize
 
 
     v=$('#'+mapRoot).clone();
@@ -326,51 +324,203 @@ function addSnap(){
     ff=Number($('#map').css('height').replace('px',''));
     FF=ff*WHAFapp.snapZoom;
 
-    $('#snapShotsArea').css('height',FF+50);  
+    $('.snapTitle').css({'top':FF+7});
+    // $('#'+where).html(v);
+    $('#'+where).append(v);
+    $('#mSnapShotsArea .container').css('cursor','pointer');
+    $('#mSnapShotsArea .esriControlsBR').hide();
+
+    WHAFapp.snpNumber=WHAFapp.snpNumber+1;//change depending on elements removed
+    $('#mSnapShotsArea').fadeIn();
+}
+
+function addDssSnap(idSerial,where){
+    var mapRoot = 'map_root',v,e,idName,c,cc,C,CC,h,H,m,mm,e,r,E,S,R,f,F,k,snapster,ff,FF,M,MW,mw,t,edDiv='',edD,edF;
+    if (idSerial){
+        e=idSerial
+    } else{
+        e=WHAFapp.snpNumber
+    }
+    idName = String(e)+'_sPlace';
+
+    textPlace = 'sis_'+String(e)+'_sPlace';
+    // var t = $('#legendAux').clone();
+    // $('#'+textPlace).append(t);
+    // console.log(textPlace)
+
+    // var g='<div id="'+idName+'Menu" class="snapMenuBox"><div id="" class ="snapMenuItems"><a href=\'#\' title="Remove"><img id="" class="img-rounded info9Image snapMenuSVG" src="./img/svgs/closeR.svg" onClick="graceRemove($(this).parent().parent().parent().parent()); snpVwCtrHid()"></a></div></div>'
+    c=$('#map').css('width');
+    h=$('#map').css('height');
+    H=Number(h.replace('px',''))*WHAFapp.snapZoom;
+    C=Number(c.replace('px',''))*WHAFapp.snapZoom;
+        
+    adjustSnaphotAreaPadding();
+
+    snapster = storeMap('snap');
+
+    var tempStripDiv = '<div id="'+idName+'" class="rMapSnapStrip span8" style="height:'+String(H)+'px, width:'+String(C)+'"><div id="'+idName+'Map" class="snapBounds" href="#"></div></div>'
+    var temp2StripDiv = '<h3 class="sisTitle">One</h3><h4 class="sisSubTitle">Two</h4><div><textarea class="sisText" placeholder="Add notes:" rows="12"></textarea></div>';
+    var temp3StripDiv = '<div id="sis_'+idName+'" class="mapSnapSis span3">'+temp2StripDiv+'</div>'
+    
+    if($('#mapSnapMom_'+e).html()===''){//if editing an existing report map
+        $('#mapSnapMom_'+e).html(tempStripDiv+temp3StripDiv)
+    } else{
+        var temp4StripDiv = '<div class="mapSnapMom row" id="mapSnapMom_'+e+'">'+tempStripDiv+temp3StripDiv+'</div>'
+        $('#'+where).append(temp4StripDiv);
+    }
+
+    M=$('#'+mapRoot).css('width')
+    MW=Number(M.replace('px',''));
+    mw=String((MW-2)*WHAFapp.snapZoom)+'px'
+    $('.rMapSnapStrip').css('width',String(C))//adjusts all mapsnaps in case window resize
+
+
+    v=$('#'+mapRoot).clone();
+    v[0].id=String(e)+'_'+v[0].id;
+    
+    changeIn(v)
+    function changeIn(ii){
+        $(ii).addClass('rSnapRoot');
+        reScaleSnaps(ii,WHAFapp.snapZoom);
+        var j=$(ii).find("div,svg")
+    
+      for (r in j){
+        if(j[r].id=='map_zoom_slider'){$(j[r]).remove()}
+        if (j[r].id && j[r].id !== undefined){
+          j[r].id=String(e)+'_'+j[r].id;
+        } 
+      }
+    }
+    
+    ff=Number($('#map').css('height').replace('px',''));
+    FF=ff*WHAFapp.snapZoom;
+
+    $('#dssSnapShotsArea').css('height',FF+50);  
 
     $('.snapTitle').css({'top':FF+7});
 
+    edD='<img class="img-rounded info9Image snapMenuSVG1" onclick="editMap(\''+e+'\')" src="./img/svgs/pencil.svg" title="Edit this map">'
+    edF='<img val="resting here" onclick="preDeleteSnapMap(\''+e+'\')" class="img-rounded info9Image snapMenuSVG1" onclick="" src="./img/svgs/closeY.svg" title="Delete this map">'
+    edDiv='<div class="snapEdTools"><div class="snapEdDiv" >'+edD+edF+'</div></div>'
 
-
+    
     $('#'+idName+'Map').html(v);
-    $('#snapShotsArea .container').css('cursor','pointer');
-    $('#snapShotsArea .esriControlsBR').hide();
+    $('#'+idName+'Map').append(edDiv)
 
-    cc=$('#snapShotsArea').css('width');
-    CC=Number(cc.replace('px',''));
-    m=CC+C*5;
-    mm=String(m)+'px';
-  
-    $('#snapShotsArea').css('width',mm)
 
-    WHAFapp.snpNumber=WHAFapp.snpNumber+1;//change depending on elements removed
-  
-    k=$('#snapShotsArea').find('.mapSnapStrip').length
-    WHAFapp.displayedSnap=k-1
-    shiftSnaps(WHAFapp.displayedSnap);
-    $('#snapShotsArea').fadeIn();
-    $('#snapMax').fadeOut();
 
-    setTimeout(function () {
-        $('#snapViewCtrol').fadeIn(1000);
-        $('#snapViewCtrol').fadeIn(1000);
-        try{
-            h=$('#snapShotsArea').offset().top
-            $('#snapViewCtrol').css({'top':h+30})        
-        }catch(err){};
-    }, 1000);
-    if(k>1){
-        setTimeout(function () {
-            $('.snapCtrl').fadeIn(800)
-        }, 1500)
-    }
+
+
+    $('#dssSnapShotsArea .container').css('cursor','pointer');
+    $('#dssSnapShotsArea .esriControlsBR').hide();
+
+    WHAFapp.snpNumber=WHAFapp.snpNumber+1;
 }
 
+// function addSnap(){
+//     var title, mapRoot = 'map_root',v,e=WHAFapp.snpNumber, idName = String(e)+'_sPlace',c,cc,C,CC,h,H,m,mm,e,r,E,S,R,f,F,k,snapster,ff,FF,M,MW,mw;
+//     var g='<div id="'+idName+'Menu" class="snapMenuBox"><div id="" class ="snapMenuItems"><a href=\'#\' title="Remove"><img id="" class="img-rounded info9Image snapMenuSVG" src="./img/svgs/closeR.svg" onClick="graceRemove($(this).parent().parent().parent().parent()); snpVwCtrHid()"></a></div></div>'
+//     c=$('#map').css('width');
+//     h=$('#map').css('height');
+//     H=Number(h.replace('px',''))*WHAFapp.snapZoom;
+//     C=Number(c.replace('px',''))*WHAFapp.snapZoom;
+        
+//     adjustSnaphotAreaPadding();
+
+//     snapster = storeMap('snap')
+
+// //    if (WHAFapp.serialSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
+//     if (WHAFapp.DSSSnapper === 1 && WHAFapp.demikuluName && WHAFapp.demikuluName!==''){
+//         title = '<input class="snapTitle span12" id="'+idName+'_title" autocomplete="off"  type="text" value="'+WHAFapp.demikuluName+'">'
+//     }else{
+//         title = '<input class="snapTitle span12" id="'+idName+'_title" autocomplete="off" placeholder="Add Title..." type="text">'
+//     }
+
+
+//     $('#snapShotsArea').append('<div id="'+idName+'" class="mapSnapStrip" style="height:'+String(H)+'px">'+g+'<div id="'+idName+'Map" class="snapBounds" href="#"></div>'+title+'</div>')  
+//     WHAFapp.demikuluName='';//reset the title for snaps
+
+//     M=$('#'+mapRoot).css('width')
+//     MW=Number(M.replace('px',''));
+//     mw=String((MW-2)*WHAFapp.snapZoom)+'px'
+//     $('.mapSnapStrip').css('width',mw)
+
+//     $('.mapSnapStrip').css('width',String(C))//adjusts all mapsnaps in case window resize
+
+
+//     v=$('#'+mapRoot).clone();
+//     v[0].id=String(e)+'_'+v[0].id;
+    
+//     changeIn(v)
+//     function changeIn(ii){
+//         $(ii).addClass('snapRoot');
+//         reScaleSnaps(ii,WHAFapp.snapZoom);
+//         $(ii).click(function(){retrieveSnap(snapster)});
+//         var j=$(ii).find("div,svg")
+    
+//       for (r in j){
+//         if(j[r].id=='map_zoom_slider'){$(j[r]).remove()}
+//         if (j[r].id && j[r].id !== undefined){
+//           j[r].id=String(e)+'_'+j[r].id;
+//         } 
+//       }
+//     }
+    
+//     ff=Number($('#map').css('height').replace('px',''));
+//     FF=ff*WHAFapp.snapZoom;
+
+//     $('#snapShotsArea').css('height',FF+50);  
+
+//     $('.snapTitle').css({'top':FF+7});
+
+
+
+//     $('#'+idName+'Map').html(v);
+//     $('#snapShotsArea .container').css('cursor','pointer');
+//     $('#snapShotsArea .esriControlsBR').hide();
+
+//     cc=$('#snapShotsArea').css('width');
+//     CC=Number(cc.replace('px',''));
+//     m=CC+C*5;
+//     mm=String(m)+'px';
+  
+//     $('#snapShotsArea').css('width',mm)
+
+//     WHAFapp.snpNumber=WHAFapp.snpNumber+1;//change depending on elements removed
+  
+//     k=$('#snapShotsArea').find('.mapSnapStrip').length
+//     WHAFapp.displayedSnap=k-1
+//     shiftSnaps(WHAFapp.displayedSnap);
+//     $('#snapShotsArea').fadeIn();
+//     $('#snapMax').fadeOut();
+
+//     setTimeout(function () {
+//         $('#snapViewCtrol').fadeIn(1000);
+//         $('#snapViewCtrol').fadeIn(1000);
+//         try{
+//             h=$('#snapShotsArea').offset().top
+//             $('#snapViewCtrol').css({'top':h+30})        
+//         }catch(err){};
+//     }, 1000);
+//     if(k>1){
+//         setTimeout(function () {
+//             $('.snapCtrl').fadeIn(800)
+//         }, 1500)
+//     }
+// }
 
 
 function retrieveSnap(snapster){
     if($('#snapShotsArea').hasClass('noclick')){
         $('#snapShotsArea').removeClass('noclick')
+    } else{
+        retrieveMap(snapster)
+    }
+}
+
+function retrieveDssSnap(snapster){
+    if($('#dssSnapShotsArea').hasClass('noclick')){
+        $('#dssSnapShotsArea').removeClass('noclick')
     } else{
         retrieveMap(snapster)
     }
@@ -453,22 +603,6 @@ function nextSnap(op){
   }
 }
 
-//FUNCTION TO FADE OUT MAP SNAPS THAT ARE NOT SHOWING IN SLIDESHOW
-// function shadeSlides(){
-//     var m,n,l;
-//     m=WHAFapp.displayedSnap;
-//     l=$('#snapShotsArea').find('.mapSnapStrip');
-//     n=l.length;
-//     for (a in l){
-//         if (a!=m){
-//             $(l[a].fadeOut())
-//         } else{
-//             $(l[a].fadeIn())
-//         }
-//     }
-
-// }
-
 //FUNCTIONS TO MODIFY SIZE AND LAYOUT OF MAP SNAPS
 function modSnaps(what, place){
     switch(what){
@@ -515,7 +649,21 @@ function slideShowPrep(){//Sets the slideshow of map snaps
 
     $('#slideShowPrep').hide();
     $('#stripView').show();
-    setTimeout(function(){snapRetreat()},1500);
+    setTimeout(function(){snapRetreat()},500);
+}
+
+function dssSlideShowPrep(){//Sets the slideshow of map snaps
+
+    // $('#WHAF_headerNav').hide();
+    // $('#projectShowTitleWrapper').show();
+
+    $('#map_root, #scaleButtonPlace, #menuBox, #StateIcon, #back, .snapMenuItems, #TabOfcontentPlace').hide();
+    $('.snapTitle').addClass('snapTitleShow');
+    $('#dssSnapShotsArea').css('margin-bottom','5px');
+    modSnaps('snapShow','strip');
+
+    $('#slideShowPrep').hide();
+    $('#stripView').show();
 }
 
 function removeSlideShow(){//returns to map snap strips
@@ -530,6 +678,23 @@ function removeSlideShow(){//returns to map snap strips
     $('.snapCtrl ').css('top','90%');
 }
 
+function scaleSnaps_(i){//changes size of map snap ; VALUE 0-1
+    var S=i, s,TR,tr,transformExpression; 
+    // WHAFapp.snapZoom=S
+    s=String(S)
+    TR=(1-s)/2*100
+    tr=String(TR);
+    transformExpression = 'translate(-'+tr+'%, -'+tr+'%) scale('+s+','+s+')'
+
+    $('.snapBounds').css('transform',transformExpression)
+    c=$('#map').css('width');
+    C=Number(c.replace('px',''))*S;
+
+    d=$('#map').css('height');
+    D=Number(d.replace('px',''))*S+30;
+
+    // $('.mapSnapStrip ').css({'width':String(C)});    
+}
 
 function scaleSnaps(i){//changes size of map snap ; VALUE 0-1
     var S=i, s,TR,tr,transformExpression; 
@@ -542,11 +707,53 @@ function scaleSnaps(i){//changes size of map snap ; VALUE 0-1
     $('.snapRoot').css('transform',transformExpression)
     c=$('#map').css('width');
     C=Number(c.replace('px',''))*S;
+    h=$('#map').css('height');
+    H=Number(c.replace('px',''))*S;
 
     d=$('#map').css('height');
     D=Number(d.replace('px',''))*S+30;
 
-    $('.mapSnapStrip ').css({'width':String(C)});    
+    $('.mapSnapStrip ').css({'width':String(C)});//,'height':String(H)});    
+}
+
+function scaleOverviewSnaps(i){//changes size of map snap ; VALUE 0-1
+    var S=i, s,TR,tr,transformExpression; 
+    // WHAFapp.snapZoom=S
+    s=String(S)
+    TR=(1-s)/2*100
+    tr=String(TR);
+    transformExpression = 'translate(-'+tr+'%, -'+tr+'%) scale('+s+','+s+')'
+
+    $('.snapRoot').css('transform',transformExpression)
+    c=$('#map').css('width');
+    C=Number(c.replace('px',''))*S;
+    h=$('#map').css('height');
+    H=Number(c.replace('px',''))*S;
+
+    d=$('#map').css('height');
+    D=Number(d.replace('px',''))*S+30;
+
+    $('.mapSnapStrip ').css({'width':String(C)});//,'height':String(H)});    
+}
+
+function scaleReportSnaps(i){//changes size of map snap ; VALUE 0-1
+    var S=i, s,TR,tr,transformExpression; 
+    // WHAFapp.snapZoom=S
+    s=String(S)
+    TR=(1-s)/2*100
+    tr=String(TR);
+    transformExpression = 'translate(-'+tr+'%, -'+tr+'%) scale('+s+','+s+')'
+
+    $('.rSnapRoot').css('transform',transformExpression)
+    c=$('#map').css('width');
+    C=Number(c.replace('px',''))*S;
+    h=$('#map').css('height');
+    H=Number(c.replace('px',''))*S;
+
+    d=$('#map').css('height');
+    D=Number(d.replace('px',''))*S+30;
+
+    $('.rMapSnapStrip ').css({'width':String(C)});//,'height':String(H)});    
 }
 
 function changeStripSize(i){//changes size of map snap in map snap strip; VALUE 0-1 
@@ -597,42 +804,42 @@ function setSideBySide(){ //changing the layout of the snaps container for side 
 
 }
 
-function setMapSnapStrip(){//changing the layout of the snaps container for strip display 
+// function setMapSnapStrip(){//changing the layout of the snaps container for strip display 
 
-    var options ={
-        'position':'absolute',
-        'left':'-2px',
-        'top':'auto',
-        'bottom':'0px',
-        'height':'auto',
-        'width':'2500px',
-        'z-index':' 1000',
-        'padding':'0px',
-        'display':'block', 
-        'background-color':'rgba(25,25,25,1)',
-        'overflow':'auto',
-        'margin-bottom':'5px',
-        'overflow':'hidden'
+//     var options ={
+//         'position':'absolute',
+//         'left':'-2px',
+//         'top':'auto',
+//         'bottom':'0px',
+//         'height':'auto',
+//         'width':'2500px',
+//         'z-index':' 1000',
+//         'padding':'0px',
+//         'display':'block', 
+//         'background-color':'rgba(25,25,25,1)',
+//         'overflow':'auto',
+//         'margin-bottom':'5px',
+//         'overflow':'hidden'
         
-    }
+//     }
 
-    scaleSnaps(WHAFapp.snapZoom)
+//     scaleSnaps(WHAFapp.snapZoom)
 
-    $('#snapShotsArea').css(options);
+//     $('#snapShotsArea').css(options);
 
-    ff=Number($('#map').css('height').replace('px',''));
-    $('#snapShotsArea').css('height',(ff*WHAFapp.snapZoom)+50);  
+//     ff=Number($('#map').css('height').replace('px',''));
+//     $('#snapShotsArea').css('height',(ff*WHAFapp.snapZoom)+50);  
 
-    cc=$('#snapShotsArea').css('width');
-    CC=Number(cc.replace('px',''));
-    m=CC+C*5;
-    mm=String(m)+'px';  
-    $('#snapShotsArea').css('width',mm);
-    adjustSnaphotAreaPadding();
-    shiftSnaps();
+//     cc=$('#snapShotsArea').css('width');
+//     CC=Number(cc.replace('px',''));
+//     m=CC+C*5;
+//     mm=String(m)+'px';  
+//     $('#snapShotsArea').css('width',mm);
+//     adjustSnaphotAreaPadding();
+//     shiftSnaps();
 
 
-}
+// }
 
 
 

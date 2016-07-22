@@ -335,9 +335,9 @@ healthScoreIndex = {
     "WQ Metric - Localized Pollution Sources, Superfund Sites" : 74,
     "WQ Metric - Localized Pollution Sources, Open Pit Mines" : 75,
     "WQ Metric - Non-Point Source, Phosphorus Risk" : 76,
-    "WQ Index - Water Quality Assessments, Aquatic Life" : 77,
-    "WQ Index - Water Quality Assessments, Aquatic Recreation" : 78,
-    "WQ Index - Water Quality Assessments, Aquatic Consumption" : 79
+    "WQ Metric - Water Quality Assessments, Aquatic Life" : 77,
+    "WQ Metric - Water Quality Assessments, Aquatic Recreation" : 78,
+    "WQ Metric - Water Quality Assessments, Aquatic Consumption" : 79
 }
 
 oldHealthScoreIndex = {
@@ -836,8 +836,8 @@ indexdescNewJson={
         "why":"Nonpoint sources of pollution can move off the landscape into waterways which can contaminate drinking water and degrade aquatic communities.",
         "metrics": [{
             "name": "Upland Phosphorus", 
-            "watershedID": "WQ Metric - Non-Point Source, Phosphorus Risk (major)",
-            "catchmentID": "WQ Metric - Non-Point Source, Phosphorus Risk",
+            "watershedId": "WQ Metric - Non-Point Source, Phosphorus Risk (major)",
+            "catchmentId": "WQ Metric - Non-Point Source, Phosphorus Risk",
             "indexSummary": "Phosphorus Risk from Upland Sources",
             "shortDesc": "<h4>Upland Phosphorus Metric</h4>Phosphorus is often the limiting nutrient in aquatic systems, as a pollutant phosphorus has a significant potential to offset the natural balance in a system. Increased phosphorus levels can lead to algae blooms in surface waters which can further alter the chemical and physical properties of these waters. This metric models the risk of phosphorus mobilization based on three factors: land use, watershed slope, and soil erodibility. Scores range from 0 (most likely to mobilize phosphorus from uplands) to 100 (least likely to mobilize phosphorus from uplands).",
             "sourceData": "SSURGO Soils Database, LiDAR derived elevation, Crop Data Layer (land cover)",

@@ -6,6 +6,14 @@
 // ├────────────────────────────────────────────────────────────────────┤ \\
 // │ Licensed under the MIT (http://raphaeljs.com/license.html) license.│ \\
 // └────────────────────────────────────────────────────────────────────┘ \\
+
+                    //*** IMPORTANT WHAF NOTE ***//
+
+// TO PREVENT COLISION WITH ANOTHER GLOBAL VARIABLE, OBJECT eve  WAS 
+// MODIFIED TO eveI. THIS MAY REQUIRE MODIFICATION IF ADDING ADDITIONAL RAPHAEL SCRIPTS
+
+
+
 ! function (a) {
     var b, c, d = "0.4.2",
         e = "hasOwnProperty",
@@ -116,14 +124,14 @@
         return k.on(a, c)
     }, k.version = d, k.toString = function () {
         return "You are running Eve " + d
-    }, "undefined" != typeof module && module.exports ? module.exports = k : "undefined" != typeof define ? define("eve", [], function () {
+    }, "undefined" != typeof module && module.exports ? module.exports = k : "undefined" != typeof define ? define("eveI", [], function () {
         return k
-    }) : a.eve = k
+    }) : a.eveI = k
 }(this),
 function (a, b) {
-    "function" == typeof define && define.amd ? define(["eve"], function (c) {
+    "function" == typeof define && define.amd ? define(["eveI"], function (c) {
         return b(a, c)
-    }) : b(a, a.eve)
+    }) : b(a, a.eveI)
 }(this, function (a, b) {
     function c(a) {
         if (c.is(a, "function")) return u ? a() : b.on("raphael.DOMload", a);
@@ -476,7 +484,7 @@ function (a, b) {
     function t(a) {
         for (var b = 0; b < ic.length; b++) ic[b].el.paper == a && ic.splice(b--, 1)
     }
-    c.version = "2.1.2", c.eve = b;
+    c.version = "2.1.2", c.eveI = b;
     var u, v, w = /[, ]+/,
         x = {
             circle: 1,
@@ -2117,7 +2125,7 @@ function (a, b) {
     }, c.st = nc,
     function (a, b, d) {
         function e() {
-            /in/.test(a.readyState) ? setTimeout(e, 9) : c.eve("raphael.DOMload")
+            /in/.test(a.readyState) ? setTimeout(e, 9) : c.eveI("raphael.DOMload")
         }
         null == a.readyState && a.addEventListener && (a.addEventListener(b, d = function () {
             a.removeEventListener(b, d, !1), a.readyState = "complete"
@@ -2136,7 +2144,7 @@ function (a, b) {
                 h = f.abs,
                 i = f.pow,
                 j = /[, ]+/,
-                k = c.eve,
+                k = c.eveI,
                 l = "",
                 m = " ",
                 n = "http://www.w3.org/1999/xlink",
@@ -2757,7 +2765,7 @@ function (a, b) {
                     f = -a.f % 1;
                 (e || f) && (e && (this._left = (this._left + e) % 1, c.left = this._left + "px"), f && (this._top = (this._top + f) % 1, c.top = this._top + "px"))
             }, c.prototype.clear = function () {
-                c.eve("raphael.clear", this);
+                c.eveI("raphael.clear", this);
                 for (var a = this.canvas; a.firstChild;) a.removeChild(a.firstChild);
                 this.bottom = this.top = null, (this.desc = q("desc")).appendChild(c._g.doc.createTextNode("Created with Raphaël " + c.version)), a.appendChild(this.desc), a.appendChild(this.defs = q("defs"))
             }, c.prototype.remove = function () {
@@ -2787,7 +2795,7 @@ function (a, b) {
                 i = e.abs,
                 j = "fill",
                 k = /[, ]+/,
-                l = c.eve,
+                l = c.eveI,
                 m = " progid:DXImageTransform.Microsoft",
                 n = " ",
                 o = "",
@@ -3070,7 +3078,7 @@ function (a, b) {
                 }
             }, E.remove = function () {
                 if (!this.removed && this.node.parentNode) {
-                    this.paper.__set__ && this.paper.__set__.exclude(this), c.eve.unbind("raphael.*.*." + this.id), c._tear(this, this.paper), this.node.parentNode.removeChild(this.node), this.shape && this.shape.parentNode.removeChild(this.shape);
+                    this.paper.__set__ && this.paper.__set__.exclude(this), c.eveI.unbind("raphael.*.*." + this.id), c._tear(this, this.paper), this.node.parentNode.removeChild(this.node), this.shape && this.shape.parentNode.removeChild(this.shape);
                     for (var a in this) this[a] = "function" == typeof this[a] ? c._removedFactory(a) : null;
                     this.removed = !0
                 }
@@ -3174,7 +3182,7 @@ function (a, b) {
                 var d = this.canvas.style;
                 return this.width = a, this.height = b, a == +a && (a += "px"), b == +b && (b += "px"), d.width = a, d.height = b, d.clip = "rect(0 " + a + " " + b + " 0)", this._viewBox && c._engine.setViewBox.apply(this, this._viewBox), this
             }, c._engine.setViewBox = function (a, b, d, e, f) {
-                c.eve("raphael.setViewBox", this, this._viewBox, [a, b, d, e, f]);
+                c.eveI("raphael.setViewBox", this, this._viewBox, [a, b, d, e, f]);
                 var h, i, j = this.width,
                     k = this.height,
                     l = 1 / g(d / j, e / k);
@@ -3212,9 +3220,9 @@ function (a, b) {
                     j = i.style;
                 return f = f || 0, g = g || 0, e = e || 512, d = d || 342, h.width = e, h.height = d, e == +e && (e += "px"), d == +d && (d += "px"), h.coordsize = 1e3 * u + n + 1e3 * u, h.coordorigin = "0 0", h.span = c._g.doc.createElement("span"), h.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;", i.appendChild(h.span), j.cssText = c.format("top:0;left:0;width:{0};height:{1};display:inline-block;position:relative;clip:rect(0 {0} {1} 0);overflow:hidden", e, d), 1 == b ? (c._g.doc.body.appendChild(i), j.left = f + "px", j.top = g + "px", j.position = "absolute") : b.firstChild ? b.insertBefore(i, b.firstChild) : b.appendChild(i), h.renderfix = function () {}, h
             }, c.prototype.clear = function () {
-                c.eve("raphael.clear", this), this.canvas.innerHTML = o, this.span = c._g.doc.createElement("span"), this.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;", this.canvas.appendChild(this.span), this.bottom = this.top = null
+                c.eveI("raphael.clear", this), this.canvas.innerHTML = o, this.span = c._g.doc.createElement("span"), this.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;", this.canvas.appendChild(this.span), this.bottom = this.top = null
             }, c.prototype.remove = function () {
-                c.eve("raphael.remove", this), this.canvas.parentNode.removeChild(this.canvas);
+                c.eveI("raphael.remove", this), this.canvas.parentNode.removeChild(this.canvas);
                 for (var a in this) this[a] = "function" == typeof this[a] ? c._removedFactory(a) : null;
                 return !0
             };
@@ -3277,3 +3285,4 @@ pieChart = function (cx, cy, r, labels, stroke,colors, scores) {
     }
     return chart;
 };
+

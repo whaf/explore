@@ -1,0 +1,32 @@
+<div id="magicWarning" class="modal hide fade centered" tabindex="-1" role="dialog" style="">
+  <div class="modal-header">
+    <button type="button" class="close" onclick="$('#magicWarning').modal('hide');" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 id="mWarningTitle"></h4>
+  </div>
+  <div class="modal-body" style="padding:15px">
+    <p id="mWarningText"></p>
+  </div>
+  <div class="modal-footer">
+    <a id="mWarningBackScale" href="#" onclick="$('#magicWarning').modal('hide'); $('#mCtrlL').click()" class="btn btn-info warnButton">Back</a>
+    <a id="mWarningProceedScale" href="#" onclick="$('#magicWarning').modal('hide');scaleScroll('+','noZoom','skip')" class="btn btn-info warnButton">Proceed</a>
+     <a id="mWarningSetLocation" href="#" onclick=";$('#mCtrlL').click();$('#magicWarning').modal('hide');$('#DssStarImage').click()" class="btn btn-warning warnButton">Set location</a>    
+    <a id="mWarningBackOverview" href="#" onclick="$('#magicWarning').modal('hide')" class="btn btn-info warnButton">Back</a>
+    <a id="mWarningGoaheadOverview" href="#" onclick="$('#magicWarning').modal('hide'); setSquares()" class="btn btn-info warnButton">Get Health Overview</a>    
+    <a href="#" id="mWarningOK" class="btn btn-info warnButton" onclick="$('#magicWarning').modal('hide')">OK</a>
+    <a href="#" id="mWarningCancel" class="btn btn-info warnButton" onclick="$('#magicWarning').modal('hide')">Cancel</a>
+
+    <a href="#" id="mWarningSnapDelete" onclick="$('#magicWarning').modal('hide');deleteSnapMap(WHAFapp.deletePlaceholder)" class="btn btn-danger warnButton">Delete</a>
+
+    <a id="mWarningViewAll" href="#" onclick="$('#magicWarning').modal('hide');indexScroll('all');$('.mStep4 a').click();$('#indexLoopIntro').hide();$('#indexNotes').fadeIn();$('.scoreLoop').show();$('#gaugesPlace').removeClass('scoreLoopSVG').show();gaugesStartUp();$('#indexNotes, #mIndexWhy, #mCtrlR, #mCtrlL, #mCtrlAdd').show()" class="btn btn-info warnButton">View All</a>
+
+    <a id="mWarningViewSelected" href="#" onclick="$('#magicWarning').modal('hide');getSelectedObjectives(true);indexScroll('on');$('.mStep4 a').click();$('#indexLoopIntro').hide();$('#indexNotes').fadeIn();$('.scoreLoop').show();$('#gaugesPlace').removeClass('scoreLoopSVG').show();gaugesStartUp();$('#indexNotes, #mIndexWhy, #mCtrlR, #mCtrlL, #mCtrlAdd').show()" class="btn btn-info warnButton">View Selected</a>
+
+     <a id="mWarningSkipReview" href="#" onclick="$('#magicWarning').modal('hide');refreshManActList(); $('.mStep5 a').click();" class="btn btn-info warnButton">Skip review</a>
+
+    <a id="mWarningChangeLoc" href="#" onclick="$('#magicWarning').modal('hide')" class="btn btn-info warnButton">Change location</a>
+    
+    <a id="mWarningUseCurrentLoc" href="#" onclick="$('#magicWarning').modal('hide');magicScroll('+')" class="btn btn-info warnButton">Use current Location</a>
+
+  </div>
+</div> 
+

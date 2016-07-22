@@ -1,0 +1,38 @@
+
+
+<div id="gaugesSub" class=row style="position:fixed">
+  <div id="gg3" class="span2"><label>Basin</label>
+	<div onclick="map.setExtent(getBasinExtent(WHAFapp.currentMapParams.crossHuc4));"><a>Zoom to...</a></div>
+	<div onclick="$('#BsnMasker').click()"><a >Mask</a></div>
+	<div onclick="$('#BsnOutline').click()"><a>Outline</a></div>
+	<div onclick="$('#BsnNone').click()"><a >None</a></div>
+  </div>			
+  <div id="gg2" class="span2"><label>Major Watershed</label>
+	<div onclick="zoomToSelectedMajor()"><a>Zoom to...</a></div>
+	<div onclick="$('#mjMasker').click()"><a >Mask</a></div>
+	<div onclick="$('#mjMajorOutline').click()"><a >Outline</a></div>
+	<div onclick="$('#mjNone').click()"><a >None</a></div>
+  </div>
+
+  <div id="gg4" class="span2"><label>Upstream</label>
+	<div onclick="zoomUp()"><a>Zoom to...</a></div>
+	<div onclick="$('#upMaskLink').click()"><a >Mask</a></div>
+	<div onclick="$('#upOutline').click()"><a >Outline</a></div>
+	<div onclick="$('#upFill').click()"><a >Fill</a></div>
+	<div onclick="$('#upNone').click()"><a >None</a></div>
+  </div>
+  <div id="gg5" class="span2"><label>Downstream</label>
+	<div onclick="zoomDown()"><a>Zoom to...</a></div>
+	<div onclick="$('#downMaskLink').click()"><a>Mask</a></div>
+	<div onclick="$('#dnOutline').click()"><a >Outline</a></div>
+	<div onclick="$('#dnFill').click()"><a>Fill</a></div>
+	<div onclick="$('#downNone').click()"><a>None</a></div>
+  </div>
+  <div id="gg1" class="span2"><label>Catchment</label>
+	<div onclick="CtmentZoom()"><a>Zoom to...</a></div>
+	<div onclick="$('#ctmntOutliner').click()"><a>Outline</a></div>
+	<div onclick="$('#ctmntFiller').click()"><a>Fill</a></div>
+	<div onclick="$('#ctmntNone').click()"><a>None</a></div>
+  </div>
+
+</div>

@@ -142,7 +142,7 @@ function gdrsNoter(){//shows asterix under available features list if it include
 } 
 
 
-function restCompR(featObject){
+function restCompR(featObject){//a simple reduction in length of string
     var title=featObject.title, res, resStr, ch=0, iden=0, featLink = [], rest = featObject.group;
     if (featObject.checked){ch=1};
     if (featObject.identify){iden=1};  
@@ -191,7 +191,6 @@ function featObjRebuild(stri){
   else{
     featObj2.group=stri[0];
     featObj2.title = availableAuxFeatures[stri[0]][0];
-
   }
   
   if(!Number(stri[0])){
@@ -205,14 +204,11 @@ function featObjRebuild(stri){
       featObj2.identify = false;
       if (stri[2]==1){featObj2.identify = true}    
   }
-  
   return featObj2;
-
 }
 
 
-function compRestRebuild(stri){
-    
+function compRestRebuild(stri){//reconstructs string of passed url parameters
     var z = stri.split("~")
     var reconst = "http:/";
     for (f=0; f<z.length; f++){
@@ -316,7 +312,7 @@ function buildIdTasks() {//BUILDS AN IDENTIFY TASK, DEFINED AS A GLOBAL OBJECT S
 }
 
 
-function generalImplementation() {
+function generalImplementation() {//adds predefined map features to default 'auxiliary layers' box in map
     var f = WHAFapp.currentMapParams.mapFeatures;
     for (var q=0; q<f.length; q++){
         try{
@@ -686,6 +682,7 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
     
     require(["esri/layers/ArcGISDynamicMapServiceLayer","esri/layers/ImageParameters"],
     function(ArcGISDynamicMapServiceLayer,ImageParameters){
+        WHAFapp.genCounter=0;
         var subLayersll, o = map.getScale(), a=t + "/" + n,mapFeature,f,l,c,h,p,imageParametersFeature;
         mapFeature = {
             id: a,
@@ -743,12 +740,29 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
             legendd.layerInfos.push(v);
             try {legendd.refresh()} catch (m) {}
             var g = $(s).parent().parent().find("a")
-        } else {      
+        } else {    
+            var tempCtr=0; 
             function lRemover(){
                 if(checkLoad()){
+                    lLyrRemover()
+                }else{
+                    if(tempCtr<3){
+                        setTimeout(function(){lRemover()},500);
+                        tempCtr++
+                    }else{
+                        if(WHAFapp.serveError === undefined){
+                            alert("It looks like some functionalities are currently unavailable due to server error. This might affect performance.")
+                            WHAFapp.serveError = 'delivered'
+                        }                        
+                        lLyrRemover()
+                    }
+
+
+                }
+
+                function lLyrRemover(){
                     var ddd = $(s).parent().attr('id');
                     $('#'+ddd+' input').prop('checked',false);//force unchecking box to fix issue with drag-not-unchecking
-                    
                     try {map.removeLayer(p)}catch (m) {}
                     $("#loader").hide();
                     var y = $.inArray(mapFeature.id, featureLayersDisplayed);
@@ -760,9 +774,7 @@ function respondToAddFeatureUrl2(e, t, n, r, i, s, ooob) {
                         }
                     }
                     legendd.layerInfos.splice(b, 1);
-                    try{legendd.refresh()}catch(r){};
-                }else{
-                    setTimeout(function(){lRemover()},100)
+                    try{legendd.refresh()}catch(r){};                    
                 }
             }
             lRemover()//ensures that layer is done loading before attempting to remove it

@@ -2,7 +2,6 @@
 
 function paramEvaluatorInit(e) {//gets index layer from parameter onto map
 
-console.log(e)
     if (e.indexLayer && e.indexLayer != "undefined") {
         if (Number(e.indexLayer)){//deprecated indexLayer params were numbers; current value retrieved with 'oldHealthScoreIndex' object 
             console.log(e.indexLayer)
@@ -21,20 +20,31 @@ console.log(e)
 
         else{
             var i = mapParamObject.indexLayer
-            var l=$('#accordion2 .scoreButton, #accordion2 .scoreBtn');
-            $('#featuresPlace, #printPlace').hide();$('#menuPlace').fadeIn();
+            var l=$('#accordion2 .scoreButton, #accordion2 .scoreBtn')
             for (var n=0; n<l.length; n++){
-                var ff = $(l[n]).children().attr("onclick")
-                if(ff.indexOf(i)!==-1){
-                     $(l[n]).children().click();
+                var f = $(l[n]).children().attr("onclick")
+                if(f.indexOf(i)!==-1){
+                    $(l[n]).children().click();
+                    upenSesame(l[n]);
                  }
             }
         }
-        // try{legendd.refresh()}catch(r){};
+        try{legendd.refresh()}catch(r){};
     } else{
         removeFirstLayer(); hideLegend();$('#indexTitle_slider').hide()
     }
 }
+
+function upenSesame(elem){// called by paramEvaluatorInit() to open component accordeon in the right place
+    if ($(elem).parent().hasClass('accordion-groupComp')){
+        var f=$(elem).parent();
+        var u=$(f).children()[0];
+        $(u).children().click();
+    }else{
+        upenSesame($(elem).parent())
+    }
+}
+
 
 function getURLParameter(e) {
     return decodeURI((RegExp(e + "=" + "(.+?)(&|$)").exec(location.search) || [, null])[1])
@@ -90,29 +100,81 @@ function evalDrawParams(e) {
 
 function forceRemoveAux(){//removes all layers added to map (that have an 'identifier' property with value 'WHAF_added_layer')
 
-    if (checkLoad()){//checks that layers are not removed prior to their loading
+    var tempCtr=0;
+    forceRemoveAuxInter()
+    function forceRemoveAuxInter(){
+        if (checkLoad()){//checks that layers are not removed prior to their loading
+            console.log("All layers Loaded")
+            lyrRemover()
+        }else{
+            if (tempCtr<4){
+                console.log("Layers Still Loading")
+                setTimeout(function(){forceRemoveAuxInter()},500)
+                console.log(tempCtr)
+                tempCtr++
+            }else{
+                if(WHAFapp.serveError === undefined){
+                    alert("It looks like some functionalities are currently unavailable due to server error. This might affect performance.")
+                    WHAFapp.serveError = 'delivered'
+                }
+                lyrRemover()
+            }
+        }
+    }
 
-    console.log("All layers Loaded")
-      var k = map.getLayersVisibleAtScale()
-      for (i in k){
-        d=k[i].identifier
-        if (d==='WHAF_added_layer'){
-          map.removeLayer(k[i]);
-        }  
-      }
-      $('#sortable').html('');
-      identFalser();
-      legendd.layerInfos=[];
-    }else{
-        console.log("Layers Still Loading")
-        setTimeout(function(){forceRemoveAux()},100)
-  }
+    function lyrRemover(){
+        var k = map.getLayersVisibleAtScale()
+        for (i in k){
+            d=k[i].identifier
+            if (d==='WHAF_added_layer'){
+                map.removeLayer(k[i]);
+            }  
+        }
+        $('#sortable').html('');
+        identFalser();
+        legendd.layerInfos=[];
+    }
+
+
 }
+
+
+
+
+
+// function forceRemoveAux(){//removes all layers added to map (that have an 'identifier' property with value 'WHAF_added_layer')
+
+
+//     if(WHAFapp.genCounter<1500){
+//         if (checkLoad()){//checks that layers are not removed prior to their loading
+
+//         console.log("All layers Loaded")
+//           var k = map.getLayersVisibleAtScale()
+//           for (i in k){
+//             d=k[i].identifier
+//             if (d==='WHAF_added_layer'){
+//               map.removeLayer(k[i]);
+//             }  
+//           }
+//           $('#sortable').html('');
+//           identFalser();
+//           legendd.layerInfos=[];
+//         }else{
+//             if(WHAFapp.genCounter<1500){
+//                 console.log("Layers Still Loading")
+//                 setTimeout(function(){forceRemoveAux()},1000)
+//             }// else{
+//             //     alert("It looks like some functionalities are currently unavailable due to server error. Please try again later.")
+//             // }
+//       }
+//     }
+// }
 
 function checkLoad(){// returns true if all loaded layers are done loading
                      // (layers are pushed to list through modification of 
                      // js.arcgis.com.3.13.js addLayer function.) 
   
+  //console.log("checking load",WHAFapp.genCounter)
   L=WHAFapp.loadingLyrs;
   for (var i=0; i<L.length; i++){
     if(L[i].loaded){
@@ -122,36 +184,23 @@ function checkLoad(){// returns true if all loaded layers are done loading
       }
     }
   }
-  if(L.length>0){
+  if(L.length>0 && WHAFapp.genCounter<1510){
     WHAFapp.genCounter++
-    checkLoad();
+    if(WHAFapp.genCounter<1500){
+        setTimeout(function(){checkLoad();},1000)        
+    } else{
+        if(WHAFapp.serveError === undefined){
+            // console.log("It looks like some functionality is currently unavailable due to server error. Please try again later.")
+            // WHAFapp.serveError = 'delivered'
+            return
+        }else{
+            return        
+        }
+    }
   }else{
+    WHAFapp.genCounter=0;
     return true
   }          
-}
-
-
-
-function setFromExtentParams_(e) {
-    var inExtent;
-    if (e.xtnt) {
-        var t = e.xtnt.slice(1, e.xtnt.length - 1);
-        t = t.split(",");
-        var n = new  WHAFapp.ExtentCons({
-            xmin: Number(t[0]),
-            ymin: Number(t[1]),
-            xmax: Number(t[2]),
-            ymax: Number(t[3]),
-            spatialReference: {
-                wkid: 102100
-            }
-        });
-        inExtent = n
-    } else {
-        inExtent = stateExtent
-    }
-
-    map.setExtent(inExtent)
 }
 
 function setFromExtentParams(e) {
@@ -230,6 +279,7 @@ function evalPlace(coordString){
       var y=Number(coordString.slice(o+1,l));
       activateDssStar([x,y]);
       $('.starrButton').removeClass('disabled');
+      $('.locationDependent').show();
     }
 }
 
@@ -311,7 +361,7 @@ function WS_functionality() {//starting up the app
         }
 
         dojo.connect(DSS_objectives.majorsFL, "onLoad", function () {
-            // completeParamLoad();//COMPLETES LOADING OF MAP PARAMATERS AS PASSED BY URL
+            completeParamLoad();//COMPLETES LOADING OF MAP PARAMATERS AS PASSED BY URL
             var e = map.getLayersVisibleAtScale(map.getScale());
             var t = e.length;
             try {
@@ -338,11 +388,15 @@ function WS_functionality() {//starting up the app
             
             var s = esri.substitute(t.graphic.attributes, r);
             var o = esri.substitute(t.graphic.attributes, n);
-            try{document.getElementById("selectButTop").innerHTML = "Major Watershed: " + o + " (" + s + ")"}catch(err){};
+            // try{$("#selectButTop, #selectButTop1").html("Major Watershed: " + o + " (" + s + ")")}catch(err){};
+            try{
+                $("#selectButTop").html("Major Watershed: " + o + " (" + s + ")");
+                WHAFapp.currentMapParams.hoverMajor=s
+            }catch(err){};
             var a = majorToHUC8[s];
             var Huc_4 = a.slice(0,4);
             var f = HUC_4s[Huc_4];
-            try{document.getElementById("basinButtonTop").innerHTML = "Basin: " + f}catch(err){};
+            try{$("#basinButtonTop").html("Basin: " + f)}catch(err){};
             if ($('#pieChartModal').css('display')!=='none'){
                 var l = esri.substitute(t.graphic.attributes, "${sq_miles}");
                 var d = esri.substitute(t.graphic.attributes, "${a_i_mean}");
@@ -392,7 +446,6 @@ function WS_functionality() {//starting up the app
             highlightedWatershedEvt = t
         });
     });
-    
 }
 
 function loadBasins() {
@@ -402,8 +455,10 @@ function loadBasins() {
         imageParameters1.layerIds = [0];
         imageParameters1.layerOption = ImageParameters.LAYER_OPTION_SHOW;
         BS = new ArcGISDynamicMapServiceLayer(watershedsURL, {
-            imageParameters: imageParameters1
+            imageParameters: imageParameters1,
+            id:'basinLyr'
         });
+        BS.identifier='basinLyr'
         BS.opacity = 1;
         map.addLayer(BS);
     });

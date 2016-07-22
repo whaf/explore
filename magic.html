@@ -1,0 +1,548 @@
+<div id="magicInnerBox">
+	<div id="magicSteps" class="progress">
+	  <div class="mBar mStep1" style="width: 20%;"><a  href="#" onclick="mTitler('mStep1','Find the most suitable scales'); $('.DSS_section').hide(); $('#scaleSettingPlace').show()">What Scale?</a></div>
+	  <div class="mBar mStep2" style="width: 20%;"><a href="#" onclick="mTitler('mStep2','Explore watershed context');$('.DSS_section').hide(); $('#contextPlace').show(); charScroll()">Context</a></div>
+	  <div class="mBar mStep3" style="width: 20%;"><a href="#" onclick="mTitler('mStep3','A quick look into what\'s good and bad');$('.DSS_section').hide();$('#overviewPlace').show();condSnapAreaShow()">Health overview</a></div>
+	  <div class="mBar mStep4" style="width: 20%;"><a href="#" onclick="mTitler('mStep4','Explore system health'); $('.DSS_section').hide(); $('#healthConditionsPlace').show();">Health Conditions</a></div>
+<!-- 	  <div class="mBar mStep4" style="width: 20%;"><a href="#" onclick="mTitler('mStep4','A quick look into what\'s good and bad');$('.DSS_section').hide(); $('#consolidationPlace').show(); setBestWorstDss();">Best/Worst</a></div> -->
+	  <div class="mBar mStep5" style="width: 20%;"><a href="#" onclick="mTitler('mStep5','Evaluate management actions');$('.DSS_section').hide(); $('#evalPlace').show();refreshManActList()">Decision matrix</a></div>
+	</div>
+
+	<div id="magicStepTitle" class="mStep1">
+		<h5>Find the most suitable scales<img onclick="popHelpPop();$('#helpPop').modal('toggle')" class="pull-right" src="./img/svgs/helpSign.svg"></h5>
+	</div>
+
+	<div id="magicControls" class="scoreLoop">		
+	    <a id="mCtrlL" class="carousel-control mCtrl left" href="#" onmouseenter="$('#backHeadsUp').fadeIn()" onmouseout="$('#backHeadsUp').fadeOut()" onclick="magicScroll('-')">&lsaquo;</a>
+	    <a id="mCtrlR" class="carousel-control mCtrl right" href="#" onmouseenter="$('#nextHeadsUp').fadeIn()" onmouseout="$('#nextHeadsUp').fadeOut()" onclick="magicScroll('+')">&rsaquo;</a>
+
+		<a id="mCtrlAdd" class="carousel-control pull-right mCtrl" href="#" onclick="snapToTeport()">&nbsp; &nbsp;Add to report &nbsp;&nbsp;</a>
+	    
+		<div id="mHeadsUp" class="mCtrl headsUpper">Next</div>
+	    <div id="dismissHeadsUp" class="mCtrl headsUpper">Next</div>
+	    <div id="nextHeadsUp" class="mCtrl headsUpper">Next</div>
+	    <div id="backHeadsUp" class="mCtrl headsUpper">Back</div>
+	</div>	 
+
+	<div id="PrgressPlace"></div>
+
+	<div id="scaleSettingPlace" class="DSS_section" style="">	
+	  <div id="locationSettingPlace" class="">
+		<div class="magicTitle"><h3 id="mScaleTitle">Please set a location on the map:</h3></div>
+
+		<div id="mScaleOptions" class="mDesc row">
+			<btn id="mScaleOption1" class="btn btn-info offset2 span3" onclick="opPop(id);$('.scaleOp, #scaleOpsSnaps, #scaleOpTitle').hide(); $('#locScD').fadeIn(); $('#selectButGrp').show();activateDssStarImage()">By <br><strong>Location</strong></btn>
+			<btn id="mScaleOption2" class="btn btn-info offset2 span3" onclick="opPop(id);majorWatershedLocator();$('.scaleOp, #scaleOpsSnaps, #scaleOpTitle').hide(); $('#wsScD').fadeIn();$('#selectButGrp').show();activateDssStarImage()">By <br><strong>Watershed</strong></btn>
+		</div>
+
+		<div id="scaleOpsDesc">	
+			<div id="locScD" class="scaleOp" style="display:none">
+
+				<div id="crosshairNote" class="well magicNote">	
+					<p>The crosshair button lets you set a location on the map. Click to activate it (if it is orange, it's already active), then click anywhere on the map to set a location.  
+					<br><br>Click the button again to change location, and a second time to cancel the location mark.
+					<br><br>
+					Click ‘next button’ (<strong> › </strong>) to see related watershed boundaries.
+					<br><br>
+					</p>
+
+		 			<div id="StarButtPlace2" style="text-align:center"><a id="DSS_star2" href='#'><img id ="DssStarImage2" title="Click to set or change location mark, double click to remove" class="img-rounded info5Image DssStarImage" src="./img/crosshair.png" onClick="setMode('getPoint'); drawStar()"></a></div>   
+
+
+				</div>
+			</div>
+
+			<div id="wsScD" class="scaleOp" style="display:none">
+				<div id="tempScaleButtonsPlace2">					
+					<div id = "scaleButtonPlaceM" class="btn-toolbar" style="margin-top:0px, margin-right:10px, margin-bottom:0px">
+					</div> 
+				</div>
+				<div class="well magicNote">	
+					<p> 'Major Watersheds' (HUC8) are based on hydrologic delineation but they are not necessarily true watersheds. They are administrative units used primarily for planning purposes.
+					<br><br>Hover over the map to highlight and display the major watershed's name. Click on the map to select that major watershed. This will highlight and zoom the map to the watershed.</p>
+
+		 			<p><br>You may also select a major watershed directly from the drop-down list on the map's top right corner. 
+
+		 			<br><br>Click ‘next button’ (graphic) to see related watershed boundaries.</p>			
+
+
+				</div>
+			</div>
+
+		</div>
+	  </div>
+
+	  <div id="scaleViewingPlace" class="" style="display:none">
+		<div class="magicTitle">
+			<h3 id="mScaleViewTitle">These are some relevant scales for your inquiry:</h3>
+			<p>(Click on a button to set viewing option. You can get back to this section at any point to change how scales are represented on the map)</p>
+		</div>
+
+
+
+				<div id="tempScaleButtonsPlace3">
+					<div id = "mg_scaleButtonPlace" class="btn-toolbar" style="margin-top:0px, margin-right:10px, margin-bottom:0px">
+
+						<div id="mg_basinButtonGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px ">
+						  <button id="mg_basinButtonTop2" class="btn scaleButtN starrButton disabled" onmouseover="$('#maskBsnGraphic_layer').hide();$('#maskBsnGraphic_layer').fadeIn(800)" onclick="$('.scaleInq').hide();$('#ggg3').fadeIn();noScaleNote()">Basin</button>
+						</div>
+						<div id="mg_selectButGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
+						  <button class="btn starrButton disabled" id="mg_selectButTop2"onmouseover="$('#majorMaskGraphics_layer').hide();$('#majorMaskGraphics_layer').fadeIn(800)" onclick="$('.scaleInq').hide();$('#ggg2').fadeIn(); noScaleNote()">Major Watershed</button>
+						</div>
+						<div id="mg_upButtonGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
+						  <button id="mg_upButtonTop" class="btn scaleButtN starrButton disabled" onmouseover="$('#maskUpGraphic_layer, #polyUpGraphic_layer').hide();$('#maskUpGraphic_layer, #polyUpGraphic_layer').fadeIn(800)" onclick="$('.scaleInq').hide();$('#ggg4').fadeIn();noScaleNote()" >Upstream</button>
+						</div>
+						<div id="mg_dnstrmButGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px">
+						   <button class="btn scaleButtN starrButton disabled" id ="dnstrmButTop" onmouseover="$('#polyDnGraphic_layer, #maskDnGraphic_layer').hide();$('#polyDnGraphic_layer, #maskDnGraphic_layer').fadeIn(800)" onclick="$('.scaleInq').hide();$('#ggg5').fadeIn();noScaleNote()" >Downstream</button>
+						</div>
+						<div id= "ctmntButtonGrp" class="btn-group info6Image scaleNoSho" style="margin-top:0px, margin-bottom:0px ">
+						  <button id="mg_ctmntButtonTop" class="btn scaleButtN starrButton disabled" onmouseenter="catShower(2)" onmouseout="catShower(1)" onclick="$('.scaleInq').hide();$('#ggg1').fadeIn();noScaleNote()" >Catchment</button>
+						</div>	
+
+						<div id="maskRemoveGrp2" class="btn-group info6Image" style="margin-top:0px, margin-bottom:0px">
+							<button class="btn scaleButtN starrButton disabled" style="" id ="maskRemove2" onclick="scaleCheckReset(); scaleReset(); unMaskAll(); $('#maskRemove').fadeOut();" data-placement="bottom" title="Remove Scale Layers"><i class="icon-remove"></i></button>
+						
+							<button class="btn scaleButtN starrButton disabled" style="" id ="maskRemove2" onclick="scaleSymbology('basin','mask');scaleSymbology('major','outline');scaleSymbology('upstream','outline');scaleSymbology('downstream','fill');try{DSS_objectives.decisionObjectives.scalesViewed=true}catch(r){}" data-placement="bottom" title="Reset Scale Layers"><i class="icon-repeat"></i></button>
+						</div>				
+
+						 	
+					</div> 
+				</div>
+
+				<div id="scaleInqSub">
+				  <div id="gggNote" class="well" style="display:none"><h5>This functionality is only available if a location is selected. Click the 'back' arrow to select a location.</h5></div>
+			      <div id="ggg3" class="scaleInq">
+			      	<h4> River Basin</h4>
+					<div onclick="map.setExtent(getBasinExtent(WHAFapp.currentMapParams.crossHuc4));"><a>Zoom to...</a></div>
+					<div onclick="$('#BsnMasker').click()"><a >Mask</a></div>
+					<div onclick="$('#BsnOutline').click()"><a>Outline</a></div>
+					<div onclick="$('#BsnNone').click()"><a >None</a></div>
+					<button onClick="askDNR(4)" class="btn btn-small btn-info info6Image">Land cover summary</button>
+					<p>The Major River Basin boundary defines the land and water relationship for our large river systems.  All the watersheds within the same major river basin are hydrologically connected by their streams and lakes.  The position of a watershed within its river basin show how it connects to the land and water both upstream and downstream.  The condition of the land and water system throughout the basin impacts the health of each watershed.</p>
+			      </div>			
+			      <div id="ggg2" class="scaleInq">
+			      	<h4> Major Watershed</h4>
+					<div onclick="zoomToSelectedMajor()"><a>Zoom to...</a></div>
+					<div onclick="$('#mjMasker').click()"><a >Mask</a></div>
+					<div onclick="$('#mjMajorOutline').click()"><a >Outline</a></div>
+					<div onclick="$('#mjNone').click()"><a >None</a></div>
+					<button onClick="askDNR(3)" class="btn btn-small btn-info info6Image">Land cover summary</button>
+					<p>'Major Watersheds' (HUC8) are based on hydrologic delineation but they are not necessarily true watersheds. They are administrative units used primarily for planning purposes.<p>
+			      </div>
+
+			      <div id="ggg4" class="scaleInq">
+			      	<h4> Upstream Area</h4>
+					<div onclick="zoomUp()"><a>Zoom to...</a></div>
+					<div onclick="$('#upMaskLink').click()"><a >Mask</a></div>
+					<div onclick="$('#upOutline').click()"><a >Outline</a></div>
+					<div onclick="$('#upFill').click()"><a >Fill</a></div>
+					<div onclick="$('#upNone').click()"><a >None</a></div>
+					<button onClick="askDNR(1)" class="btn btn-small btn-info info6Image">Land cover summary</button>
+					<p>'Upstream Area' constitutes the true watershed of a given point on the land. This application delineates an upstream area that includes the entire DNR-catchment of the selected location, as well as all DNR-catchments upstream of it.<p>
+			      </div>
+			      <div id="ggg5" class="scaleInq">
+			      	<h4> Downstream Area</h4>
+					<div onclick="zoomDown()"><a>Zoom to...</a></div>
+					<div onclick="$('#downMaskLink').click()"><a>Mask</a></div>
+					<div onclick="$('#dnOutline').click()"><a >Outline</a></div>
+					<div onclick="$('#dnFill').click()"><a>Fill</a></div>
+					<div onclick="$('#downNone').click()"><a>None</a></div>
+					<button onClick="askDNR(2)" class="btn btn-small btn-info info6Image">Land cover summary</button>
+					<p>In delineating downstream area, this application includes the entire DNR-catchment of the selected location, as well as all DNR-catchments downstream of it within the state boundary.<p>		
+			      </div>
+				  <div id="ggg1" class="scaleInq">
+				  	<h4> DNR-catchment (sub-divided HUC12)</h4>
+					<div onclick="CtmentZoom()"><a>Zoom to...</a></div>
+					<div onclick="$('#ctmntOutliner').click()"><a>Outline</a></div>
+					<div onclick="$('#ctmntFiller').click()"><a>Fill</a></div>
+					<div onclick="$('#ctmntNone').click()"><a>None</a></div>
+					<button onClick="askDNR(0)" class="btn btn-small btn-info info6Image">Land cover summary</button>
+					<p>A 'DNR-catchment' is the smallest area unit used in this application. It is a sub-divided HUC12 (hydrologic unit). Minnesota has about 10,000 catchments.<p>
+				  </div>
+			    
+				</div>
+
+				<div id="scaleNotes" class="">
+					<div>
+				        <textarea id="mScaleName" class="span12" rows="1" autocomplete="off" placeholder="Map title..."></textarea>
+				    </div>
+
+					<div>
+				        <textarea id="mScaleNotes" class="span12" rows="4" autocomplete="off" placeholder="Notes about this map..."></textarea>
+				    </div>
+
+				</div>
+
+
+
+
+
+	  </div>
+	</div>
+
+	<div id="healthConditionsPlace" class="DSS_section" style="display:none">
+
+
+		<p id="indexProgress"></p>
+		<div class="" id="iHealthTitleTop"><h1 id="mIndexTitle"></h1></div>
+		<div><h4 id="mIndexDesc"></h4> 
+			<div id="indexLoopIntro">
+
+				<div class="magicTitle">
+					<h3 id="mOveriewTitle">In-depth system health</h3>
+
+					<p>This section explores the WHAF's indices of ecological health. Scores for each index are shown on the map and the mean score values for each scale (catchment, upstream, downstream, major watershed and basin) are shown on a gauge, if a location was selected.<br><br>
+
+					This is an opportunity to explore each index in depth, determine whether it is important for your investigation, and at what scale (you can easily zoom to, and change symbology for, relevant scales using the buttons at the bottom). You may also add layers to the map, and keep your own notes about it<br><br>
+
+					Clicking the 'Add to report' button will add this map view, the index description and your notes to the 'Health indices' chapter of your report. You may edit the text and the map view at any time.<br><br>
+
+					If you created a health overview in the previous section and clicked 'View Selected', this section will only show the indices you checked. Otherwise, it goes through all available WHAF indices.</p>
+				</div>
+
+
+				<btn id="" class="btn offset5 span2" onclick="indexScroll('+'); $('#indexLoopIntro').hide();$('.scoreLoop').fadeIn();$('#gaugesPlace').removeClass('scoreLoopSVG').show();gaugesStartUp();$('#indexNotes, #mIndexWhy').show()"><strong>Start</strong></btn>
+				
+			</div>
+		</div>
+		
+		<div id="mIndexAbout">
+			<div id="mIndexWhy" class="mDesc">
+				<div>
+			        <textarea id="mIndexWhyDesc" class="span12" rows="4" autocomplete="off" placeholder=""></textarea>
+			    </div>
+				
+			</div>
+
+			<div id="indexNotes" class="magicNotes">
+				<div>
+			        <textarea id="mIndexNotes" class="span12" rows="3" autocomplete="off" placeholder="Notes about this index..."></textarea>
+			    </div>
+
+			</div>
+		</div>
+
+		<div id="gaugesPlace" class="scoreLoopSVG">	
+			<div id="gaugeHeader">Context: mean results for this index in different scales:</div>
+			<div id="gauges" class=row style="">
+		      <div id="g3" class="offset1 span2"><a href="#" title="Mask basin on map" onclick="$('#basinButtonTop').click()">Basin</a></div>
+		      <div id="g2" class="span2"><a href="#" title="Mask major watershed on map" onclick="$('#selectButTop').click()">Major Watershed</a></div>
+		      <div id="g4" class="span2"><a href="#" title="Mask upstream area on map" onclick="$('#upButtonTop').click()">Upstream</a></div>
+		      <div id="g5" class="span2"><a href="#" title="Mask downstream area on map" onclick="$('#dnstrmButTop').click()">Downstream</a></div>
+  			  <div id="g1" class="span2"><a href="#" title="Outline/remove outline for DNR catchment" onclick="$('#ctmntButtonTop').click()">Catchment</a></div>
+
+		    
+			</div>
+			<div id="gaugesSub" class=row style="">
+
+		      <div id="gg3" class="offset1 span2">
+				<div onclick="map.setExtent(getBasinExtent(WHAFapp.currentMapParams.crossHuc4));"><a>Zoom to...</a></div>
+				<div onclick="$('#BsnMasker').click()"><a >Mask</a></div>
+				<div onclick="$('#BsnOutline').click()"><a>Outline</a></div>
+				<div onclick="$('#BsnNone').click()"><a >None</a></div>
+		      </div>			
+		      <div id="gg2" class="span2">
+				<div onclick="zoomToSelectedMajor()"><a>Zoom to...</a></div>
+				<div onclick="$('#mjMasker').click()"><a >Mask</a></div>
+				<div onclick="$('#mjMajorOutline').click()"><a >Outline</a></div>
+				<div onclick="$('#mjNone').click()"><a >None</a></div>
+		      </div>
+
+		      <div id="gg4" class="span2">
+				<div onclick="zoomUp()"><a>Zoom to...</a></div>
+				<div onclick="$('#upMaskLink').click()"><a >Mask</a></div>
+				<div onclick="$('#upOutline').click()"><a >Outline</a></div>
+				<div onclick="$('#upFill').click()"><a >Fill</a></div>
+				<div onclick="$('#upNone').click()"><a >None</a></div>
+		      </div>
+		      <div id="gg5" class="span2">
+				<div onclick="zoomDown()"><a>Zoom to...</a></div>
+				<div onclick="$('#downMaskLink').click()"><a>Mask</a></div>
+				<div onclick="$('#dnOutline').click()"><a >Outline</a></div>
+				<div onclick="$('#dnFill').click()"><a>Fill</a></div>
+				<div onclick="$('#downNone').click()"><a>None</a></div>
+		      </div>
+			  <div id="gg1" class="span2">
+				<div onclick="CtmentZoom()"><a>Zoom to...</a></div>
+				<div onclick="$('#ctmntOutliner').click()"><a>Outline</a></div>
+				<div onclick="$('#ctmntFiller').click()"><a>Fill</a></div>
+				<div onclick="$('#ctmntNone').click()"><a>None</a></div>
+			  </div>
+		    
+			</div>
+
+		</div>
+
+	</div>
+
+	<div id="contextPlace" class="DSS_section" style="display:none">
+		<div id="aboutChar">
+			<p id="charProgress"></p>
+			<div class=""><h1 id="mCharTitle"></h1>
+				<div id="soilRads" style="display:none"><label class="radio inline"><input type="radio" name="soilsR" id="soilSand" onclick="soilsAux(checked,id)" checked>Percent Sand</label><label class="radio inline"><input type="radio" name="soilsR" id="soilSilt" onclick="soilsAux(checked,id)" >Percent Silt</label><label class="radio inline"><input type="radio" name="soilsR" id="soilClay" onclick="soilsAux(checked,id)">Percent Clay</label><label class="radio inline"><input type="radio" name="soilsR" id="soilOrgMatter" onclick="soilsAux(checked,id)">Percent Organic Matter</label></div>
+			</div>
+			<div id="mCharDesc" class="mDesc ">
+				<!-- <div>
+			        <textarea id="mCharDescText" class="span12" rows="12" autocomplete="off" placeholder=""></textarea>
+			    </div> -->
+		    </div>
+
+
+			<div id="charLoopIntro">
+				
+				<div class="magicTitle">
+					<h3 id="mOveriewTitle">Watershed Context</h3>
+
+					<p>This section provides physical and social attributes to create a series of maps for the area you selected. Each map and any notes you add will become a page in your report under the 'Context maps' chapter.</p>
+				</div>
+
+				<btn id="" class="btn offset5 span2" onclick="charScroll('+'); $('#charLoopIntro').hide();$('.charLoop,#mCharDesc,#scalesSub').fadeIn();$('#charNotes').show();"><strong>Start</strong></btn>
+			</div>
+		</div>
+
+		<div id="charNotes" class="magicNotes">
+			<div>
+		        <textarea id="mCharNotes" class="span12" rows="7" autocomplete="off" placeholder="Notes about this map..."></textarea>
+		    </div>
+
+		</div>
+
+		<div id="scalesSub" class="scalesSub locationDependent" row style="">
+
+			<div id="cgg3" class="offset1 span2 starrButton disabled"><label>Basin</label>
+			<div onclick="map.setExtent(getBasinExtent(WHAFapp.currentMapParams.crossHuc4));"><a>Zoom to...</a></div>
+			<div onclick="$('#BsnMasker').click()"><a >Mask</a></div>
+			<div onclick="$('#BsnOutline').click()"><a>Outline</a></div>
+			<div onclick="$('#BsnNone').click()"><a >None</a></div>
+			</div>			
+			<div id="cgg2" class="span2"><label>Major Watershed</label>
+			<div onclick="zoomToSelectedMajor()"><a>Zoom to...</a></div>
+			<div onclick="$('#mjMasker').click()"><a >Mask</a></div>
+			<div onclick="$('#mjMajorOutline').click()"><a >Outline</a></div>
+			<div onclick="$('#mjNone').click()"><a >None</a></div>
+			</div>
+
+			<div id="cgg4" class="span2"><label>Upstream</label>
+			<div onclick="zoomUp()"><a>Zoom to...</a></div>
+			<div onclick="$('#upMaskLink').click()"><a >Mask</a></div>
+			<div onclick="$('#upOutline').click()"><a >Outline</a></div>
+			<div onclick="$('#upFill').click()"><a >Fill</a></div>
+			<div onclick="$('#upNone').click()"><a >None</a></div>
+			</div>
+			<div id="cgg5" class="span2"><label>Downstream</label>
+			<div onclick="zoomDown()"><a>Zoom to...</a></div>
+			<div onclick="$('#downMaskLink').click()"><a>Mask</a></div>
+			<div onclick="$('#dnOutline').click()"><a >Outline</a></div>
+			<div onclick="$('#dnFill').click()"><a>Fill</a></div>
+			<div onclick="$('#downNone').click()"><a>None</a></div>
+			</div>
+			<div id="cgg1" class="span2"><label>Catchment</label>
+			<div onclick="CtmentZoom()"><a>Zoom to...</a></div>
+			<div onclick="$('#ctmntOutliner').click()"><a>Outline</a></div>
+			<div onclick="$('#ctmntFiller').click()"><a>Fill</a></div>
+			<div onclick="$('#ctmntNone').click()"><a>None</a></div>
+			</div>
+	    
+		</div>
+
+
+
+
+
+
+	</div>
+
+	<div id="consolidationPlace" class="DSS_section" style="display:none">
+		<div id="mConsDesc" class="">Based on your selection, best and worst catchments in the watershed are highlighted (weighted by relevance).</div>
+
+		<div id="" class="row mThresholds">
+			<btn id="mLowT" class="ui-state-default state-default1 offset2 span4">
+				<input type="checkbox" checked id="lowCheck" value="" onclick="setLows(checked)">
+				<strong>Low threshold</strong><input id="lowThresVal" type="text" value="50">
+			</btn>
+			<btn id="mHighT" class="ui-state-default state-default1 offset1 span4" >
+				<input type="checkbox" checked id="highCheck" value="" onclick="setHighs(checked)">
+				<strong>High threshold</strong><input id="highThresVal" type="text" value="75">
+			</btn>
+		</div>
+
+		<div id="bestWorstTable">
+<!-- 			<div id="" class="row mThresholds">
+				<btn id="mLowT" class="ui-state-default state-default1 offset2 span4" onclick="">
+					<input type="checkbox" checked id="lowCheck" value="">
+					<strong>Low threshold</strong><input type="text" value="50">
+				</btn>
+				<btn id="mHighT" class="ui-state-default state-default1 offset1 span4" onclick="">
+					<input type="checkbox" checked id="highCheck" value="">
+					<strong>High threshold</strong><input type="text" value="75">
+				</btn>
+			</div> -->
+		</div>
+		<div id="bestWorstCondTable" class="splitConsTable" style = "display:none">
+<!-- 			<div id="" class="row mThresholds">
+				<btn id="mLowT" class="ui-state-default state-default1 offset2 span4" onclick="">
+					<input type="checkbox" checked id="lowCheck" value="">
+					<strong>Low (condition)</strong><input type="text" value="50">
+				</btn>
+				<btn id="mHighT" class="ui-state-default state-default1 offset1 span4" onclick="">
+					<input type="checkbox" checked id="highCheck" value="">
+					<strong>High (condition)</strong><input type="text" value="75">
+				</btn>
+			</div> -->
+		</div>
+		<div id="bestWorstRespTable" class="splitConsTable" style = "display:none">
+<!-- 			<div id="" class="row mThresholds">
+				<btn id="mLowT" class="ui-state-default state-default1 offset2 span4" onclick="">
+					<input type="checkbox" checked id="lowCheck" value="">
+					<strong>Low (response)</strong><input type="text" value="50">
+				</btn>
+				<btn id="mHighT" class="ui-state-default state-default1 offset1 span4" onclick="">
+					<input type="checkbox" checked id="highCheck" value="">
+					<strong>High (response)</strong><input type="text" value="75">
+				</btn>
+			</div>
+		</div> -->
+			<div id="bestWorstTableMessage">
+				<div id="genOnIndex"></div>
+				<div id="noteOnIndex"></div>
+			</div>
+		</div>
+	</div>
+	<div id="overviewPlace" class="DSS_section" style="display:none">
+
+		<div id="overViewIntro">
+
+		<div class="magicTitle">
+			<h3 id="mOveriewTitle">The big picture: an overview of system health</h3>
+			<p>This section provides an overview of all indices of ecologoical health for the selected location, at various scales. It will provide several maps at once for each index - each at a different scale. In addition it will show an overview table with the mean scores at each scale.</p>
+		</div>
+
+			<btn id="" class="btn offset2 span3" onclick="getOverviewWarning()"><strong>Get overview</strong></btn>
+
+			<btn id="" class="btn offset2 span3" onclick="$('.mStep4 a').click()"><strong>Skip</strong></btn>
+			
+		</div>
+
+		<div id="overviewProgPlace" style="display:none"><p>Please wait while we prepare an overview of ecological health for the selected location...</p><br><br>
+			<div class="progress active progress-info">
+			  <div id="overviewrProgBar" class="bar" style="width: 0%;"></div>
+			</div><br><br>
+			The overview will show the health score for each of the WHAF indices of ecological health for the selected DNR catchment, and the mean score for each of the following scales: its river basin, major watershed and upstream area. Hover over the index name to see an overview of its maps. <br><br><br><br>
+
+			<div id="ProgressAbort"	>	
+				<btn id="" class="btn btn-danger offset5 span2" onclick="abortOverview()"><strong>Abort</strong></btn>
+			</div>
+		</div>
+		<div id="overviewTable">
+
+			<div id="thresholdInput" class="row mThresholds" title="The table below simplifies score values to 'low', 'medium' and 'high'. Threshold values defining low and high can be reset here.">
+
+				<label id="mLowT">Low threshold<input id="mLowThresVal" type="text" value="50"></label>
+				<label id="mHighT">High threshold<input id="mHighThresVal" type="text" value="75"></label>
+				<div id="tableLegend" class="pull-right">
+					<div id="tblLrgL" class="tblLeg">Low</div>
+					<div id="tblLrgM" class="tblLeg">Medium</div>
+					<div id="tblLrgH" class="tblLeg">High</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div id="editingPlace" class="DSS_section" style="display:none">
+
+		<div class="" style="margin-top:-30"><input type="text" id="mEditTitle" placeholder="Map title..."></div>
+		<div id="mEditDesc" class="mDesc "></div>
+
+		<div id="editNotes" class="magicNotes">
+			<div>
+		        <textarea id="mEditNotes" class="span12" rows="15" autocomplete="off" placeholder="Notes about this map..."></textarea>
+		    </div>
+			<btn id="" class="btn span2 pull-right" onclick="closeEdits()"><strong>Save edits</strong></btn>			
+		</div>
+
+
+
+		<div id="eScalesSub" class="scalesSub locationDependent" row style="">
+
+			<div id="egg3" class="offset1 span2 starrButton disabled"><label>Basin</label>
+			<div onclick="map.setExtent(getBasinExtent(WHAFapp.currentMapParams.crossHuc4));"><a>Zoom to...</a></div>
+			<div onclick="$('#BsnMasker').click()"><a >Mask</a></div>
+			<div onclick="$('#BsnOutline').click()"><a>Outline</a></div>
+			<div onclick="$('#BsnNone').click()"><a >None</a></div>
+			</div>			
+			<div id="egg2" class="span2"><label>Major Watershed</label>
+			<div onclick="zoomToSelectedMajor()"><a>Zoom to...</a></div>
+			<div onclick="$('#mjMasker').click()"><a >Mask</a></div>
+			<div onclick="$('#mjMajorOutline').click()"><a >Outline</a></div>
+			<div onclick="$('#mjNone').click()"><a >None</a></div>
+			</div>
+
+			<div id="egg4" class="span2"><label>Upstream</label>
+			<div onclick="zoomUp()"><a>Zoom to...</a></div>
+			<div onclick="$('#upMaskLink').click()"><a >Mask</a></div>
+			<div onclick="$('#upOutline').click()"><a >Outline</a></div>
+			<div onclick="$('#upFill').click()"><a >Fill</a></div>
+			<div onclick="$('#upNone').click()"><a >None</a></div>
+			</div>
+			<div id="egg5" class="span2"><label>Downstream</label>
+			<div onclick="zoomDown()"><a>Zoom to...</a></div>
+			<div onclick="$('#downMaskLink').click()"><a>Mask</a></div>
+			<div onclick="$('#dnOutline').click()"><a >Outline</a></div>
+			<div onclick="$('#dnFill').click()"><a>Fill</a></div>
+			<div onclick="$('#downNone').click()"><a>None</a></div>
+			</div>
+			<div id="egg1" class="span2"><label>Catchment</label>
+			<div onclick="CtmentZoom()"><a>Zoom to...</a></div>
+			<div onclick="$('#ctmntOutliner').click()"><a>Outline</a></div>
+			<div onclick="$('#ctmntFiller').click()"><a>Fill</a></div>
+			<div onclick="$('#ctmntNone').click()"><a>None</a></div>
+			</div>
+	    
+		</div>
+
+
+
+	</div>
+
+	<div id="evalPlace" class="DSS_section" style="display:none"> 
+		<div class="magicTitle">
+			<h3 id="mFactorsTitle">Decision support: factors</h3>
+			<p id="evalStepDesc">This section helps in evaluating the impacts and trade-offs of management actions on components of ecological health at relevant scales.</p>
+		</div>
+
+		<btn id="evalStarter" class="btn offset5 span2" onclick="$('#evalStarter').hide();evalScroll('+'); filterListedIndices(true,'manFilter')"><strong>Start</strong></btn>
+
+	    <div id="manActSel" class="dMatrixSection"> 
+	    	<h4>
+	    		Select management actions to consider:
+	    		<div>
+					<label value="" class="radio inline"><input type="radio" name="manActSelR" id="manFilter" onclick="filterListedIndices(checked,id)" checked>For selected indices</label>
+					<label value="" class="radio inline"><input type="radio" name="manActSelR" id="manAll" onclick="filterListedIndices(checked, id)">For all indices</label>
+	    		</div>
+	    	</h4>
+    	<div id="manActSelB" class="dMatrixSection">
+	    	<div id="HydUl" class="compUlDiv"><h5>HYDROLOGY</h5></div>
+
+	    	<div id="geoUl" class="compUlDiv"><h5>GEOMORPHOLOGY</h5></div>
+
+	    	<div id="bioUl" class="compUlDiv"><h5>BIOLOGY</h5></div>
+
+	    	<div id="connUl" class="compUlDiv"><h5>CONNECTIVITY</h5></div>
+
+	    	<div id="wqUl" class="compUlDiv"><h5>WATER QUALITY</h5></div>
+
+		</div>
+	    </div>
+	    <div id="targetVerification" class="dMatrixSection">
+	    </div>
+
+	    <div id="tradeOffs" class="dMatrixSection">
+	    </div>
+
+
+	
+</div>
+
+

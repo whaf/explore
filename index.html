@@ -12,8 +12,8 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="./css/ui.1.10.3.themes.smoothness.jquery-ui.css">
-    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="./css/bootstrap.css" rel="stylesheet">    
+    <link rel="stylesheet" href="./css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">    
     <link rel="stylesheet" href="./css/esri.css">
     <link rel="stylesheet" href="./css/bootstrap-colorpicker.css">
     <link rel="stylesheet" href="./css/WHAF.css">
@@ -25,17 +25,22 @@
     <div id="tutPlace"></div>
     <div id="disclaimerPlace"></div>
     <div id="BMWarningPlace"></div>
-    <div id="objectivesPlace"></div>
-    <div id="appInfoPlace"></div>
+    <div id="magicWarningPlace"></div>
+    <div id="helpPopPlace"></div>
+    <div id="helpAlertPlace"></div>
     <!-- <div id="snapShotsPlace"></div> -->
     <div id="addLayerPlace"></div> 
     <div id="waterUsePlace"></div>
+    <div id="reportToC"></div>
+
+
     <a id="snapCtrlL" class="carousel-control snapCtrl left" href="#" onclick="nextSnap('-')">&lsaquo;</a>
     <a id="snapCtrlR" class="carousel-control snapCtrl right" href="#" onclick="nextSnap('+')">&rsaquo;</a>
     <div id="snapViewCtrol">
         <a class="carousel-control snapViewCtrl" id="snapMin" href="#" onclick="$('#snapShotsArea, #snapViewCtrol, .snapCtrl').fadeOut(); snapPlus()"><i>x</i></a>
         <a class="carousel-control snapViewCtrl" id="slideShowPrep" href="#" onclick="slideShowPrep()"><i> &nbsp; &nbsp;Slide Show &nbsp;&nbsp;</i></a>
     </div>
+
     <a class="carousel-control right" id="snapMax" href="#" data-placement="left" data-toggle="tooltip" data-original-title="Show Map Gallery" onclick="snapBringUp(); $(this).hide()"><i>+</i></a>
 
     <div id="pieChartModal" class="well well-info" style="position:absolute" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -248,6 +253,19 @@
                                             </li>
                                         </ul>
                                 </li>
+                                <li role="presentation" class="divider"></li>
+                                <li id = "advancedInfoMenu" class="howTo">
+                                    <a href="#" class="titlStay" onclick="$('#guidesSubMenu, #howToSubMenu, #tutVidsSubMenu, #tutHandoutSubMenu, #indexInfoSubMenu').hide();$('#advancedInfoSubMenu').toggle()">Advanced</a>
+
+                                        <ul id="advancedInfoSubMenu" class="dropdown-menu subMenu" >
+
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" onclick = "showDSS_reportParams()">Get DSS report printing string</a>
+                                            </li>
+
+                                            <li class "howTo" id="" role="presentation"><a role="menuitem" tabindex="-1" onclick = "showDSS_params()" target="_blank" title="">Get DSS selections & parameters</a>
+                                            </li>
+                                        </ul>
+                                </li>
                                 
                                 <li role="presentation" class="divider"></li>
 
@@ -255,8 +273,19 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><span id="DSS_button" class="btn btn-mini noMarg" style="margin:0px" onclick = "setDssLayout();locationSetWarning()">DSS</span></a>
+                        </li>
+                        <li>
+                            <a id="ProgButtA" href="#"><span id="DSS_buttonP" class="btn btn-mini btn-inverse noMarg" style="margin:0px; display:none" onclick = "$('#progressTracker').toggle('slide',{'direction':'right'});setTracker()">Progress</span></a>
+                        </li>
 
-
+                        <li>
+                            <a id="" href="#"><span id="DSS_buttonSh" class="btn btn-mini btn-info noMarg" style="margin:0px;" onclick = "reportViewStart()">Show report</span></a>
+                        </li>
+                       <!--  <li>
+                            <a id="" href="#"><span id="DSS_buttonRs" class="btn btn-mini btn-info noMarg" style="margin:0px;" onclick = "trigSessionRestore()">Restore session</span></a>
+                        </li>   -->      
 
                     </ul>
 
@@ -332,6 +361,20 @@
         <div class="row-fluid">
 
             <div id="mapWrap" class="span12 modalDisappear">
+                <div id="magicBox"></div>
+                <div id="progressTracker">
+                    <div id="" class="pT_1"  data-toggle="collapse" data-target="#scale_pT"><a>SCALE</a></div>
+                    <div id="scale_pT" class="collapse in">
+                        <div id="scaleRef_locationSet" class="pT_2" onclick="ref_setLocation(-1)" title="View multiple scales relevant to set location: catchment, major watershed, upstream area, downstream area and river basin"><i class="icon-ok icon-white "></i><a>Set Location</a></div>
+                        <div id="scaleRef_scales" class="pT_2" title="View various scales relevant to set map location" onclick="ref_setLocation(0)"><i class="icon-ok icon-white "></i><a>Know your scales</a></div>
+                    </div>
+                    <div id="" class="pT_1"  data-toggle="collapse" data-target="#context_pT"><a>CONTEXT</a></div>
+                    <div id="context_pT" class="collapse in">
+                    </div>
+                    <div id="" class="pT_1"  data-toggle="collapse" data-target="#health_pT"><a>HEALTH CONDITIONS</a></div>
+                    <div id="health_pT" class="collapse in"></div>
+                    <div id="bestWorst_pT" class="collapse in"></div>
+                </div>
 
 
                 <div id="map">  
@@ -649,6 +692,19 @@
 
                     <div id="snapShotsArea" class="well snapShotsAreaStrip" style="position:absolute"></div>  
 
+                    <div id="mSnapShotsArea" class="snapShotsAreaStrip DSS_section" style="position:absolute"></div>  
+                    
+                    <div id="dssReportTitle">Report Preview</div>
+                    <div id="dssSnapShotsArea" class="snapShotsAreaStrip"> 
+                        <a id="closeReportView" class="carousel-control snapCtrl right" style="position:fixed" title="Close report view" data-placement="left" href="#" onclick="reportViewClose()">x</a>
+                        <div id="genMapSnaps" class="snapShoAreaSection"></div>
+                        <div id="charMapSnaps" class="snapShoAreaSection"></div>
+                        <div id="healthMapSnaps" class="snapShoAreaSection"></div>
+                        <div id="tableSnap" class="snapShoAreaSection"></div>
+                        <div id="manActionsSnaps" class="snapShoAreaSection"></div>
+                    </div>  
+
+
 
                     <div id="legend" data-toggle="tooltip" data-placement="left" style="display: none;">
                         <div>
@@ -745,9 +801,7 @@
                         <a id="baseMIcB" href='#' title="Change basemap"><img id="menu_base" class="img-rounded info5Image" src="./img/basemap.png" onClick="$(this).tooltip().mouseout(); $('#baseHome').fadeToggle(); alignItemsVert('baseMIcB','baseHome'); "></a>
                         <a  id="shareIcB" href='#' title="Get link for this map view"><img id="menu_share" class="img-rounded info5Image" src="./img/share.png" onClick="refreshMapParams();showShare()"></a>
                         <a id = "bookMarkIc" href='#' title="Save map view or location"><img id="menu_bkmark" class="img-rounded info5Image" src="./img/bookmark.png" onClick="$('#bookmarkModal').fadeToggle(); $(this).tooltip().mouseout()"></a>
-<!-- 
                         <a id="printIcon" href='#' title="Print Map"><img id="printer" class="img-rounded info5Image" src="./img/svgs/print.svg" onclick = "$('#menuPlace, #featuresPlace').hide(); $('#printPlace').fadeIn(); alignItemsVert('printIcon','printPlace');"></a>
- -->                        
                         <a id="refrBIcon" href='#' title="Refresh map"><img id="menu_refresh" class="img-rounded info5Image" src="./img/refresh.png" onClick="refreshMap()"></a>
                         
                         <a id="DSS_star" href='#'><img id ="DssStarImage" title="Click to set or change location mark, double click to remove" class="img-rounded info5Image" src="./img/crosshair.png" onClick="setMode('getPoint'); drawStar()"></a>
@@ -756,7 +810,8 @@
 
 
                     </div>
-                    <div id="printPlace">
+
+                   <div id="printPlace">
                         <div id = "printerPlace" class="" style="width: 100%;">
 
                             <button type="button" class="close" style="opacity:0.9" onclick="$('#printPlace').fadeToggle();resetPbtn();">&times;</button>
@@ -775,16 +830,14 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Letter (portrait)'); changePrintLayout('WHAF_Letter_Portrait')" role="menuitem" >Letter (portrait)</a></li>
-                                               <!--  <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Letter (landscape)'); changePrintLayout('Letter ANSI A Landscape')" role="menuitem" >Letter (landscape)</a></li>
+                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Letter (portrait)'); changePrintLayout('Letter ANSI A Portrait')" role="menuitem" >Letter (portrait)</a></li>
+                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Letter (landscape)'); changePrintLayout('Letter ANSI A Landscape')" role="menuitem" >Letter (landscape)</a></li>
                                                 <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Legal (portrait)'); changePrintLayout('Tabloid ANSI B Portrait')" role="menuitem" >11 X 17 (portrait)</a></li>
-                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Legal (landscape)'); changePrintLayout('Tabloid ANSI B Landscape')" role="menuitem" >11 X 17 (Landscape)</a></li> -->
+                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Legal (landscape)'); changePrintLayout('Tabloid ANSI B Landscape')" role="menuitem" >11 X 17 (Landscape)</a></li>
                                                 <li class="divider"></li>
-                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Map Only'); changePrintLayout('MAP_ONLY')" role="menuitem" >Map Only</a></li>
-                                                        
+                                                <li role="presentation"><a onclick = "$('#lOutBtn').text('Layout: Map Only'); changePrintLayout('MAP_ONLY')" role="menuitem" >Map Only</a></li>          
                                             </ul>
                                         </div>
-
                                     </div>
                                     <div>
                                         <div class="btn-group" style = "">
@@ -795,38 +848,29 @@
                                             <ul class="dropdown-menu">
                                                 <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: PDF'); $('#pBtn').text('Print');changePrintFormat('PDF')" role="menuitem" >PDF</a></li>
                                                 <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: JPG'); $('#pBtn').text('Print');changePrintFormat('JPG')" role="menuitem" >JPG</a></li>
-                                                <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: PNG8'); $('#pBtn').text('Print'); changePrintFormat('PNG')" role="menuitem" >PNG</a></li>
-                                                <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: PNG32');  $('#pBtn').text('Print'); changePrintFormat('SVG')" role="menuitem" >SVG</a></li>
+                                                <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: PNG'); $('#pBtn').text('Print'); changePrintFormat('PNG')" role="menuitem" >PNG</a></li>
+                                                <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: SVG');  $('#pBtn').text('Print'); changePrintFormat('SVG')" role="menuitem" >SVG</a></li>
                                                 <li class="divider"></li>
-                                                <li role="presentation"><a onclick = "$('#frmtBtn').text('Format: GIS'); $('#pBtn').text('Export map as GIS file'); changePrintFormat('GIS')" role="menuitem" >MXD (ArcGIS)</a></li>
-                                                        
                                             </ul>
                                         </div>
-
                                     </div>
                                     <div>
                                         <input id="mapAuthor" class="span12" rows="2" autocomplete="off" placeholder="Created by:" type="text">
                                     </div>
-                                    <div>
+                                  <!--   <div>
                                         <textarea id="printNotes" class="span12" rows="2" autocomplete="off" placeholder="Notes"></textarea>
-                                    </div>
+                                    </div> -->
                                     <div id="pButton" class='pull-right'>
                                         <a href="#" id="pBtn" class="btn btn-info " data-toggle="tooltip" data-placement="top" onclick = "printWHAF(); console.log(mapJSON())" title="">Print</a>
                                         <a href="#" id="pMsg" class="btn" style="display:none" title="">Preparing map, please wait... </a>
                                         <a href="#" id="pErrMsg" class="btn btn-danger" style="display:none" onclick = "$('#pErrMsg').hide(); $('#pBtn').fadeIn()" title="">Printing unsuccessful. Please try again later</a>
-                                    </div>
-                                    
-                                       
-                                    </div>
-
-                                   
-                                </div>
-
-                            
-                            </div>
+                                    </div>   
+                                </div>                              
+                            </div>                        
                         </div>
+                    </div>
+                </div>                    
 
-                </div>
 
                     <div id="baseHome">
                             <a id="gryB" href="#" data-toggle="tooltip" data-placement="top" title="Gray Map">
@@ -854,6 +898,20 @@
 
                         </div>
                     </div> 
+                    <div id="dismissMessage" class="well span4 centered" style="display:none">
+                        <button type="button" class="close" onclick="$('#dismissMessage').hide();">&times;</button>
+                        <div id="">Dismiss index?</div>
+                        <div style="margin-bottom:15px">
+                            <form class="navbar-form">
+                                <textarea style="dismissText" id="dissmissMessage" placeholder="You may indicate the reason for dismissing this index:" autocomplete="off" onclick="" type="text" class="span12" value=""></textarea>
+                            </form>
+                        </div>
+                        <div>
+                            <button type="button" href="#" class="btn btn-danger pull-right" data-toggle="tooltip" data-placement="top" onclick = "addObjective('dismiss'); $('#dismissMessage').fadeOut();">OK and next</button>
+
+                        </div>
+                    </div>
+
                     <div id="adHocMessage" class="well span11 centered">
                         <button type="button" class="close" onclick="$('#adHocMessage').hide();">&times;</button>
                         <div id="adHocMessageTitle"></div>
@@ -888,9 +946,18 @@
                         </div>
                     </div>
 
-                </div>
-          
+                    <div id="paramAlerter" class="well">
+                        <button type="button" class="close" onclick="$('#paramAlerter').hide();">&times;</button>
+                        <div id="paramAlertMessage">
+                        </div>
+                        <div id="paramPlaceHolder">
+                            <form class="navbar-form pull-left span12">
+                                <input id="paramPlaceString" onclick="this.select();" type="text" class="span12" value="">
+                            </form>
+                        </div>
+                    </div>
 
+                </div>
             </div>
     </div>
     </div>
@@ -899,10 +966,9 @@
     <script src="./js/googleJsapi.js" type="text/javascript"></script>
     <script src="./js/raphael.js" type="text/javascript"></script>
     <script src="./js/pie.js" type="text/javascript"></script>
-    <!-- // <script src="http://js.arcgis.com/3.14/"></script> -->
-    
     <script src="./js/rawinflate.js"></script>
     <script src="./js/rawdeflate.js"></script>
+    <script src="./js/html2canvas.js"></script>
     <script src="./Scripts/WHAF_auxFeatures.js" type="text/javascript"></script>
     <script src="./Scripts/WHAF_analysis.js" type="text/javascript"></script>
     <script src="./Scripts/WHAF_bookMark_snaps.js" type="text/javascript"></script>
@@ -915,13 +981,15 @@
     <script src="./Scripts/WHAF_misc.js" type="text/javascript"></script>
     <script src="./Scripts/WHAF_scaleLayers.js" type="text/javascript"></script>
     <script src="./Scripts/WHAF_utilities.js" type="text/javascript"></script>
+    <script src="./Scripts/WHAF_config.js" type="text/javascript"></script>
     <script src="./Scripts/WHAF_workflow.js" type="text/javascript"></script>
     <script src="./js/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="./js/ui.1.10.3.jquery-ui.js" type="text/javascript"></script>
     <script src="./js/bootstrap.js"></script>
     <script src="./js/bootstrap-colorpicker.js"></script>
+    <script src="./js/justgage.js"></script>
     <script src="./js/jquery.extras.js"></script>   
-    <script src="./js/js.arcgis.com.3.13.js" type="text/javascript"></script>
+    <script src="./js/js.arcgis.com.3.14.js" type="text/javascript"></script>
     <script>
 
         // Google analytics code to allow for app traffic tracking
@@ -936,10 +1004,13 @@
 
         //DEFINING GLOBAL VARIABLES
         // primary global object, mapFeatures - list of aux features we want to display in the primary view of added features.
-        var WHAFapp={currentMapParams:{allowedOffset: 10,hillShadeOp:1, Bsmp:'sat',indOp:0.8,theseFeatures:[],mapFeatures:["1.11", "1.13", "1.12", "1.14", "1.15","2.11", "2.12", "2.13"]}, template:{layoutOptions:{},format:'pdf'},snpNumber:1 ,displayedSnap:-1,snapZoom:0.16, sideBySideZoom:0.3, bitly:{'Key':'R_85d9a34c0cd44ff4b05b3b066a8300fd','genAccessKey':'3694b5c419f31188e48e14f3abe720ce8e6aba2b'},demikulu:'',suspender:false,flyOverUrl:"http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/watershed_flyover/",landuseData:{},loadingLyrs:[],nonSelectableLayer:{}, selectableLayer:{loadStatus:"ready",impairmentSelections:{serial:400},fields:{},availId:40},impairments:{url:'http://pca-gis02.pca.state.mn.us/arcgis/rest/services/EDA/swedaV2/MapServer/',group:8,impField:'IMP_PARAM',streams:{layerIds:[9,10],impParams:[],impParamsAsUniqueVal:[]},wetlands:{layerIds:[11,12],impParams:[],impParamsAsUniqueVal:[]},lakes:{layerIds:[13,14],impParams:[],impParamsAsUniqueVal:[]}},genCounter:0};
+        var WHAFapp={currentMapParams:{allowedOffset: 10,hillShadeOp:1, Bsmp:'sat',indOp:0.8,theseFeatures:[],mapFeatures:["1.11", "1.13", "1.12", "1.14", "1.15","2.11", "2.12", "2.13"]}, template:{layout:'Letter ANSI A Portrait',layoutOptions:{},format:'pdf'},snpNumber:1 ,displayedSnap:-1,snapZoom:0.16, sideBySideZoom:0.3, bitly:{'Key':'R_85d9a34c0cd44ff4b05b3b066a8300fd','genAccessKey':'3694b5c419f31188e48e14f3abe720ce8e6aba2b'},demikulu:'',suspender:false,flyOverUrl:"http://files.dnr.state.mn.us/natural_resources/water/watersheds/tool/watersheds/watershed_flyover/",landuseData:{},loadingLyrs:[],nonSelectableLayer:{}, selectableLayer:{loadStatus:"ready",impairmentSelections:{serial:400},fields:{},availId:40},impairments:{url:'http://pca-gis02.pca.state.mn.us/arcgis/rest/services/EDA/swedaV2/MapServer/',group:8,impField:'IMP_PARAM',streams:{layerIds:[9,10],impParams:[],impParamsAsUniqueVal:[]},wetlands:{layerIds:[11,12],impParams:[],impParamsAsUniqueVal:[]},lakes:{layerIds:[13,14],impParams:[],impParamsAsUniqueVal:[]}},genCounter:0,manActionId:33300, printedLink:''};
 
         var w = window,d = document,e = d.documentElement,g = d.getElementsByTagName('body')[0],x = w.innerWidth || e.clientWidth || g.clientWidth,y = w.innerHeight || e.clientHeight || g.clientHeight, map, mainMap, majors, index, selectedWatershed = {}, starLocation={}, extent, stateExtent, initExtent, content, err, navToolbar, layers, legendd, geocoder, upstGrahics,graphicWSRecord = [],graphicHiLiteWSRecord = [], featureLayersDisplayed = [],layerInfos = [], mapParamObject = {params: false}, analyzer, counterR = 0,unAvailGDRS = 0, layerBoxState={layerBoxPopulated:false};
-        var watershedsURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer", assessmentURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_indexscores/MapServer", waterBudgetURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/5", auxURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_auxiliaryfeatures_sde/MapServer", masksURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer/";
+
+
+        //global definitions of web services urls
+        var watershedsURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer", assessmentURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_indexscores/MapServer", waterBudgetURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/5", auxURL = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_auxiliaryfeatures_sde/MapServer", masksURL="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheds/MapServer/",scoresByWsidUrl="http://arcgis.dnr.state.mn.us/arcgis/rest/services/ewr/whaf_watersheddata/MapServer/6";
         var GDRS1 = 'http://arcgis.intranet.mndnr.dnr.state.mn.us/arcgis/rest/services/quicklayers/mndnr_hydrography/MapServer',
             GDRS2 = 'http://arcgis.intranet.mndnr.dnr.state.mn.us/arcgis/rest/services/quicklayers/mndnr_adminfeatures/MapServer',
             GDRS3 = 'http://arcgis.intranet.mndnr.dnr.state.mn.us/arcgis/rest/services/quicklayers/mndnr_environment/MapServer',            
@@ -949,18 +1020,41 @@
 
                 MaskWS_checker, MaskDnstr_checker, MaskUpstr_checker, MaskCtmnt_checker, graphicsBin=[], runningMapNumber=1, charts={status:false};
 
-            var DSS_objectives = { //global object to handle decision support module parameters
+            //global object to handle decision support module parameters
+            var DSS_objectives = { 
                     point:{}, 
                     name:"",
-                    catchmenter:function(){executeCatchQueryC_asFL()}
+                    catchmenter:function(){executeCatchQueryC_asFL()},
+                    availableObjectives:{},
+                    decisionObjectives:{
+                        scale:{kept:[],dismissed:[]},
+                        context:{kept:[],dismissed:[]},
+                        indexScore:{kept:[],dismissed:[],overviewed:[]},
+                        localKnowledge:[],
+                        misc:[],
+                        dismissed:[],
+                        scalesViewed:false,
+                        overview:false
+                    },
+                    thresholds:{
+                        low:50,
+                        high:75
+                    },
+                    decisionObjectivesSerial:88800,
+                    currentDssSection:'mStep1',
+                    gauges:{},
+                    disaplayedIndex:-1,
+                    displayedContextMap:-1,
+                    displayedScaleStep:0,
+                    evalStep:0,
+                    mapNameSerial:1
                 };
 
             var opcity = String(WHAFapp.currentMapParams.hillShadeOp*100);
 
-            var DSS_steps=["Zoom to Area of Interest", "Click to Mark Exact Location", "Get the Right Scale", "Set Objectives", "Review Objectives"], DSS_step=0, DSS_StarState=false, objectiveCurrentView=0, DSS_indexlayer;    
+            // var DSS_steps=["Zoom to Area of Interest", "Click to Mark Exact Location", "Get the Right Scale", "Set Objectives", "Review Objectives"], 
+            var DSS_step=0, DSS_StarState=false, objectiveCurrentView=0, DSS_indexlayer;    
 
-            // QUERY TASKS
-            var qtUpstream;            
 
             //SYMBOLS
             var markerSymbol, noSymb,maskSymbol,mwsSymbol_sat, mwsSymbol_nonSat, bsnSymbol,dnstrSymbol,upstrSymbol,symbol;
@@ -969,9 +1063,6 @@
         $(function () {
 
             console.log("Allowable Offset: ", WHAFapp.currentMapParams.allowedOffset)
-
-
-
 
             $('#snapShotsArea').sortable({
                 start:function(){
@@ -982,7 +1073,8 @@
                 e.stopPropagation();
             });
 
-            popoverInit();
+            popoverInit();//sets up popover descriptions for health indices
+
             $('#featureTabs').tabs()
             fixTabsCss();
             var $select = $(".1-100");
@@ -1030,7 +1122,7 @@
             $("#pieChartModal, #waterUsePlace, #legendPlace, #featuresPlace").draggable({cancel: "#featurePlace, #legendAux",scroll: false});
             $("#myModal, #bookmarkModal").draggable({cancel:"#bookmarkInnerBox", scroll: false});
             $("#layersModal").draggable({cancel: "#adHocLayerListUl, #adHocLayerList, #adHocLayerLister2",scroll: false});
-            // $("#appInfoModal").draggable({scroll: true}).resizable();
+            $("#appInfoModal").draggable({scroll: true}).resizable();
             $('#layerSelectionModal').draggable({cancel: "#impLayerNameBox, #selTabs"});
             $( "#mapRunSortable" ).sortable().disableSelection();
             $("#myCarousel2").carousel('pause'); $("#myCarouseTut").carousel('pause');
@@ -1095,8 +1187,8 @@
             "esri/dijit/Legend",
             "esri/dijit/Print",
             "esri/tasks/PrintTask",
-            // "esri/tasks/PrintParameters",
-            // "esri/tasks/PrintTemplate", 
+            "esri/tasks/PrintParameters",
+            "esri/tasks/PrintTemplate", 
             "esri/request", 
             "esri/config",
             "dojo/_base/array",
@@ -1107,7 +1199,7 @@
             "esri/renderers/SimpleRenderer",
             "dojo/domReady!"
 
-        ],function(ready,Map,Basemap,SimpleMarkerSymbol,Graphic,FeatureLayer,DynamicMapServiceLayer,ImageParameters,Renderer,Query,QueryTask,Navigation,Draw,GeometryService,Extent,Point,Legend,Print,PrintTask,esriRequest,esriConfig,arrayUtils,Geocoder,dom,parser,SpatialReference,SimpleRenderer) { 
+        ],function(ready,Map,Basemap,SimpleMarkerSymbol,Graphic,FeatureLayer,DynamicMapServiceLayer,ImageParameters,Renderer,Query,QueryTask,Navigation,Draw,GeometryService,Extent,Point,Legend,Print,PrintTask,PrintParameters,PrintTemplate,esriRequest,esriConfig,arrayUtils,Geocoder,dom,parser,SpatialReference,SimpleRenderer) { 
 
             
 
@@ -1127,18 +1219,16 @@
             WHAFapp.QueryTaskCons = constructorGetter(QueryTask);
             WHAFapp.esriRequestCons = constructorGetter(esriRequest);
             WHAFapp.arrayUtilsCons = constructorGetter(arrayUtils);
-            // WHAFapp.PrintTemplateCons = constructorGetter(PrintTemplate);
+            WHAFapp.PrintTemplateCons = constructorGetter(PrintTemplate);
+            WHAFapp.PrintParamsCons = constructorGetter(PrintParameters);
             WHAFapp.PrintTaskCons = constructorGetter(PrintTask);
-            // WHAFapp.PrintParamsCons = constructorGetter(PrintParameters);
             WHAFapp.domCons = constructorGetter(dom);
             WHAFapp.mapCons = constructorGetter(Map)
 
 
             //PRINTING VARS AND CONFIGURATION
-            // WHAFapp.printUrl = "http://arcgis.dnr.state.mn.us/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
     
-
- 
+            esri.config.defaults.io.corsEnabledServers.push('arcgis.dnr.state.mn.us');
             
             parser.parse();
             
@@ -1153,10 +1243,11 @@
 
 
 
+
             noSymb = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_NULL));
             maskSymbol = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 255, 255, 0]), 0), new dojo.Color([0, 0, 0, .7]));
             mwsSymbol_sat= new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 255, 255]), 2), new dojo.Color([125, 125, 125, 0]));
-            mwsSymbol_nonSat= new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0]), 3), new dojo.Color([125, 125, 125, 0]));
+            mwsSymbol_nonSat= new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0]), 2), new dojo.Color([125, 125, 125, 0]));
 
             bsnOutlineSymbol=new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([115, 0, 76, 1]), 1.9), new dojo.Color([0, 0, 0, .7]));
 
@@ -1172,10 +1263,15 @@
 
             blueFill = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_NULL, new dojo.Color([0, 0, 0, 0]), 0), new dojo.Color([0, 0, 255, .6]));
 
-            catOutline = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([200, 0, 255]), 2), new dojo.Color([125, 125, 125, 0]));
+            catOutline = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 255, 191]), 2), new dojo.Color([125, 125, 125, 0]));
+
+
 
             $('#tutPlace').load('tutorial.html', function(){tutorialLoad()});
             $('#BMWarningPlace').load('BookmarkWarning.html');
+            $('#magicWarningPlace').load('magicWarning.html');
+            $('#helpPopPlace').load('helpPop.html');
+            $('#helpAlertPlace').load('helpAlert.html');            
             $('#disclaimerPlace').load('disclaimer.html');
             $('#waterUsePlace').load('waterUseCharts.html');
             $('#info1').load('whatsAwatershed.html');            
@@ -1184,8 +1280,10 @@
             });
             // $('#appInfoPlace').load('appInfoModal.html');
             $('#layerSelectionModal').load('layerSelect.html');
+            $('#magicBox').load('magic.html',magicSetter());
+
            
-            try{serverTest(masksUrl);}catch(err){console.log("unable to test server")}
+            try{serverTest(masksURL);}catch(err){console.log("unable to test server")}
             
             getGDRS_Feature(GDRS_Groups);
 
@@ -1222,11 +1320,16 @@
                 extent: initExtent
             });
 
-            offsetCheck();
+            offsetCheck();//adjusts allowable offset for feature service layers to maximize performance
+            console.log("Allowable Offset: ", WHAFapp.currentMapParams.allowedOffset);
                  
             mainMap = map;
-            
-            mode = "watershedZoom";
+
+            navToolbar = new Navigation(map);            
+            // mode = "watershedZoom";
+            var spatialReferenceG = new SpatialReference({
+                wkid: 102100
+            });
 
             map.on("load", function (){
                 loadQT();                
@@ -1239,16 +1342,11 @@
 
             // setPrintInfo();
 
-            navToolbar = new Navigation(map);
-            var spatialReferenceG = new SpatialReference({
-                wkid: 102100
-            });
-
-            auxInit1();
+            auxInit1(); //sets auxiliary layers
            
             $('#featuresPlace').hide();
 
-            function loadQT() {
+            function loadQT() {//initiates the map (watershed outlines and more)
                 try {
                     WS_functionality();
                     loadBasins();
@@ -1262,15 +1360,17 @@
             map.on("Click", executeClick);
             map.on("Click", executeIdentifyTask);
             map.on("update-start", function(){
-                showLoad();
-                WHAFapp.mapLoading=1;
+                showLoad();WHAFapp.mapLoading=1;
             });           
             map.on("update-end", doodleJump);
+
             function doodleJump(evt){
                 $("#loader").hide();
                 updateTrigger();
                 legendd.refresh()
             }
+
+
             map.on("extent-change", function(){offsetCheck()});
 
             legendd = new Legend({
@@ -1278,6 +1378,7 @@
                 layerInfos: layerInfos
             }, "legendAux");
             legendd.startup();
+
             navToolbar = new Navigation(map);
 
 

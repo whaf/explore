@@ -1,0 +1,19 @@
+<div id="helpAlert" class="modal hide ui-draggable" data-backdrop="false" tabindex="-1" role="dialog" style="">
+  <div class="modal-header">
+    <button type="button" class="close" onclick="$('#helpAlert').fadeOut()" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 id="mHelpAlertTitle">
+      <img id="helpAlertCheck" style="display:none" src="./img/svgs/check-circle.svg" style="margin-right:10px">
+      <img id="helpAlertClose" style="display:none" src="./img/svgs/closeRed.svg" style="margin-right:10px">
+      <span id="mAlertInnTitle" style="margin-left:10px">Map successfully added! </span>
+    </h4>
+  </div>
+  <div class="modal-body" style="padding:15px">
+    <p id="mHelpAlertText">This map view and the notes about it were successfully added to your report. You will be able to view, edit and print them later. </p>
+
+
+    <a href="#" class="btn btn-info pull-right" onclick="$('#helpAlert').fadeOut()" style="margin-left:20px">OK</a>
+
+    <a href="#" class="btn btn-info pull-right" onclick="reportViewStart()" style="">Show report</a>
+  </div>
+
+</div> 

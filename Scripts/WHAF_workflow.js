@@ -431,217 +431,277 @@ function pInfo(){
     $('#appInfo').html(f)
 }
 
-function mapJSON(){
-    var mapOptions, operationalLayers, baseMap, exportOptions, layoutOptions, legOps, printJSON, WHAFScore=false,scoreIndex;
+function mapJSON(options) {
+    var mapOptions, operationalLayers, baseMap, exportOptions, layoutOptions, lyrnmList, legOps, printJSON, WHAFScore = false,
+        scoreIndex,serialP,mapTitle,mapNotes,mapAuthor,mapDate;
 
-    function mOpt(){
-        var e= map.extent, xmax, xmin, ymax, ymin,spat;
-
-        xmax=e.xmax.toFixed(2)
-        xmin=e.xmin.toFixed(2)
-        ymax=e.ymax.toFixed(2)
-        ymin=e.ymin.toFixed(2)
-
-        spat = JSON.stringify(e.spatialReference)
-        return '"mapOptions":{"extent":{"xmax":'+xmax+',"xmin":'+xmin+',"ymax":'+ymax+',"ymin":'+ymin+',"spatialReference":'+spat+'}}';
+    if($('#mapTitleInput').val() && $('#mapTitleInput').val() !== ''){
+        mapTitle=$('#mapTitleInput').val()
+    } else{
+        mapTitle= 'WHAF map'
     }
 
-    function opLyrs(){
-        var opLayers = '"operationalLayers": [', ctr = 0, lCtr=0,r=map.getLayersVisibleAtScale(map.getScale()), locationMark;
 
+    if (options && options !== undefined){
+        if (options.serial && options.serial !== undefined){serialP ='serial'}else{serialP ='regular'};
+        if (options.heading && options.heading !== undefined){mapTitle =options.heading};
+        if (options.notes && options.notes !== undefined){mapNotes =options.notes}else{mapNotes =''};    
+        if (options.author && options.author !== undefined){mapAuthor=options.author}else{mapAuthor =''};    
+    } else{
+
+
+        serialP ='regular';
+        mapNotes ='';    
+        mapAuthor =''; 
+    }
+
+    function mOpt() {
+        var e = map.extent,
+            xmax, xmin, ymax, ymin, spat;
+        xmax = e.xmax.toFixed(2)
+        xmin = e.xmin.toFixed(2)
+        ymax = e.ymax.toFixed(2)
+        ymin = e.ymin.toFixed(2)
+        spat = JSON.stringify(e.spatialReference)
+        return '"mapOptions":{"extent":{"xmax":' + xmax + ',"xmin":' + xmin + ',"ymax":' + ymax + ',"ymin":' + ymin + ',"spatialReference":' + spat + '}}';
+    }
+
+    function opLyrs() {
+        var opLayers = '"operationalLayers": [',
+            ctr = 0,
+            lCtr = 0,
+            r = map.getLayersVisibleAtScale(map.getScale()),
+            locationMark;
         legOps = '"legendOptions":{"operationalLayers":['
-
-        for (f in r){
-          var lyrData, name, drawingInfo, defExpPrelim, defExp, fill, line,legItem,lyrTitle;
-          clss = r[f].declaredClass;
-          id = r[f].id; 
-          visibleLayer = r[f].visibleLayers;
-          opacity = r[f].opacity;
-          url = r[f].url;
-
-          if (clss ==="esri.layers.ArcGISDynamicMapServiceLayer"){
-            if(r[f].indexIdentifier==='WHAFscore'){
-                lyrTitle='Index Score'
-                WHAFScore=true;
-                scoreIndex=$('#drop2').text();
-            } else{lyrTitle=''}
-
-
-
-            if (ctr ==0){
-                lyrData = '{"id":"'+id+'","url":"'+url+'","opacity":'+opacity+',"title":"'+lyrTitle+'","visibleLayers":['+visibleLayer+']}';
-            } else {
-              lyrData = ',{"id":"'+id+'","url":"'+url+'","opacity":'+opacity+',"title":"'+lyrTitle+'","visibleLayers":['+visibleLayer+']}';
-            }
-            if(lyrTitle!=='Index Score'){
-                if (lCtr==0){
-                    legItem='{"id":"'+id+'"}';
-                    lCtr=lCtr+1
-                    console.log("legend item, first: ", id)
+        for (f in r) {
+            var lyrData, name, drawingInfo, defExpPrelim, defExp, fill, line, legItem, lyrTitle;
+            clss = r[f].declaredClass;
+            id = r[f].id;
+            ident = r[f].identifier
+            visibleLayer = r[f].visibleLayers;
+            opacity = r[f].opacity;
+            url = r[f].url;
+            if (clss === "esri.layers.ArcGISDynamicMapServiceLayer") {
+                if (r[f].indexIdentifier === 'WHAFscore') {
+                    lyrTitle = 'Index Score'
+                    WHAFScore = true;
+                    scoreIndex = $('#drop2').text();
+                } else {
+                    lyrTitle = ''
                 }
-                else{
-                    legItem=',{"id":"'+id+'"}'
-                    lCtr=lCtr+1;
+
+                if (ctr == 0) {
+                    lyrData = '{"id":"' + id + '","url":"' + url + '","opacity":' + opacity + ',"title":"' + lyrTitle + '","visibleLayers":[' + visibleLayer + ']}';
+                } else {
+                    lyrData = ',{"id":"' + id + '","url":"' + url + '","opacity":' + opacity + ',"title":"' + lyrTitle + '","visibleLayers":[' + visibleLayer + ']}';
                 }
-                legOps=legOps+legItem;                
-
-            }
-
-            opLayers=opLayers+lyrData;
-            ctr=ctr+1;
-          } 
-
-
-
-          else if (clss==="esri.layers.FeatureLayer"){   
+                if (lyrTitle !== 'Index Score' && ident!=='basinLyr') {
+                    if (lCtr == 0) {
+                        legItem = '{"id":"' + id + '"}';
+                        lCtr = lCtr + 1
+                        console.log("legend item, first: ", id)
+                    } else {
+                        legItem = ',{"id":"' + id + '"}'
+                        lCtr = lCtr + 1;
+                    }
+                    legOps = legOps + legItem;
+                }
+                opLayers = opLayers + lyrData;
+                ctr = ctr + 1;
+            } else if (clss === "esri.layers.FeatureLayer") {
                 var opac;
 
-                fill=r[f].renderer.symbol.style
+                fill = r[f].renderer.symbol.style
                 line = r[f].renderer.symbol.outline.style
-                if(fill  !=='none' || line !=='none'){//filter out feature scale layers that are not displayed
+                if (fill !== 'none' || line !== 'none') { //filter out feature scale layers that are not displayed
 
-                    // console.log(r[f].id)
-                    // console.log(line, fill)
+                    name = r[f].name
+                    if (r[f].currentQuery && r[f].currentQuery!== undefined){
+                        defExp =r[f].currentQuery.where
+                    } else{
+                        defExp = r[f]._defnExpr;
+                    }
                     
-                    name=r[f].name
-                    defExpPrelim=r[f]._defnExpr;
-                    defExp = defExpPrelim//.replace(/'/g, "\\'")
-                    drawingInfo = '{"renderer":'+getFLRenderer(r[f])+'}';
+                    console.log("Definition expression: ",defExp)
+                    drawingInfo = '{"renderer":' + getFLRenderer(r[f]) + '}';
 
-                    if(r[f].renderer.symbol.color.a){
-                        opac=r[f].renderer.symbol.color.a;
+                    if (r[f].renderer.symbol.color.a) {
+                        opac = r[f].renderer.symbol.color.a;
+
+                        console.log("Opacity for feature layer: ",name,': ',opac)
                         // r[f].renderer.symbol.color.a=1;
-                    } else{
-                        opac=opacity;
+                    } else {
+                        opac = opacity;
                     }
 
-                    if (ctr ==0){
-                        lyrData = '{"url":"'+url+'","title":"'+name+'","opacity":'+opac+',"layerDefinition":{"drawingInfo":'+drawingInfo+',"definitionExpression":"'+defExp+'"}}'
-                    } else{
-                        lyrData = ',{"url":"'+url+'","title":"'+name+'","opacity":'+opac+',"layerDefinition":{"drawingInfo":'+drawingInfo+',"definitionExpression":"'+defExp+'"}}'
+                    if (ctr == 0) {
+                        lyrData = '{"url":"' + url + '","title":"' + name + '","opacity":' + opac + ',"layerDefinition":{"drawingInfo":' + drawingInfo + ',"definitionExpression":"' + defExp + '"}}'
+                    } else {
+                        lyrData = ',{"url":"' + url + '","title":"' + name + '","opacity":' + opac + ',"layerDefinition":{"drawingInfo":' + drawingInfo + ',"definitionExpression":"' + defExp + '"}}'
                     }
-                    opLayers=opLayers+lyrData;
+                    opLayers = opLayers + lyrData;
                 }
-                
-                ctr=ctr+1;
 
-          }        
+                ctr = ctr + 1;
+
+            }
 
 
 
         };
 
         locationMark = getStarGraphics();
-        if (locationMark!==undefined){
-            // console.log("getting Star!")
-            opLayers=opLayers+','+locationMark
+        if (locationMark !== undefined) {
+            opLayers = opLayers + ',' + locationMark
         };
 
-        legOps = legOps+']}';
-        console.log(legOps);
-        opLayers=opLayers+']';
+        legOps = legOps + ']}';
+        console.log("LEG Options: ",legOps);
+        opLayers = opLayers + ']';
         return opLayers;
 
     }
 
-    function bsMap(){
-        var bsMapLyr = "", ctr = 0, title, r=map.getLayersVisibleAtScale(map.getScale());
+    function bsMap() {
 
-        for (f in r){
-          var lyrData;
-          clss = r[f].declaredClass;
-          id = r[f].id; 
-          visibleLayer = r[f].visibleLayers;
-          opacity = r[f].opacity;
-          url = r[f].url;
-          if (clss ==="esri.layers.ArcGISTiledMapServiceLayer"){
-            if (ctr ==0){
-                lyrData = '{"url":"'+url+'","opacity":'+opacity+'}'
-                
-            } else {
-                lyrData = ',{"url":"'+url+'","opacity":'+opacity+'}'
+        if (WHAFapp.currentMapParams.Bsmp === "sat"){
+            return '"baseMap" : {"title" : "Bing Maps","baseMapLayers" :  [{"id" : "BingMap","visibility" : true,"type" : "BingMapsAerial","culture" : "en-US","key":"'+bingKey+'"}]}'
+        } else if (WHAFapp.currentMapParams.Bsmp === "hyb"){
+            return '"baseMap" : {"title" : "Bing Maps","baseMapLayers" :  [{"id" : "BingMap","visibility" : true,"type" : "BingMapsHybrid","culture" : "en-US","key":"'+bingKey+'"}]}'
+        }else{
+            var bsMapLyr = "",
+                ctr = 0,
+                title, r = map.getLayersVisibleAtScale(map.getScale());
+
+            for (f in r) {
+                var lyrData;
+                clss = r[f].declaredClass;
+                id = r[f].id;
+                visibleLayer = r[f].visibleLayers;
+                opacity = r[f].opacity;
+                url = r[f].url;
+                if (clss === "esri.layers.ArcGISTiledMapServiceLayer") {
+                    if (ctr == 0) {
+                        lyrData = '{"url":"' + url+'"}'// + '","opacity":' + opacity + '}'
+
+                    } else {
+                        lyrData = ',{"url":"' + url + '"}'//","opacity":' + opacity + '}'
+                    }
+                    ctr = ctr + 1;
+                    bsMapLyr = bsMapLyr + lyrData
+                }
+                if (r[0].layerInfos[0].name) {
+                    title = r[0].layerInfos[0].name
+                } else {
+                    title = "Basemap"
+                }
             }
-            ctr=ctr+1;
-            bsMapLyr=bsMapLyr+lyrData
-          }          
-            if (r[0].layerInfos[0].name){
-            title = r[0].layerInfos[0].name}else{title="Basemap"}
+            return '"baseMap":{"title":"' + title + '","baseMapLayers":[' + bsMapLyr + ']}';
         }
 
-        return '"baseMap":{"title":"'+title+'","baseMapLayers":['+bsMapLyr+']}';
+
     }
 
-    function expOpt(){
-        var w,h,ww,hh,dpi=96;    
+    function expOpt() {
+        var w, h, ww, hh, dpi = 300;
 
-        w= $('#map').css('width')
-        h= $('#map').css('height')
-        ww = Number(w.replace('px',''))//*2
-        hh = Number(h.replace('px',''))//*2
+        w = $('#map').css('width')
+        h = $('#map').css('height')
+        ww = Number(w.replace('px', '')) //*2
+        hh = Number(h.replace('px', '')) //*2
 
-        return '"exportOptions":{"dpi":'+dpi+',"outputSize":['+ww+','+hh+']}'
+        // return '"exportOptions":{"dpi":' + dpi + ',"outputSize":[' + ww + ',' + hh + ']}'
+        return '"exportOptions":{"outputSize":[' + ww + ',' + hh + ']}'
+
     }
 
-    function lOutOpt(){
-        var titl, creator, layOutOps = '"layoutOptions":{', dateElem, notes, custElem;
-
-        if ($("#mapTitleInput").val()){
-            titl = $("#mapTitleInput").val();
-        }else{titl = undefined};
-
-        dateElem= "<dyn type='date' format='MMMM d, yyyy'/>"
-
-        if ($("#mapAuthor").val()){
-            creator = $("#mapAuthor").val();
-            dateElem = "Created by "+creator+", "+dateElem            
-        }else{creator = undefined};
-
-        if ($("#printNotes").val()){
-            notes = $("#printNotes").val();
-        }else{notes = undefined};
-
-        custElem =  '"customTextElements":[{"WHAF_notes":"'+dateElem+'"}';
-        if(notes && notes!== undefined){
-            var notesElem = ',{"Service_notes" : "'+notes+'"}';
-            custElem=custElem+notesElem;
-        }
-        if(WHAFScore){
-            var scoreTitle=',{"ScoreName" : "'+scoreIndex+'"}';
-            custElem=custElem+scoreTitle;
+    function lOutOpt() {
+        var layOutOps = '"layoutOptions":{',authorship='',WHAFline = 'MN Watershed Health Assessment Framework';
+        if($("#mapAuthor").val() && $("#mapAuthor").val() !==''){
+            authorship = $("#mapAuthor").val()+', ';
         }
 
-        custElem=custElem+']';
+        //set title
+        layOutOps = layOutOps + '"titleText":"' + mapTitle+'", "authorText":"'+authorship+WHAFline+'"';
 
-
+        //set author and date
+        if(mapAuthor && mapAuthor!== ''){
+            authorship = "Created by " + mapAuthor 
+        }
         
+        //set WHAF index name 
 
-        
 
-        if (titl && titl != undefined){
-          layOutOps=layOutOps+'"titleText":"'+titl+'",';lOutOpt2();
-        } else{lOutOpt2()};
+        custElem = '"customTextElements":[{"WHAF_notes":"' + mapNotes + '"},{"WHAF_author":"'+authorship+'"}]';
 
-        function lOutOpt2(){
-            if (creator && creator!= undefined){
-              layOutOps=layOutOps+'"authorText":"'+creator+'",';lOutOpt3();
-            }else{lOutOpt3()}
-        }
-
-        function lOutOpt3(){
-            layOutOps=layOutOps+'"copyrightText":"MN DNR Watershed Health Assessment Framework",'+custElem+','+legOps+'}';
-        }
+        layOutOps=layOutOps+','+custElem+','+legOps+'}'
         console.log(layOutOps)
         return layOutOps;
     }
 
-    mapOptions=mOpt();
-    operationalLayers=opLyrs();
-    baseMap=bsMap();
-    exportOptions=expOpt();
-    layoutOptions=lOutOpt();
+    function listLyrNames() { //returns a list of names of all visible dynamic layers (not feature layers)
+        var m = map.getLayersVisibleAtScale(),
+            f, l, lll, bsmp = map.getBasemap();
+        if (bsmp === "dark-gray") {
+            l = '"Canvas/World_Dark_Gray_Reference","Canvas/World_Dark_Gray_Base",'
+        } else if (bsmp === "gray") {
+            l = '"Canvas/World_Light_Gray_Reference","Canvas/World_Light_Gray_Base",'
+        } else if (bsmp === "satellite") {
+            l = '"World_Imagery",'
+        } else if (bsmp === "hybrid") {
+            l = '"World_Imagery","Reference/World_Boundaries_and_Places",'
+        } else if (bsmp === "national-geographic") {
+            l = '"NatGeo_World_Map",'
+        } else {
+            l = ''
+        }
 
-    printJSON='{'+mapOptions+','+operationalLayers+','+baseMap+','+exportOptions+','+layoutOptions+'}';
-    return printJSON
+        for (var i = 0; i < m.length; i++) {
+            if (m[i].visibleLayers) {
+                var t = m[i].visibleLayers
+                for (var ii = 0; ii < t.length; ii++) {
+                    if (t[ii] !== undefined) {
+                        if (m[i].layerInfos && m[i].layerInfos != undefined && m[i].declaredClass !== "esri.layers.ArcGISTiledMapServiceLayer") {
+                            try {
+                                l = l + '"' + m[i].layerInfos[t[ii]].name + '",'
+                            } catch (u) {} //hillshade needs to be catered for here too.
+                        }
+                    }
+                }
+
+                n = l.lastIndexOf(',')
+                lll = l.slice(0, n)
+
+            } else {
+                //handle feature layers 
+            }
+        }
+        return lll;
+    }
+
+    mapOptions = mOpt();
+    operationalLayers = opLyrs();
+    baseMap = bsMap();
+    exportOptions = expOpt();
+    layoutOptions = lOutOpt();
+    lyrnmList = listLyrNames()
+
+    printJSON = '{' + mapOptions + ',' + operationalLayers + ',' + baseMap + ',' + exportOptions + ',' + layoutOptions + '}';
+    
+
+console.log(mapOptions)
+console.log(operationalLayers)
+console.log(baseMap)
+console.log(exportOptions)
+console.log(layoutOptions)
+
+
+    if (serialP === 'serial') {
+        var ser = printJSON + 'WHAFDELIM1' + lyrnmList
+        return ser;
+    } else {
+        return printJSON;
+    }
 
 }
 
@@ -693,7 +753,8 @@ function printWHAF(){
 
         json=mapJSON();
         folder=WHAFapp.printTemplates;
-        layout="./templates/"+WHAFapp.template.layout+".mxd"
+        layout=WHAFapp.template.layout;//"./templates/"+WHAFapp.template.layout+".mxd";
+        console.log(layout)
         params = { 
             "Web_Map_as_JSON": json,
             "Format": WHAFapp.template.format.toLowerCase(),
@@ -701,49 +762,42 @@ function printWHAF(){
             "f": "json"            
         };
 
-        printGp.submitJob(params, statusComplete,statusCallback,errBack);
-        // printGp.execute(params, statusComplete,errBack);
+        console.log(params)
+
+        //printGp.submitJob(params, statusComplete,statusCallback,errBack);
+        printGp.execute(params, statusComplete,errBack);
                 $('#pBtn').hide();
                 $("#pMsg").fadeIn();
-                $("#pMsg").html("Creating your map..");
-        
-        
-        function statusCallback(jobInfo) {
-            var status = jobInfo.jobStatus;
-            if (status === "esriJobExecuting"){
-                $("#pMsg").fadeIn();
-                $("#pMsg").html("Creating your map..");
-            }
-            else if (status === "esriJobSucceeded") console.log("done")
-        }
-
+                $("#pMsg").html('Preparing map, please wait...');
+     
         function errBack(jobInfo){
             $("#pMsg").hide();
             $("#pErrMsg").fadeIn();
             try{console.log(jobInfo)}catch(err){};
-
         }
 
         function statusComplete(jobInfo) {
-            if (jobInfo.jobStatus === "esriJobSucceeded") {
-                printGp.getResultData(jobInfo.jobId, "Output_File", downloadFile);
-            }
+            console.log("Job Info: ",jobInfo[0].value.url);
+            WHAFapp.printedLink = jobInfo[0].value.url;
+            downloadFile(jobInfo);
         }
 
     })
 }
 
-function downloadFile(outputFile) {
+function downloadFile(jobInfo) {
     
-    $("#pMsg").addClass('btn-success')
-    $("#pMsg").html("Download your map " + "<a onclick='' href='" + outputFile.value.url + "' target='_blank'>Here</a>")
+    $("#pMsg").addClass('btn-info')
+    $("#pMsg").html("<a onclick='resetPbtn()' href='" + WHAFapp.printedLink + "' target='_blank'>Download map </a>")
 }
 
 function resetPbtn(){
-    $("#pMsg").removeClass('btn-success')
+    $("#pMsg").removeClass('btn-info')
     $("#pMsg").hide();
     $("#pErrMsg").hide()
     $('#pBtn').fadeIn();
+    $("#pMsg").html('<a href="#" id="pMsg" class="btn" style="display:none" title="">Preparing map, please wait... </a>');
+    WHAFapp.printedLink=''
 }
 
 function ts_brighter(id){
@@ -756,15 +810,383 @@ function timeStampIndex(index){
    perennHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2011\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2006\', \'Perennial Cover (catchment scale)\', \'31\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2001\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2001</div></div>'
     $('#scoreTimeStamp').html('');
     switch(index){
-        case "Hyd Index - Perennial Cover, 2011":
+        case 39:
             $('#scoreTimeStamp').html(perennHtml);
             break;
-        case "Hyd Index - Impervious Cover, 2011":
+        case 42:
             $('#scoreTimeStamp').html(impervHtml);
             break;
     }    
     $('.tsBtn').css({'min-height':'20px'})
 }
+
+// function printStartUp(){
+
+//     var printInfo = WHAFapp.esriRequestCons({"url": WHAFapp.printUrl,"content": { "f": "json" }});
+//     printInfo.then(handlePrintInfo, handleError)
+
+// }
+
+// function setPrintTitle(){
+//     var titleText=$("#mapTitleInput").val();
+//     if (titleText || titleText !== ""){
+//         WHAFapp.template.layoutOptions.titleText=titleText;
+//     } else {
+//         WHAFapp.template.layoutOptions.titleText=undefined;
+//     }
+// }
+
+// function changePrintLayout(tmpl){
+//     WHAFapp.template.layout = tmpl;
+//     pInfo();
+// }
+
+// function changePrintFormat(frmt){
+//     WHAFapp.template.format = frmt;
+//     pInfo()
+// }
+
+// function pInfo(){
+//     var f;
+//     setPrintTitle();
+//     f='<p>Print Layout: '+WHAFapp.template.layout+'</p><p>Print Format: '+WHAFapp.template.format+'</p><p>Print Title: '+WHAFapp.template.layoutOptions.titleText+'</p>'
+//     $('#appInfo').html(f)
+// }
+
+// function mapJSON(){
+//     var mapOptions, operationalLayers, baseMap, exportOptions, layoutOptions, legOps, printJSON, WHAFScore=false,scoreIndex;
+
+//     function mOpt(){
+//         var e= map.extent, xmax, xmin, ymax, ymin,spat;
+
+//         xmax=e.xmax.toFixed(2)
+//         xmin=e.xmin.toFixed(2)
+//         ymax=e.ymax.toFixed(2)
+//         ymin=e.ymin.toFixed(2)
+
+//         spat = JSON.stringify(e.spatialReference)
+//         return '"mapOptions":{"extent":{"xmax":'+xmax+',"xmin":'+xmin+',"ymax":'+ymax+',"ymin":'+ymin+',"spatialReference":'+spat+'}}';
+//     }
+
+//     function opLyrs(){
+//         var opLayers = '"operationalLayers": [', ctr = 0, lCtr=0,r=map.getLayersVisibleAtScale(map.getScale()), locationMark;
+
+//         legOps = '"legendOptions":{"operationalLayers":['
+
+//         for (f in r){
+//           var lyrData, name, drawingInfo, defExpPrelim, defExp, fill, line,legItem,lyrTitle;
+//           clss = r[f].declaredClass;
+//           id = r[f].id; 
+//           visibleLayer = r[f].visibleLayers;
+//           opacity = r[f].opacity;
+//           url = r[f].url;
+
+//           if (clss ==="esri.layers.ArcGISDynamicMapServiceLayer"){
+//             if(r[f].indexIdentifier==='WHAFscore'){
+//                 lyrTitle='Index Score'
+//                 WHAFScore=true;
+//                 scoreIndex=$('#drop2').text();
+//             } else{lyrTitle=''}
+
+
+
+//             if (ctr ==0){
+//                 lyrData = '{"id":"'+id+'","url":"'+url+'","opacity":'+opacity+',"title":"'+lyrTitle+'","visibleLayers":['+visibleLayer+']}';
+//             } else {
+//               lyrData = ',{"id":"'+id+'","url":"'+url+'","opacity":'+opacity+',"title":"'+lyrTitle+'","visibleLayers":['+visibleLayer+']}';
+//             }
+//             if(lyrTitle!=='Index Score'){
+//                 if (lCtr==0){
+//                     legItem='{"id":"'+id+'"}';
+//                     lCtr=lCtr+1
+//                     console.log("legend item, first: ", id)
+//                 }
+//                 else{
+//                     legItem=',{"id":"'+id+'"}'
+//                     lCtr=lCtr+1;
+//                 }
+//                 legOps=legOps+legItem;                
+
+//             }
+
+//             opLayers=opLayers+lyrData;
+//             ctr=ctr+1;
+//           } 
+
+
+
+//           else if (clss==="esri.layers.FeatureLayer"){   
+//                 var opac;
+
+//                 fill=r[f].renderer.symbol.style
+//                 line = r[f].renderer.symbol.outline.style
+//                 if(fill  !=='none' || line !=='none'){//filter out feature scale layers that are not displayed
+
+//                     // console.log(r[f].id)
+//                     // console.log(line, fill)
+                    
+//                     name=r[f].name
+//                     defExpPrelim=r[f]._defnExpr;
+//                     defExp = defExpPrelim//.replace(/'/g, "\\'")
+//                     drawingInfo = '{"renderer":'+getFLRenderer(r[f])+'}';
+
+//                     if(r[f].renderer.symbol.color.a){
+//                         opac=r[f].renderer.symbol.color.a;
+//                         // r[f].renderer.symbol.color.a=1;
+//                     } else{
+//                         opac=opacity;
+//                     }
+
+//                     if (ctr ==0){
+//                         lyrData = '{"url":"'+url+'","title":"'+name+'","opacity":'+opac+',"layerDefinition":{"drawingInfo":'+drawingInfo+',"definitionExpression":"'+defExp+'"}}'
+//                     } else{
+//                         lyrData = ',{"url":"'+url+'","title":"'+name+'","opacity":'+opac+',"layerDefinition":{"drawingInfo":'+drawingInfo+',"definitionExpression":"'+defExp+'"}}'
+//                     }
+//                     opLayers=opLayers+lyrData;
+//                 }
+                
+//                 ctr=ctr+1;
+
+//           }        
+
+
+
+//         };
+
+//         locationMark = getStarGraphics();
+//         if (locationMark!==undefined){
+//             // console.log("getting Star!")
+//             opLayers=opLayers+','+locationMark
+//         };
+
+//         legOps = legOps+']}';
+//         console.log(legOps);
+//         opLayers=opLayers+']';
+//         return opLayers;
+
+//     }
+
+//     function bsMap(){
+//         var bsMapLyr = "", ctr = 0, title, r=map.getLayersVisibleAtScale(map.getScale());
+
+//         for (f in r){
+//           var lyrData;
+//           clss = r[f].declaredClass;
+//           id = r[f].id; 
+//           visibleLayer = r[f].visibleLayers;
+//           opacity = r[f].opacity;
+//           url = r[f].url;
+//           if (clss ==="esri.layers.ArcGISTiledMapServiceLayer"){
+//             if (ctr ==0){
+//                 lyrData = '{"url":"'+url+'","opacity":'+opacity+'}'
+                
+//             } else {
+//                 lyrData = ',{"url":"'+url+'","opacity":'+opacity+'}'
+//             }
+//             ctr=ctr+1;
+//             bsMapLyr=bsMapLyr+lyrData
+//           }          
+//             if (r[0].layerInfos[0].name){
+//             title = r[0].layerInfos[0].name}else{title="Basemap"}
+//         }
+
+//         return '"baseMap":{"title":"'+title+'","baseMapLayers":['+bsMapLyr+']}';
+//     }
+
+//     function expOpt(){
+//         var w,h,ww,hh,dpi=96;    
+
+//         w= $('#map').css('width')
+//         h= $('#map').css('height')
+//         ww = Number(w.replace('px',''))//*2
+//         hh = Number(h.replace('px',''))//*2
+
+//         return '"exportOptions":{"dpi":'+dpi+',"outputSize":['+ww+','+hh+']}'
+//     }
+
+//     function lOutOpt(){
+//         var titl, creator, layOutOps = '"layoutOptions":{', dateElem, notes, custElem;
+
+//         if ($("#mapTitleInput").val()){
+//             titl = $("#mapTitleInput").val();
+//         }else{titl = undefined};
+
+//         dateElem= "<dyn type='date' format='MMMM d, yyyy'/>"
+
+//         if ($("#mapAuthor").val()){
+//             creator = $("#mapAuthor").val();
+//             dateElem = "Created by "+creator+", "+dateElem            
+//         }else{creator = undefined};
+
+//         if ($("#printNotes").val()){
+//             notes = $("#printNotes").val();
+//         }else{notes = undefined};
+
+//         custElem =  '"customTextElements":[{"WHAF_notes":"'+dateElem+'"}';
+//         if(notes && notes!== undefined){
+//             var notesElem = ',{"Service_notes" : "'+notes+'"}';
+//             custElem=custElem+notesElem;
+//         }
+//         if(WHAFScore){
+//             var scoreTitle=',{"ScoreName" : "'+scoreIndex+'"}';
+//             custElem=custElem+scoreTitle;
+//         }
+
+//         custElem=custElem+']';
+
+
+        
+
+        
+
+//         if (titl && titl != undefined){
+//           layOutOps=layOutOps+'"titleText":"'+titl+'",';lOutOpt2();
+//         } else{lOutOpt2()};
+
+//         function lOutOpt2(){
+//             if (creator && creator!= undefined){
+//               layOutOps=layOutOps+'"authorText":"'+creator+'",';lOutOpt3();
+//             }else{lOutOpt3()}
+//         }
+
+//         function lOutOpt3(){
+//             layOutOps=layOutOps+'"copyrightText":"MN DNR Watershed Health Assessment Framework",'+custElem+','+legOps+'}';
+//         }
+//         console.log(layOutOps)
+//         return layOutOps;
+//     }
+
+//     mapOptions=mOpt();
+//     operationalLayers=opLyrs();
+//     baseMap=bsMap();
+//     exportOptions=expOpt();
+//     layoutOptions=lOutOpt();
+
+//     printJSON='{'+mapOptions+','+operationalLayers+','+baseMap+','+exportOptions+','+layoutOptions+'}';
+//     return printJSON
+
+// }
+
+// function getFLRenderer(l){
+//     var rType, sStyle, sType, sColor, sOutline, oStyle, oColor, oType, oWidth, rendererJSON;
+//     if(l.type==='Feature Layer'){//get feature layers only
+
+//         if(l.renderer.declaredClass==='esri.renderer.SimpleRenderer'){
+//             rType='"simple"'
+//         }
+
+//         var sSt = l.renderer.symbol.style
+//         sStyle='"'+l.renderer.symbol._styles[sSt]+'"';
+
+//         if (l.renderer.symbol.type==='simplefillsymbol'){
+//             sType='"esriSFS"'
+//         }
+
+//         var v=l.renderer.symbol.color;
+//         sColor='['+v.r+',' +v.g+','+ v.b+','+ v.a+']';
+
+//         var o = l.renderer.symbol.outline;
+//         var sOt = o.style
+//         oStyle = '"'+o._styles[sOt]+'"';
+//         var v = o.color
+//         oColor='['+v.r+',' +v.g+','+ v.b+','+ v.a+']';
+
+
+//         if (l.renderer.symbol.outline.type = 'simplelinesymbol'){
+//             oType = '"esriSLS"'
+//         }
+
+//         oWidth=l.renderer.symbol.outline.width
+//     }
+
+//     rendererJSON = '{ "type":'+rType+',"symbol":{"type":'+sType+',"style":'+sStyle+',"color":'+sColor+',"outline":{"type":'+oType+',"style":'+oStyle+',"color":'+oColor+', "width":'+oWidth+'}}}';
+//     return rendererJSON
+
+// }
+
+// function printWHAF(){
+//         require(["esri/tasks/Geoprocessor"], function(Geoprocessor){ 
+//         // WHAFapp.printUrl="http://2k8carcasstest:6080/arcgis/rest/services/ WHAF/WHAFprinter/GPServer/Print%20a%20WHAF%20map";
+//         WHAFapp.printUrlExp="http://arcgis.dnr.state.mn.us/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+//         var printGp,json,folder,layout,format,params; 
+//         try{
+//             printGp=new Geoprocessor(WHAFapp.printUrlExp)
+//         }catch(err){console.log("no printing service available")}
+
+//         json=mapJSON();
+//         folder=WHAFapp.printTemplates;
+//         layout="./templates/"+WHAFapp.template.layout+".mxd"
+//         params = { 
+//             "Web_Map_as_JSON": json,
+//             "Format": WHAFapp.template.format.toLowerCase(),
+//             "Layout_Template": layout,
+//             "f": "json"            
+//         };
+
+//         printGp.submitJob(params, statusComplete,statusCallback,errBack);
+//         // printGp.execute(params, statusComplete,errBack);
+//                 $('#pBtn').hide();
+//                 $("#pMsg").fadeIn();
+//                 $("#pMsg").html("Creating your map..");
+        
+        
+//         function statusCallback(jobInfo) {
+//             var status = jobInfo.jobStatus;
+//             if (status === "esriJobExecuting"){
+//                 $("#pMsg").fadeIn();
+//                 $("#pMsg").html("Creating your map..");
+//             }
+//             else if (status === "esriJobSucceeded") console.log("done")
+//         }
+
+//         function errBack(jobInfo){
+//             $("#pMsg").hide();
+//             $("#pErrMsg").fadeIn();
+//             try{console.log(jobInfo)}catch(err){};
+
+//         }
+
+//         function statusComplete(jobInfo) {
+//             if (jobInfo.jobStatus === "esriJobSucceeded") {
+//                 printGp.getResultData(jobInfo.jobId, "Output_File", downloadFile);
+//             }
+//         }
+
+//     })
+// }
+
+// function downloadFile(outputFile) {
+    
+//     $("#pMsg").addClass('btn-success')
+//     $("#pMsg").html("Download your map " + "<a onclick='' href='" + outputFile.value.url + "' target='_blank'>Here</a>")
+// }
+
+// function resetPbtn(){
+//     $("#pMsg").removeClass('btn-success')
+//     $("#pMsg").hide();
+//     $("#pErrMsg").hide()
+//     $('#pBtn').fadeIn();
+// }
+
+// function ts_brighter(id){
+//   $('#'+id).siblings().removeClass('tsBtnActive')
+//   $('#'+id).addClass('tsBtnActive')
+// }
+
+// function timeStampIndex(index){
+//    var impervHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Impervious Cover, 2011\', \'Impervious Cover (catchment scale)\', \'49\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Impervious Cover, 2006\', \'Impervious Cover (catchment scale)\', \'49\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Impervious Cover, 2001\', \'Impervious Cover (catchment scale)\', \'49\', true); ts_brighter(id)">2001</div></div>',
+//    perennHtml = '<div class="row show-grid" style="margin-left:0px"> <div id="ts2011" class="span4 tsBtn tsBtnActive text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2011\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2011</div><div id="ts2006" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2006\', \'Perennial Cover (catchment scale)\', \'31\', true);ts_brighter(id)">2006</div><div id="ts2001" class="span4 tsBtn text-center" href=\'#\' style="font-weight:bold" title="" onclick="respond(\'Hyd Index - Perennial Cover, 2001\', \'Perennial Cover (catchment scale)\', \'31\', true); ts_brighter(id)">2001</div></div>'
+//     $('#scoreTimeStamp').html('');
+//     switch(index){
+//         case "Hyd Index - Perennial Cover, 2011":
+//             $('#scoreTimeStamp').html(perennHtml);
+//             break;
+//         case "Hyd Index - Impervious Cover, 2011":
+//             $('#scoreTimeStamp').html(impervHtml);
+//             break;
+//     }    
+//     $('.tsBtn').css({'min-height':'20px'})
+// }
 
 
 
