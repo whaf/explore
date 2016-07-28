@@ -620,7 +620,7 @@ indexdescNewJson={
         "name": "Stream Species Quality",
         "watershedId": "Bio Index - Stream Species Quality (major)",
         "catchmentId": "",
-        "indexSummary": "Diversity of fish, aquatic invertebrates and mussel species",
+        "indexSummary": "Diversity of fish, aquatic invertebrate and mussel species",
         "shortDesc": "<h4>Stream Species Quality</h4>The aquatic species found in streams are often indicators of the condition of the contributing landscape.  For the Stream Species Index, the fish and macroinvertebrate IBI (Index of Biotic Integrity) values were compared to expected threshold IBI values at each sampling location.  Freshwater mussel survey data was used to compare the number of species found alive with the number of species found only as dead shells.  These metrics were combined to create the Stream Species index. For more details, click <a href='http://www.dnr.state.mn.us/whaf/about/scores/biology/streamspc.html' target='_blank'>here.</a>",
         "sourceData": "",
         "sourceDataDate": "",
