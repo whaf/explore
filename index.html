@@ -943,8 +943,8 @@
         var GDRS1 = 'http://arcgis.intranet.mndnr.dnr.state.mn.us/arcgis/rest/services/quicklayers/mndnr_hydrography/MapServer',
             GDRS2 = 'http://arcgis.intranet.mndnr.dnr.state.mn.us/arcgis/rest/services/quicklayers/mndnr_adminfeatures/MapServer',
             GDRS3 = 'http://arcgis.intranet.mndnr.dnr.state.mn.us/arcgis/rest/services/quicklayers/mndnr_environment/MapServer',            
-            hillshadeService='http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/mn_hillshade_cache/MapServer', 
-            hillshadeLayer = 3,hillShadeLayerServed,GDRS_Groups = [GDRS1, GDRS2, GDRS3],layerItemID = 77700, BS, mode, current = 0,oldAuxLayers = [], teaser, auxFeatObject = {}, auxOptions = [],auxFeatObjectNew = {}, auxFeatObjectNew2 = {}, auxFeatObjectUrl = {}, analyzeCtmnts = [],AnalyzeRange = 5,CtmentInMajorQT, analyzeIndexList = [],analyticIndex = {}, messageListAnalyze = [],tempiListi = [],indexNameList = [],identifyTask = false,identifyParams=false, fader = true,indexDesxObj,
+            hillshadeService='http://arcgis.dnr.state.mn.us/arcgis/rest/services/elevation/mndnr_best_available_hillshade_2016/mapserver', 
+            hillshadeLayer = 0,hillShadeLayerServed,GDRS_Groups = [GDRS1, GDRS2, GDRS3],layerItemID = 77700, BS, mode, current = 0,oldAuxLayers = [], teaser, auxFeatObject = {}, auxOptions = [],auxFeatObjectNew = {}, auxFeatObjectNew2 = {}, auxFeatObjectUrl = {}, analyzeCtmnts = [],AnalyzeRange = 5,CtmentInMajorQT, analyzeIndexList = [],analyticIndex = {}, messageListAnalyze = [],tempiListi = [],indexNameList = [],identifyTask = false,identifyParams=false, fader = true,indexDesxObj,
                 mapParamsList = ["indexLayer", "opcty", "auxFtLst", "aux", "xtnt", "Bsmp", "Upstrm", "Dnstrm", "ctmt", "upSymbol", "dnSymbol", "Mj", "HO", "HS","Plc", "Msk", "tU","tD", "tMj", "tBsn", "tC"], 
 
                 MaskWS_checker, MaskDnstr_checker, MaskUpstr_checker, MaskCtmnt_checker, graphicsBin=[], runningMapNumber=1, charts={status:false};
