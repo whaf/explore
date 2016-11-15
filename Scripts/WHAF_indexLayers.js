@@ -569,7 +569,7 @@ indexdescNewJson={
         "longDescLink": "",
         "auxFeatures": "",
         "fieldName":"",
-        "relatedFeatures":[1.57,1.58,1.69],
+        "relatedFeatures":[1.58,1.57,1.69],
         "why":"Risk of contamination to groundwater informs other land use decisions that could impact water quality and drinking water supplies."
     },
     "G_S_CV": {
